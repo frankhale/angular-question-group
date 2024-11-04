@@ -35,6 +35,7 @@ export class QuestionComponent implements AfterContentInit {
   @Input({ required: true }) showQuestionInputOnSelectedValue: YesNoOrEmpty = '';
   @Input() warning: string = '';
   @Input() info: string = '';
+  @Input() completed: boolean = false;
 
   @Output() onQuestionAnswered = new EventEmitter<KeyValue<string, string>>();
   @ContentChildren(QuestionDirective, { descendants: true }) questionInputs?: QueryList<QuestionDirective>;

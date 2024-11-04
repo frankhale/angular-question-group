@@ -7,10 +7,14 @@
     </mat-grid-tile>
     <mat-grid-tile class="tile">
       <div class="column-content-right">
-        <mat-radio-group class="yesNoOption" aria-label="Yes or No" [(ngModel)]="selectedOption">
+        @if(!completed) {
+        <mat-radio-group aria-label="Yes or No" [(ngModel)]="selectedOption">
           <mat-radio-button (change)="onSelectedOption($event.value)" [value]="'yes'">Yes</mat-radio-button>
           <mat-radio-button (change)="onSelectedOption($event.value)" [value]="'no'">No</mat-radio-button>
         </mat-radio-group>
+        } @else {
+          <span class="completed">Completed</span>
+        }
       </div>
     </mat-grid-tile>
   </mat-grid-list>

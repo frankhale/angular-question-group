@@ -1,11 +1,7 @@
 .container {
+  margin: 10px;
   width: 500px;
-  //border: 1px solid red;
 }
-
-//.content {
-//  width: calc(100vw - 30px);
-//}
 
 .column-content-left {
   width: 100%;
@@ -32,4 +28,11 @@
   border-radius: 5px;
   padding: 10px;
   margin-top: 5px;
+}
+
+.completed {
+  background-color: #1d8348;
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
 }

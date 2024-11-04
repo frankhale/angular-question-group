@@ -18,8 +18,18 @@ import {QuestionInputDateComponent} from './question-input-date/question-input-d
 })
 export class AppComponent {
   title = 'question-app';
+  are_you_cool_completed = false;
+
+  questionData: KeyValue<string, string>[] = [];
 
   valueChanged(data: KeyValue<string, string>) {
-    console.log(`APP: ${data.key} = ${data.value}`);
+    let index = this.questionData.findIndex(x => x.key === data.key);
+    if(index > -1) {
+      this.questionData[index].value = data.value;
+    } else {
+      this.questionData.push(data);
+    }
+
+    console.table(this.questionData);
   }
 }

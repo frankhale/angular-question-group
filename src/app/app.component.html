@@ -1,12 +1,13 @@
 <div class="content">
   <app-question-group (onValueChanged)="valueChanged($event)">
     <app-question
-      info="We need to know if you are cool or not"
-      warning="You must be cool to proceed"
-      question="Are you cool? If so enter your name below."
-      showQuestionInputOnSelectedValue="yes">
-      <app-question-input-text title="Name"></app-question-input-text>
-      <app-question-input-date title="Date you became cool"></app-question-input-date>
+      [completed]="are_you_cool_completed"
+      [info]="'We need to know if you are cool or not'"
+      [warning]="'You must be cool to proceed'"
+      [question]="'Are you cool? If so enter your name below.'"
+      [showQuestionInputOnSelectedValue]="'yes'">
+      <app-question-input-text [title]="'Name'"></app-question-input-text>
+      <app-question-input-date [title]="'Date you became cool'"></app-question-input-date>
     </app-question>
   </app-question-group>
 </div>
