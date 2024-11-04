@@ -30,7 +30,7 @@ import {QuestionDirective} from '../directives/question-directive';
   templateUrl: './question.component.html',
   styleUrl: './question.component.scss',
 })
-export class QuestionComponent implements AfterContentInit {
+export class QuestionComponent {
   @Input({ required: true }) name: string = '';
   @Input({ required: true }) question: string = '';
   @Input() showQuestionInputOnSelectedValue: YesNoOrEmpty = '';
@@ -42,11 +42,6 @@ export class QuestionComponent implements AfterContentInit {
   @ContentChildren(QuestionDirective, { descendants: true }) questionInputs?: QueryList<QuestionDirective>;
 
   selectedOption: string = '';
-
-  ngAfterContentInit(): void {
-    console.log(`QuestionComponent: ngAfterContentInit() -> ${this.questionInputs?.length}`)
-    console.log(this.questionInputs);
-  }
 
   onSelectedOption(value: string): void {
     //console.log('Selected option:', value);
