@@ -31,8 +31,9 @@ import {QuestionDirective} from '../directives/question-directive';
   styleUrl: './question.component.scss',
 })
 export class QuestionComponent implements AfterContentInit {
+  @Input({ required: true }) name: string = '';
   @Input({ required: true }) question: string = '';
-  @Input({ required: true }) showQuestionInputOnSelectedValue: YesNoOrEmpty = '';
+  @Input() showQuestionInputOnSelectedValue: YesNoOrEmpty = '';
   @Input() warning: string = '';
   @Input() info: string = '';
   @Input() completed: boolean = false;
@@ -49,6 +50,6 @@ export class QuestionComponent implements AfterContentInit {
 
   onSelectedOption(value: string): void {
     //console.log('Selected option:', value);
-    this.onQuestionAnswered.emit({ key: this.question, value: value });
+    this.onQuestionAnswered.emit({ key: this.name, value: value });
   }
 }

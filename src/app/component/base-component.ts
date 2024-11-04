@@ -7,6 +7,7 @@ import {QuestionDirective} from '../directives/question-directive';
   hostDirectives: [QuestionDirective],
 })
 export abstract class QuestionInputComponent {
+  @Input({ required: true }) name: string = '';
   @Input({ required: true }) title: string = '';
   @Output() onValueChanged = new EventEmitter<string>();
 
