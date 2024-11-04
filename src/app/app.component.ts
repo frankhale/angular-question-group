@@ -9,11 +9,12 @@ import { QuestionGroupComponent } from './question-group/question-group.componen
 import { KeyValue } from '@angular/common';
 import {QuestionInputDateComponent} from './question-input-date/question-input-date.component';
 import {QuestionGroupCollectionComponent} from './question-group-collection/question-group-collection.component';
+import {QuestionInputRadioGroupComponent} from './question-input-radio-group/question-input-radio-group.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, QuestionGroupComponent, QuestionComponent, MatInputModule, MatFormFieldModule, FormsModule, QuestionInputTextComponent, QuestionInputDateComponent, QuestionGroupCollectionComponent],
+  imports: [RouterOutlet, QuestionGroupComponent, QuestionComponent, MatInputModule, MatFormFieldModule, FormsModule, QuestionInputTextComponent, QuestionInputDateComponent, QuestionGroupCollectionComponent, QuestionInputRadioGroupComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

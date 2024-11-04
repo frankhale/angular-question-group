@@ -22,6 +22,12 @@
         name="third_question"
         [question]="'This is yet another question!'"
       >
+        <app-question-input-radio-group name="radio_group"
+                                        [title]="'What is your favorite color?'"
+                                        [options]="[ { name: 'red', value: 'red'},
+                                         { name: 'green', value: 'green'},
+                                         { name: 'blue', value: 'blue'}]">
+        </app-question-input-radio-group>
       </app-question>
     </app-question-group>
   </app-question-group-collection>

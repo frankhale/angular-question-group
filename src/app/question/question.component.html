@@ -19,7 +19,8 @@
     </mat-grid-tile>
   </mat-grid-list>
 
-  @if(selectedOption === showQuestionInputOnSelectedValue) {
+  @if(selectedOption === showQuestionInputOnSelectedValue ||
+    showQuestionInputOnSelectedValue === '') {
     <!--<ng-container *ngTemplateOutlet="questionInput"></ng-container>-->
     <ng-content></ng-content>
   }

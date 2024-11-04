@@ -1,0 +1,5 @@
+<mat-radio-group [attr.aria-label]="name" [(ngModel)]="value">
+@for(option of options; track option.name) {
+  <mat-radio-button (change)="valueChanged($event.value)" [value]="option.value">{{option.name}}</mat-radio-button>
+}
+</mat-radio-group>
