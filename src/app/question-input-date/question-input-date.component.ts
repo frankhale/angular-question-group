@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {QuestionInputComponent} from '../models/question';
 import {FormsModule} from '@angular/forms';
 import {MatLabel} from '@angular/material/form-field';
 import {ChangeDetectionStrategy } from '@angular/core';
@@ -7,6 +6,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {provideNativeDateAdapter} from '@angular/material/core'
+import {QuestionInputComponent} from '../component/base-component';
 
 @Component({
   selector: 'app-question-input-date',

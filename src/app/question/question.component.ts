@@ -10,8 +10,10 @@ import {
 import {MatGridList, MatGridTile} from '@angular/material/grid-list';
 import {MatRadioButton, MatRadioGroup} from '@angular/material/radio';
 import {FormsModule} from '@angular/forms';
-import {QuestionDirective, QuestionInputComponent, YesNoOrEmpty} from '../models/question';
+import {YesNoOrEmpty} from '../models/question';
 import {KeyValue, NgTemplateOutlet} from '@angular/common';
+import {QuestionInputComponent} from '../component/base-component';
+import {QuestionDirective} from '../directives/question-directive';
 
 @Component({
   selector: 'app-question',

@@ -8,14 +8,13 @@ import { QuestionInputTextComponent } from './question-input-text/question-input
 import { QuestionGroupComponent } from './question-group/question-group.component';
 import { KeyValue } from '@angular/common';
 import {QuestionInputDateComponent} from './question-input-date/question-input-date.component';
-import {QuestionDirective} from './models/question';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, QuestionGroupComponent, QuestionComponent, MatInputModule, MatFormFieldModule, FormsModule, QuestionInputTextComponent, QuestionInputDateComponent, QuestionDirective],
+  imports: [RouterOutlet, QuestionGroupComponent, QuestionComponent, MatInputModule, MatFormFieldModule, FormsModule, QuestionInputTextComponent, QuestionInputDateComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'question-app';
