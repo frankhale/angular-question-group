@@ -6,6 +6,7 @@ import {FormsModule} from '@angular/forms';
 @Component({
   selector: 'app-question-input-radio-group',
   standalone: true,
+  providers: [{ provide: QuestionInputComponent, useExisting: QuestionInputRadioGroupComponent }],
   imports: [
     MatRadioButton,
     MatRadioGroup,
