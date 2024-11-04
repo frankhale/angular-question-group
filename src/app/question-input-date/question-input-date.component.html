@@ -1,0 +1,10 @@
+<mat-form-field>
+  <mat-label>{{title}}</mat-label>
+  <input matInput [matDatepicker]="picker"
+         [ngModelOptions]="{ updateOn: 'blur' }"
+         [(ngModel)]="value"
+         (ngModelChange)="valueChanged($event)">
+  <mat-hint>MM/DD/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>

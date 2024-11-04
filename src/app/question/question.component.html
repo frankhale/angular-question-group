@@ -1,0 +1,36 @@
+<div class="container">
+  <mat-grid-list cols="2" rowHeight="50px" class="content">
+    <mat-grid-tile class="tile">
+      <div class="column-content-left">
+        {{question}}
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile class="tile">
+      <div class="column-content-right">
+        <mat-radio-group class="yesNoOption" aria-label="Yes or No" [(ngModel)]="selectedOption">
+          <mat-radio-button (change)="onSelectedOption($event.value)" [value]="'yes'">Yes</mat-radio-button>
+          <mat-radio-button (change)="onSelectedOption($event.value)" [value]="'no'">No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  @if(selectedOption === showQuestionInputOnSelectedValue) {
+    <!--<ng-container *ngTemplateOutlet="questionInput"></ng-container>-->
+    <ng-content></ng-content>
+  }
+  @if(info.length > 0) {
+    <div class="info">
+      {{info}}
+    </div>
+  }
+  @if(warning.length > 0) {
+    <div class="warning">
+      {{warning}}
+    </div>
+  }
+</div>
+
+<!--<ng-template #questionInput>-->
+<!--  <ng-content></ng-content>-->
+<!--</ng-template>-->
