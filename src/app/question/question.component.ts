@@ -37,12 +37,12 @@ export class QuestionComponent<T> {
   @Input() info: string = '';
   @Input() completed: boolean = false;
 
-  @Output() onQuestionAnswered = new EventEmitter<KeyValue<string, string>>();
+  @Output() onQuestionAnswered = new EventEmitter<KeyValue<string, T>>();
   @ContentChildren(QuestionDirective, {descendants: true}) questionInputs?: QueryList<QuestionDirective<T>>;
 
   selectedOption: string = '';
 
-  onSelectedOption(value: string): void {
+  onSelectedOption(value: T): void {
     //console.log('Selected option:', value);
     this.onQuestionAnswered.emit({key: this.name, value: value});
   }

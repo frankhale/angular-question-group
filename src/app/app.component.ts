@@ -24,7 +24,7 @@ export class AppComponent {
   title = 'question-app';
   are_you_cool_completed = false;
 
-  valueChanged(data: Map<string, Map<string, string>>) {
+  valueChanged(data: Map<string, Map<string, string|string[]>>) {
     console.table(data);
   }
 }

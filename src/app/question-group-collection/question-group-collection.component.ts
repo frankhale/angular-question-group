@@ -11,15 +11,15 @@ import {KeyValue} from '@angular/common';
 })
 export class QuestionGroupCollectionComponent<T> implements AfterContentInit {
   @Input({required: true}) name: string = '';
-  @Output() onValueChanged = new EventEmitter<Map<string, Map<string, string>>>();
+  @Output() onValueChanged = new EventEmitter<Map<string, Map<string, T>>>();
   @ContentChildren(QuestionGroupComponent, {descendants: true}) questionGroups!: QueryList<QuestionGroupComponent<T>>;
 
-  data: Map<string, Map<string, string>> = new Map<string, Map<string, string>>();
+  data: Map<string, Map<string, T>> = new Map<string, Map<string, T>>();
 
-  valueChange(key: string, value: KeyValue<string, string>) {
+  valueChange(key: string, value: KeyValue<string, T>) {
     if (value.value !== '') {
       if (!this.data.has(key)) {
-        this.data.set(key, new Map<string, string>());
+        this.data.set(key, new Map<string, T>());
       }
       this.data.get(key)?.set(value.key, value.value);
     } else {
@@ -31,7 +31,7 @@ export class QuestionGroupCollectionComponent<T> implements AfterContentInit {
 
   ngAfterContentInit(): void {
     this.questionGroups.forEach(questionGroup => {
-      questionGroup.onValueChanged.subscribe((newValue: KeyValue<string, KeyValue<string, string>>) => {
+      questionGroup.onValueChanged.subscribe((newValue: KeyValue<string, KeyValue<string, T>>) => {
         this.valueChange(newValue.key, newValue.value);
       });
     });
