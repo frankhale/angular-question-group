@@ -5,6 +5,7 @@ import {QuestionInputComponent} from '../component/base-component';
   standalone: true,
   selector: '[question]',
 })
-export class QuestionDirective {
-  constructor(public baseComponent: QuestionInputComponent) {}
+export class QuestionDirective<T> {
+  constructor(public baseComponent: QuestionInputComponent<T>) {
+  }
 }

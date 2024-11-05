@@ -17,4 +17,4 @@ import {QuestionInputComponent} from '../component/base-component';
   templateUrl: './question-input-text.component.html',
   styleUrl: './question-input-text.component.scss'
 })
-export class QuestionInputTextComponent extends QuestionInputComponent { }
+export class QuestionInputTextComponent extends QuestionInputComponent<string> { }

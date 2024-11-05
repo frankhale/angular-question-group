@@ -6,16 +6,16 @@ import {QuestionDirective} from '../directives/question-directive';
   inputs: ['question'],
   hostDirectives: [QuestionDirective],
 })
-export abstract class QuestionInputComponent {
-  @Input({ required: true }) name: string = '';
-  @Input({ required: true }) title: string = '';
-  @Output() onValueChanged = new EventEmitter<string>();
+export abstract class QuestionInputComponent<T> {
+  @Input({required: true}) name: string = '';
+  @Input({required: true}) title: string = '';
+  @Output() onValueChanged = new EventEmitter<T>();
 
-  value = '';
+  value?: T;
 
-  public valueChanged(value: string) {
+  public valueChanged(value: T) {
     //console.log('value changed', value);
-    if(value) {
+    if (value) {
       this.value = value;
       this.onValueChanged.emit(this.value);
     }

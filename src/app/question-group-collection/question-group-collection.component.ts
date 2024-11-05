@@ -9,15 +9,15 @@ import {KeyValue} from '@angular/common';
   templateUrl: './question-group-collection.component.html',
   styleUrl: './question-group-collection.component.scss'
 })
-export class QuestionGroupCollectionComponent implements AfterContentInit {
-  @Input({ required: true }) name: string = '';
+export class QuestionGroupCollectionComponent<T> implements AfterContentInit {
+  @Input({required: true}) name: string = '';
   @Output() onValueChanged = new EventEmitter<Map<string, Map<string, string>>>();
-  @ContentChildren(QuestionGroupComponent, { descendants: true }) questionGroups!: QueryList<QuestionGroupComponent>;
+  @ContentChildren(QuestionGroupComponent, {descendants: true}) questionGroups!: QueryList<QuestionGroupComponent<T>>;
 
   data: Map<string, Map<string, string>> = new Map<string, Map<string, string>>();
 
   valueChange(key: string, value: KeyValue<string, string>) {
-    if(value.value !== '') {
+    if (value.value !== '') {
       if (!this.data.has(key)) {
         this.data.set(key, new Map<string, string>());
       }

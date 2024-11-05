@@ -6,7 +6,7 @@ import {FormsModule} from '@angular/forms';
 @Component({
   selector: 'app-question-input-radio-group',
   standalone: true,
-  providers: [{ provide: QuestionInputComponent, useExisting: QuestionInputRadioGroupComponent }],
+  providers: [{provide: QuestionInputComponent, useExisting: QuestionInputRadioGroupComponent}],
   imports: [
     MatRadioButton,
     MatRadioGroup,
@@ -15,6 +15,6 @@ import {FormsModule} from '@angular/forms';
   templateUrl: './question-input-radio-group.component.html',
   styleUrl: './question-input-radio-group.component.scss'
 })
-export class QuestionInputRadioGroupComponent extends QuestionInputComponent {
-  @Input({ required: true }) options: Array<{ name: string, value: string }> = [];
+export class QuestionInputRadioGroupComponent extends QuestionInputComponent<string> {
+  @Input({required: true}) options: Array<{ name: string, value: string }> = [];
 }

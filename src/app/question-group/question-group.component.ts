@@ -14,13 +14,13 @@ import {KeyValue} from '@angular/common';
   templateUrl: './question-group.component.html',
   styleUrl: './question-group.component.scss'
 })
-export class QuestionGroupComponent implements AfterContentInit {
-  @Input({ required: true }) name: string = '';
+export class QuestionGroupComponent<T> implements AfterContentInit {
+  @Input({required: true}) name: string = '';
   @Output() onValueChanged = new EventEmitter<KeyValue<string, KeyValue<string, string>>>();
-  @ContentChildren(QuestionComponent, { descendants: true }) questions!: QueryList<QuestionComponent>;
+  @ContentChildren(QuestionComponent, {descendants: true}) questions!: QueryList<QuestionComponent<T>>;
 
   valueChange(key: string, value: string) {
-    this.onValueChanged.emit({ key: this.name, value: { key, value } });
+    this.onValueChanged.emit({key: this.name, value: {key, value}});
   }
 
   ngAfterContentInit(): void {
