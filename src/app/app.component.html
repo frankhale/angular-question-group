@@ -24,10 +24,25 @@
       >
         <app-question-input-radio-group name="radio_group"
                                         [title]="'What is your favorite color?'"
-                                        [options]="[ { name: 'red', value: 'red'},
-                                         { name: 'green', value: 'green'},
-                                         { name: 'blue', value: 'blue'}]">
+                                        [options]="[
+                                          { name: 'red', value: 'red'},
+                                          { name: 'green', value: 'green'},
+                                          { name: 'blue', value: 'blue'}
+                                        ]">
         </app-question-input-radio-group>
+      </app-question>
+      <app-question
+        name="third_question"
+        [question]="'Lets do some checkboxes!!!'"
+      >
+        <app-question-input-checkbox-list name="checkbox_list"
+                                        [title]="'What is your favorite color?'"
+                                        [options]="[
+                                          { name: 'red' },
+                                          { name: 'green' },
+                                          { name: 'blue' }
+                                        ]">
+        </app-question-input-checkbox-list>
       </app-question>
     </app-question-group>
   </app-question-group-collection>

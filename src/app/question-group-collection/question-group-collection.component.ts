@@ -17,13 +17,15 @@ export class QuestionGroupCollectionComponent implements AfterContentInit {
   data: Map<string, Map<string, string>> = new Map<string, Map<string, string>>();
 
   valueChange(key: string, value: KeyValue<string, string>) {
-    if(!this.data.has(key)) {
-      this.data.set(key, new Map<string, string>());
+    if(value.value !== '') {
+      if (!this.data.has(key)) {
+        this.data.set(key, new Map<string, string>());
+      }
+      this.data.get(key)?.set(value.key, value.value);
+    } else {
+      this.data.delete(key);
     }
-    this.data.get(key)?.set(value.key, value.value);
 
-    //console.log(key, value.key, value.value);
-    //console.log(this.data);
     this.onValueChanged.emit(this.data);
   }
 

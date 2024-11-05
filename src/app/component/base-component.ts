@@ -14,7 +14,7 @@ export abstract class QuestionInputComponent {
   value = '';
 
   public valueChanged(value: string) {
-    //console.log(`QuestionInputComponent->valueChanged: ${value}`);
+    //console.log('value changed', value);
     if(value) {
       this.value = value;
       this.onValueChanged.emit(this.value);
