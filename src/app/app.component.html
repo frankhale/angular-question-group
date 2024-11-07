@@ -10,6 +10,11 @@
         [showQuestionInputOnSelectedValue]="'yes'">
         <app-question-input-text name="name_input" [title]="'Name'"></app-question-input-text>
         <app-question-input-date name="date_input" [title]="'Date you became cool'"></app-question-input-date>
+        <app-question-input-button name="my_button"
+                                   [title]="'Click me!'"
+                                   [text]="'If you are really cool, click the button!'"
+                                   (click)="openSnackBar()">
+        </app-question-input-button>
       </app-question>
     </app-question-group>
     <app-question-group name="second_group">

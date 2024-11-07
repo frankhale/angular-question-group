@@ -9,12 +9,12 @@ import {QuestionDirective} from '../directives/question-directive';
 export abstract class QuestionInputComponent<T> {
   @Input({required: true}) name: string = '';
   @Input({required: true}) title: string = '';
+
   @Output() onValueChanged = new EventEmitter<T>();
 
-  value?: T;
+  value: T | undefined;
 
   public valueChanged(value: T) {
-    //console.log('value changed', value);
     if (value) {
       this.value = value;
       this.onValueChanged.emit(this.value);
