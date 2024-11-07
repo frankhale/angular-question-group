@@ -45,10 +45,10 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
   ngAfterContentInit(): void {
     this.viewContainerRef.clear();
 
-    console.log(`QuestionGroups: ${this.questionGroups.length}`);
+    // console.log(`QuestionGroups: ${this.questionGroups.length}`);
 
     this.questionGroups.forEach((questionGroup, i) => {
-      console.log(`QuestionGroup: ${i}`);
+      // console.log(`QuestionGroup: ${i}`);
 
       const context = { separator: false };
 

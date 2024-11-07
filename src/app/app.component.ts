@@ -14,6 +14,7 @@ import {
   QuestionInputCheckboxListComponent
 } from './question-input-checkbox-list/question-input-checkbox-list.component';
 import {QuestionInputButtonComponent} from './question-input-button/question-input-button.component';
+import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-cool-snack-bar',
@@ -42,7 +43,7 @@ export class CoolSnackBarComponent {
     QuestionGroupCollectionComponent,
     QuestionInputRadioGroupComponent,
     QuestionInputCheckboxListComponent,
-    QuestionInputButtonComponent],
+    QuestionInputButtonComponent, MatButton],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -51,8 +52,21 @@ export class AppComponent {
   are_you_cool_completed = false;
   private _snackBar = inject(MatSnackBar);
 
+  data: Map<string, Map<string, string | string[]>> = new Map<string, Map<string, string | string[]>>();
+
   valueChanged(data: Map<string, Map<string, string | string[]>>) {
-    console.table(data);
+    //console.table(data);
+    // for (const key of data.keys()) {
+    //   console.log(data.get(key));
+    // }
+    this.data = data;
+  }
+
+  submit() {
+    for (const key of this.data.keys()) {
+      console.log(`Group: ${key}`);
+      console.log(this.data.get(key));
+    }
   }
 
   openSnackBar() {
