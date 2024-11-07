@@ -9,7 +9,7 @@ import {KeyValue} from '@angular/common';
   templateUrl: './question-group-collection.component.html',
   styleUrl: './question-group-collection.component.scss'
 })
-export class QuestionGroupCollectionComponent<T> implements AfterContentInit {
+export class QuestionGroupCollectionComponent<T = string | string[]> implements AfterContentInit {
   @Input({required: true}) name: string = '';
   @Output() onValueChanged = new EventEmitter<Map<string, Map<string, T>>>();
   @ContentChildren(QuestionGroupComponent, {descendants: true}) questionGroups!: QueryList<QuestionGroupComponent<T>>;
