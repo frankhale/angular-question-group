@@ -1,4 +1,13 @@
-import {AfterContentInit, Component, ContentChildren, EventEmitter, Input, Output, QueryList,} from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  ContentChildren,
+  EventEmitter,
+  Input,
+  Output,
+  QueryList, TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import {QuestionComponent} from '../question/question.component';
 import {KeyValue} from '@angular/common';
 
@@ -13,6 +22,7 @@ export class QuestionGroupComponent<T> implements AfterContentInit {
   @Input({required: true}) name: string = '';
   @Output() onValueChanged = new EventEmitter<KeyValue<string, KeyValue<string, T>>>();
   @ContentChildren(QuestionComponent, {descendants: true}) questions!: QueryList<QuestionComponent<T>>;
+  @ViewChild('templateRef', { static: true }) template!: TemplateRef<any>;
 
   valueChange(key: string, value: T) {
     this.onValueChanged.emit({key: this.name, value: {key, value}});

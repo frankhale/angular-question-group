@@ -1,1 +1,6 @@
-<ng-content></ng-content>
+<ng-template #templateRef let-separator="separator">
+  <ng-content></ng-content>
+  @if(separator) {
+    <hr />
+  }
+</ng-template>
