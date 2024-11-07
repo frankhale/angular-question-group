@@ -1,11 +1,4 @@
-import {
-  Component,
-  ContentChildren,
-  EventEmitter,
-  Input,
-  Output,
-  QueryList
-} from '@angular/core';
+import {Component, ContentChildren, EventEmitter, Input, Output, QueryList} from '@angular/core';
 import {MatGridList, MatGridTile} from '@angular/material/grid-list';
 import {MatRadioButton, MatRadioGroup} from '@angular/material/radio';
 import {FormsModule} from '@angular/forms';

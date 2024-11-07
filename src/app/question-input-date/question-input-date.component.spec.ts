@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { QuestionInputDateComponent } from './question-input-date.component';
+import {QuestionInputDateComponent} from './question-input-date.component';
 
 describe('QuestionInputDateComponent', () => {
   let component: QuestionInputDateComponent;
@@ -10,7 +10,7 @@ describe('QuestionInputDateComponent', () => {
     await TestBed.configureTestingModule({
       imports: [QuestionInputDateComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(QuestionInputDateComponent);
     component = fixture.componentInstance;

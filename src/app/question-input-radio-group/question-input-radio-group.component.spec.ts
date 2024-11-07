@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { QuestionInputRadioGroupComponent } from './question-input-radio-group.component';
+import {QuestionInputRadioGroupComponent} from './question-input-radio-group.component';
 
 describe('QuestionInputRadioGroupComponent', () => {
   let component: QuestionInputRadioGroupComponent;
@@ -10,7 +10,7 @@ describe('QuestionInputRadioGroupComponent', () => {
     await TestBed.configureTestingModule({
       imports: [QuestionInputRadioGroupComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(QuestionInputRadioGroupComponent);
     component = fixture.componentInstance;

@@ -13,11 +13,10 @@ import {MatButton} from '@angular/material/button';
   styleUrl: './question-input-button.component.scss'
 })
 export class QuestionInputButtonComponent extends QuestionInputComponent<void> {
-  @Input()  text: string = '';
+  @Input() text: string = '';
   @Output() onClicked = new EventEmitter<void>();
 
   public onClick() {
-    console.log('clicked');
     this.onClicked.emit();
   }
 }

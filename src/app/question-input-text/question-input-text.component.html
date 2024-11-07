@@ -1,6 +1,6 @@
 <mat-form-field class="input-style">
-  <mat-label>{{title}}</mat-label>
-  <input matInput type="text" [(ngModel)]="value" placeholder="{{title}}"
-         [ngModelOptions]="{ updateOn: 'blur' }"
-         (ngModelChange)="valueChanged($event)">
+  <mat-label>{{ title }}</mat-label>
+  <input (ngModelChange)="valueChanged($event)" [(ngModel)]="value" [ngModelOptions]="{ updateOn: 'blur' }" matInput
+         placeholder="{{title}}"
+         type="text">
 </mat-form-field>

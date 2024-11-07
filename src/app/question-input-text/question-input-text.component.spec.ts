@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { QuestionInputTextComponent } from './question-input-text.component';
+import {QuestionInputTextComponent} from './question-input-text.component';
 
 describe('QuestionInputComponent', () => {
   let component: QuestionInputTextComponent;
@@ -10,7 +10,7 @@ describe('QuestionInputComponent', () => {
     await TestBed.configureTestingModule({
       imports: [QuestionInputTextComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(QuestionInputTextComponent);
     component = fixture.componentInstance;

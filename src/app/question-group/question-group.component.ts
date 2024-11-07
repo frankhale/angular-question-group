@@ -1,9 +1,4 @@
-import {
-  AfterContentInit,
-  Component,
-  ContentChildren, EventEmitter, Input, Output,
-  QueryList,
-} from '@angular/core';
+import {AfterContentInit, Component, ContentChildren, EventEmitter, Input, Output, QueryList,} from '@angular/core';
 import {QuestionComponent} from '../question/question.component';
 import {KeyValue} from '@angular/common';
 

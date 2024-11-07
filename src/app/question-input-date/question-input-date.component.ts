@@ -1,10 +1,8 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {MatLabel} from '@angular/material/form-field';
-import {ChangeDetectionStrategy} from '@angular/core';
+import {MatFormFieldModule, MatLabel} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
 import {provideNativeDateAdapter} from '@angular/material/core'
 import {QuestionInputComponent} from '../component/base-component';
 

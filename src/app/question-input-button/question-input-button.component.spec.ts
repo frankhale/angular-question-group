@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { QuestionInputButtonComponent } from './question-input-button.component';
+import {QuestionInputButtonComponent} from './question-input-button.component';
 
 describe('QuestionInputButtonComponent', () => {
   let component: QuestionInputButtonComponent;
@@ -10,7 +10,7 @@ describe('QuestionInputButtonComponent', () => {
     await TestBed.configureTestingModule({
       imports: [QuestionInputButtonComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(QuestionInputButtonComponent);
     component = fixture.componentInstance;

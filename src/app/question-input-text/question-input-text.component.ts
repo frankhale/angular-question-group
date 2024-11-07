@@ -13,8 +13,9 @@ import {QuestionInputComponent} from '../component/base-component';
     FormsModule,
     MatLabel
   ],
-  providers: [{ provide: QuestionInputComponent, useExisting: QuestionInputTextComponent }],
+  providers: [{provide: QuestionInputComponent, useExisting: QuestionInputTextComponent}],
   templateUrl: './question-input-text.component.html',
   styleUrl: './question-input-text.component.scss'
 })
-export class QuestionInputTextComponent extends QuestionInputComponent<string> { }
+export class QuestionInputTextComponent extends QuestionInputComponent<string> {
+}

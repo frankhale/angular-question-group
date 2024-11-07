@@ -1,5 +1,7 @@
 <div>
-@for(option of options; track option.name) {
-  <mat-checkbox (change)="onCheckboxChange($event.source.name, $event.checked)" [name]="option.name">{{option.name}}</mat-checkbox>
-}
+  @for (option of options; track option.name) {
+    <mat-checkbox (change)="onCheckboxChange($event.source.name, $event.checked)"
+                  [name]="option.name">{{ option.name }}
+    </mat-checkbox>
+  }
 </div>

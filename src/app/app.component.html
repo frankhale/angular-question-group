@@ -1,52 +1,52 @@
 <div class="content">
-  <app-question-group-collection name="cool_group_collection" (onValueChanged)="valueChanged($event)">
+  <app-question-group-collection (onValueChanged)="valueChanged($event)" name="cool_group_collection">
     <app-question-group name="cool_group">
       <app-question
-        name="cool_question"
         [completed]="are_you_cool_completed"
         [info]="'We need to know if you are cool or not'"
-        [warning]="'You must be cool to proceed'"
         [question]="'Are you cool? If so enter your name below.'"
-        [showQuestionInputOnSelectedValue]="'yes'">
-        <app-question-input-text name="name_input" [title]="'Name'"></app-question-input-text>
-        <app-question-input-date name="date_input" [title]="'Date you became cool'"></app-question-input-date>
-        <app-question-input-button name="my_button"
-                                   [title]="'Click me!'"
+        [showQuestionInputOnSelectedValue]="'yes'"
+        [warning]="'You must be cool to proceed'"
+        name="cool_question">
+        <app-question-input-text [title]="'Name'" name="name_input"></app-question-input-text>
+        <app-question-input-date [title]="'Date you became cool'" name="date_input"></app-question-input-date>
+        <app-question-input-button (click)="openSnackBar()"
                                    [text]="'If you are really cool, click the button!'"
-                                   (click)="openSnackBar()">
+                                   [title]="'Click me!'"
+                                   name="my_button">
         </app-question-input-button>
       </app-question>
     </app-question-group>
     <app-question-group name="second_group">
       <app-question
-        name="second_question"
         [question]="'This is another question!'"
-        >
+        name="second_question"
+      >
       </app-question>
       <app-question
-        name="third_question"
         [question]="'This is yet another question!'"
+        name="third_question"
       >
-        <app-question-input-radio-group name="radio_group"
-                                        [title]="'What is your favorite color?'"
-                                        [options]="[
+        <app-question-input-radio-group [options]="[
                                           { name: 'red', value: 'red'},
                                           { name: 'green', value: 'green'},
                                           { name: 'blue', value: 'blue'}
-                                        ]">
+                                        ]"
+                                        [title]="'What is your favorite color?'"
+                                        name="radio_group">
         </app-question-input-radio-group>
       </app-question>
       <app-question
-        name="third_question"
         [question]="'Lets do some checkboxes!!!'"
+        name="third_question"
       >
-        <app-question-input-checkbox-list name="checkbox_list"
-                                        [title]="'What is your favorite color?'"
-                                        [options]="[
-                                          { name: 'red' },
-                                          { name: 'green' },
-                                          { name: 'blue' }
-                                        ]">
+        <app-question-input-checkbox-list [options]="[
+                                            { name: 'red' },
+                                            { name: 'green' },
+                                            { name: 'blue' }
+                                          ]"
+                                          [title]="'What is your favorite color?'"
+                                          name="checkbox_list">
         </app-question-input-checkbox-list>
       </app-question>
     </app-question-group>

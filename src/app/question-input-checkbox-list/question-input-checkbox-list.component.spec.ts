@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { QuestionInputCheckboxListComponent } from './question-input-checkbox-list.component';
+import {QuestionInputCheckboxListComponent} from './question-input-checkbox-list.component';
 
 describe('QuestionInputCheckboxListComponent', () => {
   let component: QuestionInputCheckboxListComponent;
@@ -10,7 +10,7 @@ describe('QuestionInputCheckboxListComponent', () => {
     await TestBed.configureTestingModule({
       imports: [QuestionInputCheckboxListComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(QuestionInputCheckboxListComponent);
     component = fixture.componentInstance;

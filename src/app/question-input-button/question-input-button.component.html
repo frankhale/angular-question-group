@@ -1,6 +1,6 @@
 <div class="content">
-  @if(text) {
-  <span class="text">{{text}}</span>
+  @if (text) {
+    <span class="text">{{ text }}</span>
   }
-  <button name="{{name}}" mat-flat-button (click)="onClick()">{{title}}</button>
+  <button (click)="onClick()" mat-flat-button name="{{name}}">{{ title }}</button>
 </div>
