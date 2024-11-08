@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
-import {FormsModule} from '@angular/forms';
-import {QuestionInputComponent} from '../component/base-component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ControlType, QuestionInputComponent} from '../component/base-component';
 
 @Component({
   selector: 'app-question-input-text',
@@ -11,11 +11,13 @@ import {QuestionInputComponent} from '../component/base-component';
     MatFormField,
     MatInput,
     FormsModule,
-    MatLabel
+    MatLabel,
+    ReactiveFormsModule
   ],
   providers: [{provide: QuestionInputComponent, useExisting: QuestionInputTextComponent}],
   templateUrl: './question-input-text.component.html',
   styleUrl: './question-input-text.component.scss'
 })
 export class QuestionInputTextComponent extends QuestionInputComponent<string> {
+  controlType: ControlType = 'text';
 }

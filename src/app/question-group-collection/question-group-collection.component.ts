@@ -1,12 +1,13 @@
 import {
-  AfterContentInit,
+  AfterContentInit, AfterViewInit,
   Component,
   ContentChildren,
   EventEmitter,
   Input,
   Output,
   QueryList,
-  ViewChild, ViewContainerRef
+  ViewChild,
+  ViewContainerRef
 } from '@angular/core';
 import {QuestionGroupComponent} from '../question-group/question-group.component';
 import {KeyValue} from '@angular/common';
@@ -18,16 +19,17 @@ import {KeyValue} from '@angular/common';
   templateUrl: './question-group-collection.component.html',
   styleUrl: './question-group-collection.component.scss'
 })
-export class QuestionGroupCollectionComponent<T = string | string[]> implements AfterContentInit {
+export class QuestionGroupCollectionComponent<T = string | string[]> implements AfterViewInit {
   @Input({required: true}) name: string = '';
   @Output() onValueChanged = new EventEmitter<Map<string, Map<string, T>>>();
 
-  @ViewChild('container', { read: ViewContainerRef, static: true }) container!: ViewContainerRef;
+  @ViewChild('container', {read: ViewContainerRef, static: true}) container!: ViewContainerRef;
   @ContentChildren(QuestionGroupComponent, {descendants: true}) questionGroups!: QueryList<QuestionGroupComponent<T>>;
 
   data: Map<string, Map<string, T>> = new Map<string, Map<string, T>>();
 
-  constructor(private viewContainerRef: ViewContainerRef) {}
+  constructor(private viewContainerRef: ViewContainerRef) {
+  }
 
   valueChange(key: string, value: KeyValue<string, T>) {
     if (value.value !== '') {
@@ -42,17 +44,12 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
     this.onValueChanged.emit(this.data);
   }
 
-  ngAfterContentInit(): void {
+  ngAfterViewInit(): void {
     this.viewContainerRef.clear();
-
-    // console.log(`QuestionGroups: ${this.questionGroups.length}`);
-
     this.questionGroups.forEach((questionGroup, i) => {
-      // console.log(`QuestionGroup: ${i}`);
+      const context = {separator: false};
 
-      const context = { separator: false };
-
-      if(i + 1 !== this.questionGroups.length) {
+      if (i + 1 !== this.questionGroups.length) {
         context.separator = true;
       }
 

@@ -4,7 +4,7 @@ import {MatFormFieldModule, MatLabel} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {provideNativeDateAdapter} from '@angular/material/core'
-import {QuestionInputComponent} from '../component/base-component';
+import {ControlType, QuestionInputComponent} from '../component/base-component';
 
 @Component({
   selector: 'app-question-input-date',
@@ -19,8 +19,10 @@ import {QuestionInputComponent} from '../component/base-component';
     MatDatepickerModule,
   ],
   templateUrl: './question-input-date.component.html',
-  styleUrl: './question-input-date.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: './question-input-date.component.scss'
 })
 export class QuestionInputDateComponent extends QuestionInputComponent<string> {
+  controlType: ControlType = 'date';
+
+  // initialValue is in the form of 2024-11-08T05:00:00.000Z
 }

@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {QuestionInputComponent} from '../component/base-component';
+import {ControlType, QuestionInputComponent} from '../component/base-component';
 import {MatButton} from '@angular/material/button';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-question-input-button',
@@ -14,9 +15,11 @@ import {MatButton} from '@angular/material/button';
 })
 export class QuestionInputButtonComponent extends QuestionInputComponent<void> {
   @Input() text: string = '';
-  @Output() onClicked = new EventEmitter<void>();
+  @Output() buttonClick  = new EventEmitter<void>();
 
-  public onClick() {
-    this.onClicked.emit();
+  controlType: ControlType = 'button';
+
+  onButtonClick() {
+    this.buttonClick.emit(); // Emit the click event
   }
 }

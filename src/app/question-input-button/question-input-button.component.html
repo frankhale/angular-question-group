@@ -1,6 +1,8 @@
+<ng-template>
 <div class="content">
   @if (text) {
     <span class="text">{{ text }}</span>
   }
-  <button (click)="onClick()" mat-flat-button name="{{name}}">{{ title }}</button>
+  <button (click)="onButtonClick()" mat-flat-button name="{{name}}">{{title}}</button>
 </div>
+</ng-template>

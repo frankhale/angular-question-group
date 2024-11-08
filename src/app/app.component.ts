@@ -70,6 +70,7 @@ export class AppComponent {
   }
 
   openSnackBar() {
+    console.log('open snack bar');
     this._snackBar.openFromComponent(CoolSnackBarComponent, {
       duration: 3000,
     });

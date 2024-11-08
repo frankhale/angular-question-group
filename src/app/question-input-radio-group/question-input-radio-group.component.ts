@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
-import {QuestionInputComponent} from '../component/base-component';
+import {ControlType, QuestionInputComponent} from '../component/base-component';
 import {MatRadioButton, MatRadioGroup} from '@angular/material/radio';
-import {FormsModule} from '@angular/forms';
+import {FormControl, FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-question-input-radio-group',
@@ -17,4 +17,6 @@ import {FormsModule} from '@angular/forms';
 })
 export class QuestionInputRadioGroupComponent extends QuestionInputComponent<string> {
   @Input({required: true}) options: Array<{ name: string, value: string }> = [];
+
+  controlType: ControlType =  'radio';
 }

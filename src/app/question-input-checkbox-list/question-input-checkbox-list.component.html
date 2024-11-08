@@ -1,3 +1,4 @@
+<ng-template>
 <div>
   @for (option of options; track option.name) {
     <mat-checkbox (change)="onCheckboxChange($event.source.name, $event.checked)"
@@ -5,3 +6,4 @@
     </mat-checkbox>
   }
 </div>
+</ng-template>

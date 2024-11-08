@@ -1,41 +1,36 @@
-<div class="container">
-  <mat-grid-list class="content" cols="2" rowHeight="50px">
-    <mat-grid-tile class="tile">
-      <div class="column-content-left">
-        {{ question }}
-      </div>
-    </mat-grid-tile>
-    <mat-grid-tile class="tile">
-      <div class="column-content-right">
-        @if (!completed) {
-          <mat-radio-group aria-label="Yes or No" [(ngModel)]="selectedOption">
-            <mat-radio-button (change)="onSelectedOption($event.value)" [value]="'yes'">Yes</mat-radio-button>
-            <mat-radio-button (change)="onSelectedOption($event.value)" [value]="'no'">No</mat-radio-button>
-          </mat-radio-group>
-        } @else {
-          <span class="completed">Completed</span>
-        }
-      </div>
-    </mat-grid-tile>
-  </mat-grid-list>
+<ng-template>
+  <div class="container">
+    <mat-grid-list class="content" cols="2" rowHeight="50px">
+      <mat-grid-tile class="tile">
+        <div class="column-content-left">
+          {{ question }}
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile class="tile">
+        <div class="column-content-right">
+          @if (!completed) {
+            <mat-radio-group aria-label="Yes or No" [(ngModel)]="selectedOption">
+              <mat-radio-button (change)="onSelectedOption($event.value)" [value]="'yes'">Yes</mat-radio-button>
+              <mat-radio-button (change)="onSelectedOption($event.value)" [value]="'no'">No</mat-radio-button>
+            </mat-radio-group>
+          } @else {
+            <span class="completed">Completed</span>
+          }
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
 
-  @if (selectedOption === showQuestionInputOnSelectedValue ||
-  showQuestionInputOnSelectedValue === '') {
-    <!--<ng-container *ngTemplateOutlet="questionInput"></ng-container>-->
-    <ng-content></ng-content>
-  }
-  @if (info.length > 0) {
-    <div class="info">
-      {{ info }}
-    </div>
-  }
-  @if (warning.length > 0) {
-    <div class="warning">
-      {{ warning }}
-    </div>
-  }
-</div>
+    <ng-container #questionInputContainer></ng-container>
 
-<!--<ng-template #questionInput>-->
-<!--  <ng-content></ng-content>-->
-<!--</ng-template>-->
+    @if (info.length > 0) {
+      <div class="info">
+        {{ info }}
+      </div>
+    }
+    @if (warning.length > 0) {
+      <div class="warning">
+        {{ warning }}
+      </div>
+    }
+  </div>
+</ng-template>

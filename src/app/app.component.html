@@ -8,12 +8,14 @@
         [showQuestionInputOnSelectedValue]="'yes'"
         [warning]="'You must be cool to proceed'"
         name="cool_question">
-        <app-question-input-text [title]="'Name'" name="name_input"></app-question-input-text>
-        <app-question-input-date [title]="'Date you became cool'" name="date_input"></app-question-input-date>
-        <app-question-input-button (click)="openSnackBar()"
+        <app-question-input-text name="name_input"
+                                 [title]="'Name'"></app-question-input-text>
+        <app-question-input-date name="date_input"
+                                 [title]="'Date you became cool'"></app-question-input-date>
+        <app-question-input-button name="my_button"
+                                   (buttonClick)="openSnackBar()"
                                    [text]="'If you are really cool, click the button!'"
-                                   [title]="'Click me!'"
-                                   name="my_button">
+                                   [title]="'Click me!'">
         </app-question-input-button>
       </app-question>
     </app-question-group>

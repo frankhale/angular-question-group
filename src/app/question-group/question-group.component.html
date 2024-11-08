@@ -1,6 +1,8 @@
-<ng-template #templateRef let-separator="separator">
-  <ng-content></ng-content>
-  @if(separator) {
-    <hr />
-  }
+<ng-template let-separator="separator">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <ng-content></ng-content>
+    @if (separator) {
+      <hr/>
+    }
+  </form>
 </ng-template>
