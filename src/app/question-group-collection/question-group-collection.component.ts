@@ -34,8 +34,6 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
 
   data: Map<string, Map<string, T>> = new Map<string, Map<string, T>>();
 
-  formGroup: FormGroup = new FormGroup({});
-
   constructor(private viewContainerRef: ViewContainerRef) {
   }
 
@@ -56,7 +54,9 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
     this.tempQuestionGroupContainer.clear();
 
     this.questionGroups.forEach((questionGroup, i) => {
-      const context = {separator: false};
+      const context = {
+        separator: false
+      };
 
       if (i + 1 !== this.questionGroups.length) {
         context.separator = true;

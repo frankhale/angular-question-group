@@ -2,13 +2,15 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
-  ContentChild,
   EventEmitter,
   Input,
+  OnInit,
   Output,
-  TemplateRef, ViewChild
+  TemplateRef,
+  ViewChild
 } from '@angular/core';
 import {QuestionDirective} from '../directives/question-directive';
+import {FormGroup} from '@angular/forms';
 
 export type ControlType = 'text' | 'radio' | 'checkbox' | 'date' | 'button';
 
@@ -17,9 +19,10 @@ export type ControlType = 'text' | 'radio' | 'checkbox' | 'date' | 'button';
   inputs: ['question'],
   hostDirectives: [QuestionDirective]
 })
-export abstract class QuestionInputComponent<T> implements AfterViewInit {
+export abstract class QuestionInputComponent<T> implements AfterViewInit, OnInit {
   @Input({required: true}) name: string = '';
   @Input({required: true}) title: string = '';
+  @Input() formGroup?: FormGroup;
   @Input() initialValue: T | undefined;
   @Output() onValueChanged = new EventEmitter<T>();
   @ViewChild("component", {static: true}) template!: TemplateRef<any>;
@@ -29,6 +32,10 @@ export abstract class QuestionInputComponent<T> implements AfterViewInit {
   value: T | undefined;
 
   constructor(private cdr: ChangeDetectorRef) {
+  }
+
+  ngOnInit(): void {
+    console.log(`baseComponent->formGroup = ${this.formGroup}`);
   }
 
   ngAfterViewInit() {

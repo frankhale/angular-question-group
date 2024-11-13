@@ -2,7 +2,7 @@ import {Component, inject} from '@angular/core';
 import {QuestionComponent} from './question/question.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormsModule} from '@angular/forms';
+import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSnackBar, MatSnackBarLabel, MatSnackBarRef,} from '@angular/material/snack-bar';
 import {QuestionInputTextComponent} from './question-input-text/question-input-text.component';
 import {QuestionGroupComponent} from './question-group/question-group.component';
@@ -41,7 +41,7 @@ export class CoolSnackBarComponent {
     QuestionGroupCollectionComponent,
     QuestionInputRadioGroupComponent,
     QuestionInputCheckboxListComponent,
-    QuestionInputButtonComponent, MatButton],
+    QuestionInputButtonComponent, MatButton, ReactiveFormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -51,6 +51,8 @@ export class AppComponent {
   private _snackBar = inject(MatSnackBar);
 
   data: Map<string, Map<string, string | string[]>> = new Map<string, Map<string, string | string[]>>();
+
+  formGroup: FormGroup = new FormGroup({});
 
   valueChanged(data: Map<string, Map<string, string | string[]>>) {
     //console.table(data);
