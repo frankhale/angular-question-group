@@ -5,17 +5,20 @@ import {
   EventEmitter,
   Input,
   Output,
-  QueryList,
+  QueryList, TemplateRef,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
 import {QuestionGroupComponent} from '../question-group/question-group.component';
 import {KeyValue} from '@angular/common';
+import {FormGroup, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-question-group-collection',
   standalone: true,
-  imports: [],
+  imports: [
+    ReactiveFormsModule
+  ],
   templateUrl: './question-group-collection.component.html',
   styleUrl: './question-group-collection.component.scss'
 })
@@ -23,20 +26,20 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
   @Input({required: true}) name: string = '';
   @Output() onValueChanged = new EventEmitter<Map<string, Map<string, T>>>();
 
-  @ViewChild('questionGroupContainer', {
-    read: ViewContainerRef,
-    static: false
-  }) questionGroupContainer!: ViewContainerRef;
+  @ViewChild('tempQuestionGroupContainer', {read: ViewContainerRef}) tempQuestionGroupContainer!: ViewContainerRef;
+  @ViewChild("formTemplate", {static: true}) template!: TemplateRef<any>;
+  @ViewChild('questionGroupContainer', {read: ViewContainerRef}) questionGroupContainer!: ViewContainerRef;
+
   @ContentChildren(QuestionGroupComponent, {descendants: true}) questionGroups!: QueryList<QuestionGroupComponent<T>>;
 
   data: Map<string, Map<string, T>> = new Map<string, Map<string, T>>();
+
+  formGroup: FormGroup = new FormGroup({});
 
   constructor(private viewContainerRef: ViewContainerRef) {
   }
 
   valueChange(key: string, value: KeyValue<string, T>) {
-    console.log(key, value);
-
     if (value.value !== '') {
       if (!this.data.has(key)) {
         this.data.set(key, new Map<string, T>());
@@ -50,7 +53,7 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
   }
 
   ngAfterViewInit(): void {
-    this.questionGroupContainer.clear();
+    this.tempQuestionGroupContainer.clear();
 
     this.questionGroups.forEach((questionGroup, i) => {
       const context = {separator: false};
@@ -59,14 +62,24 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
         context.separator = true;
       }
 
-      this.questionGroupContainer.createEmbeddedView(questionGroup.template, context);
+      this.tempQuestionGroupContainer.createEmbeddedView(questionGroup.template, context);
 
-      console.log(questionGroup.name);
+      setTimeout(() => {
+        if (this.questionGroupContainer) {
+            const view = this.tempQuestionGroupContainer.detach(0);
+            if (view) {
+              this.questionGroupContainer.insert(view);
+            }
+          }
+      });
 
       questionGroup.onValueChanged.subscribe((newValue: KeyValue<string, KeyValue<string, T>>) => {
-        console.log(`questionGroupCollection: ${newValue.key} - ${newValue.value.key}`)
         this.valueChange(newValue.key, newValue.value);
       });
     });
+  }
+
+  onSubmit() {
+    console.log("Submitting form...");
   }
 }

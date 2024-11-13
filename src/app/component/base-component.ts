@@ -33,17 +33,12 @@ export abstract class QuestionInputComponent<T> implements AfterViewInit {
 
   ngAfterViewInit() {
     this.valueChanged(this.initialValue, true);
-    if (this.value) {
-      console.log(`value: ${this.value}`);
-    }
   }
 
   public valueChanged(value?: T, initial?: boolean) {
     if (value) {
       this.value = value;
       this.onValueChanged.emit(this.value);
-
-      console.log(`baseComponent: valueChanged = ${value}`);
 
       if (initial) {
         this.cdr.detectChanges();

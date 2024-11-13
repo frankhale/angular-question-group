@@ -27,13 +27,11 @@ export class QuestionGroupComponent<T> implements AfterViewInit {
   @Input({required: true}) name: string = '';
   @Output() onValueChanged = new EventEmitter<KeyValue<string, KeyValue<string, T>>>();
 
-  @ViewChild("formTemplate", {static: true}) template!: TemplateRef<any>;
+  @ViewChild("questionGroupTemplate", {static: true}) template!: TemplateRef<any>;
   @ViewChild('tempQuestionContainer', {read: ViewContainerRef}) tempQuestionContainer!: ViewContainerRef;
   @ViewChild('questionContainer', {read: ViewContainerRef}) questionContainer!: ViewContainerRef;
 
   @ContentChildren(QuestionComponent, {descendants: true}) questions!: QueryList<QuestionComponent<T>>;
-
-  formGroup: FormGroup = new FormGroup({});
 
   constructor(private viewContainerRef: ViewContainerRef,
               private cdr: ChangeDetectorRef) {
@@ -76,7 +74,4 @@ export class QuestionGroupComponent<T> implements AfterViewInit {
     });
   }
 
-  onSubmit() {
-    console.log("Submitting form...");
-  }
 }

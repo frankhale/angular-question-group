@@ -1,1 +1,7 @@
-<ng-container #questionGroupContainer></ng-container>
+<ng-container #tempQuestionGroupContainer></ng-container>
+
+<ng-template #formTemplate>
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <ng-template #questionGroupContainer></ng-template>
+  </form>
+</ng-template>

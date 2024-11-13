@@ -60,8 +60,6 @@ export class QuestionComponent<T> implements AfterViewInit {
   onSelectedOption(value: T): void {
     this.questionInputContainer.clear();
 
-    console.log(`question: ${value}`);
-
     if (value === this.showQuestionInputOnSelectedValue) {
       this.questionInputs?.forEach(questionInput => {
         this.tempQuestionInputContainer.createEmbeddedView(questionInput.baseComponent.template);
