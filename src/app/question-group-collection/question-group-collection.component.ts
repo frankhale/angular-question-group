@@ -1,5 +1,5 @@
 import {
-  AfterContentInit, AfterViewInit,
+  AfterViewInit,
   Component,
   ContentChildren,
   EventEmitter,
@@ -23,7 +23,10 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
   @Input({required: true}) name: string = '';
   @Output() onValueChanged = new EventEmitter<Map<string, Map<string, T>>>();
 
-  @ViewChild('container', {read: ViewContainerRef, static: true}) container!: ViewContainerRef;
+  @ViewChild('questionGroupContainer', {
+    read: ViewContainerRef,
+    static: false
+  }) questionGroupContainer!: ViewContainerRef;
   @ContentChildren(QuestionGroupComponent, {descendants: true}) questionGroups!: QueryList<QuestionGroupComponent<T>>;
 
   data: Map<string, Map<string, T>> = new Map<string, Map<string, T>>();
@@ -32,6 +35,8 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
   }
 
   valueChange(key: string, value: KeyValue<string, T>) {
+    console.log(key, value);
+
     if (value.value !== '') {
       if (!this.data.has(key)) {
         this.data.set(key, new Map<string, T>());
@@ -45,7 +50,8 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
   }
 
   ngAfterViewInit(): void {
-    this.viewContainerRef.clear();
+    this.questionGroupContainer.clear();
+
     this.questionGroups.forEach((questionGroup, i) => {
       const context = {separator: false};
 
@@ -53,9 +59,12 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
         context.separator = true;
       }
 
-      this.viewContainerRef.createEmbeddedView(questionGroup.template, context);
+      this.questionGroupContainer.createEmbeddedView(questionGroup.template, context);
+
+      console.log(questionGroup.name);
 
       questionGroup.onValueChanged.subscribe((newValue: KeyValue<string, KeyValue<string, T>>) => {
+        console.log(`questionGroupCollection: ${newValue.key} - ${newValue.value.key}`)
         this.valueChange(newValue.key, newValue.value);
       });
     });

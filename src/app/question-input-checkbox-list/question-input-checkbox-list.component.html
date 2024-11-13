@@ -1,4 +1,4 @@
-<ng-template>
+<ng-template #component>
 <div>
   @for (option of options; track option.name) {
     <mat-checkbox (change)="onCheckboxChange($event.source.name, $event.checked)"

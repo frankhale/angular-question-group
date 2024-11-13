@@ -2,11 +2,11 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  ContentChild,
   EventEmitter,
   Input,
   Output,
-  TemplateRef,
-  ViewChild
+  TemplateRef, ViewChild
 } from '@angular/core';
 import {QuestionDirective} from '../directives/question-directive';
 
@@ -22,7 +22,7 @@ export abstract class QuestionInputComponent<T> implements AfterViewInit {
   @Input({required: true}) title: string = '';
   @Input() initialValue: T | undefined;
   @Output() onValueChanged = new EventEmitter<T>();
-  @ViewChild(TemplateRef, {static: true}) template!: TemplateRef<any>;
+  @ViewChild("component", {static: true}) template!: TemplateRef<any>;
 
   abstract controlType: ControlType;
 
@@ -42,6 +42,8 @@ export abstract class QuestionInputComponent<T> implements AfterViewInit {
     if (value) {
       this.value = value;
       this.onValueChanged.emit(this.value);
+
+      console.log(`baseComponent: valueChanged = ${value}`);
 
       if (initial) {
         this.cdr.detectChanges();

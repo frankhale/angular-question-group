@@ -1,5 +1,4 @@
 import {Component, inject} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
 import {QuestionComponent} from './question/question.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -32,8 +31,7 @@ export class CoolSnackBarComponent {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,
-    QuestionGroupComponent,
+  imports: [QuestionGroupComponent,
     QuestionComponent,
     MatInputModule,
     MatFormFieldModule,
@@ -70,7 +68,6 @@ export class AppComponent {
   }
 
   openSnackBar() {
-    console.log('open snack bar');
     this._snackBar.openFromComponent(CoolSnackBarComponent, {
       duration: 3000,
     });
