@@ -10,7 +10,7 @@ import {
   ViewChild
 } from '@angular/core';
 import {QuestionDirective} from '../directives/question-directive';
-import {FormGroup} from '@angular/forms';
+import {FormControlName, FormGroup} from '@angular/forms';
 
 export type ControlType = 'text' | 'radio' | 'checkbox' | 'date' | 'button';
 
@@ -22,7 +22,8 @@ export type ControlType = 'text' | 'radio' | 'checkbox' | 'date' | 'button';
 export abstract class QuestionInputComponent<T> implements AfterViewInit, OnInit {
   @Input({required: true}) name: string = '';
   @Input({required: true}) title: string = '';
-  @Input() formGroup?: FormGroup;
+  @Input({required: true}) formGroup!: FormGroup;
+  @Input() formControlName?: FormControlName;
   @Input() initialValue: T | undefined;
   @Output() onValueChanged = new EventEmitter<T>();
   @ViewChild("component", {static: true}) template!: TemplateRef<any>;
@@ -35,7 +36,12 @@ export abstract class QuestionInputComponent<T> implements AfterViewInit, OnInit
   }
 
   ngOnInit(): void {
-    console.log(`baseComponent->formGroup = ${this.formGroup}`);
+    if(this.formGroup) {
+      this.formGroup.get(this.name)?.valueChanges.subscribe(value => {
+        console.log(`value changed: ${value}`);
+        this.valueChanged(value);
+      });
+    }
   }
 
   ngAfterViewInit() {

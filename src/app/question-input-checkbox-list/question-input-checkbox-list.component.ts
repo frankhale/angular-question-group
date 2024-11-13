@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {ControlType, QuestionInputComponent} from '../component/base-component';
 import {MatCheckbox} from '@angular/material/checkbox';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-question-input-checkbox-list',
@@ -9,7 +9,8 @@ import {FormsModule} from '@angular/forms';
   providers: [{provide: QuestionInputComponent, useExisting: QuestionInputCheckboxListComponent}],
   imports: [
     MatCheckbox,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   templateUrl: './question-input-checkbox-list.component.html',
   styleUrl: './question-input-checkbox-list.component.scss'

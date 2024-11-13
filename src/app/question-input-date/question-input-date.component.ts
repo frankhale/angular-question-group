@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatFormFieldModule, MatLabel} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
@@ -17,6 +17,7 @@ import {ControlType, QuestionInputComponent} from '../component/base-component';
     MatInputModule,
     MatLabel,
     MatDatepickerModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './question-input-date.component.html',
   styleUrl: './question-input-date.component.scss'

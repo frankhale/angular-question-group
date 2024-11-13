@@ -1,8 +1,8 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {QuestionComponent} from './question/question.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatSnackBar, MatSnackBarLabel, MatSnackBarRef,} from '@angular/material/snack-bar';
 import {QuestionInputTextComponent} from './question-input-text/question-input-text.component';
 import {QuestionGroupComponent} from './question-group/question-group.component';
@@ -45,14 +45,27 @@ export class CoolSnackBarComponent {
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'question-app';
   are_you_cool_completed = false;
   private _snackBar = inject(MatSnackBar);
 
   data: Map<string, Map<string, string | string[]>> = new Map<string, Map<string, string | string[]>>();
 
-  formGroup: FormGroup = new FormGroup({});
+  formGroup!: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.formGroup = this.fb.group({
+      name_input: ['', Validators.required],
+      date_input: ['', Validators.required],
+      radio_group: [],
+      checkbox_list: [],
+    });
+  }
+
+  ngOnInit(): void {
+
+  }
 
   valueChanged(data: Map<string, Map<string, string | string[]>>) {
     //console.table(data);
@@ -63,6 +76,11 @@ export class AppComponent {
   }
 
   submit() {
+    if(!this.formGroup.valid) {
+      this.formGroup.markAllAsTouched();
+      return;
+    }
+
     for (const key of this.data.keys()) {
       console.log(`Group: ${key}`);
       console.log(this.data.get(key));
