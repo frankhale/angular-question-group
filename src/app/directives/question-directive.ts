@@ -1,5 +1,5 @@
 import {Directive} from '@angular/core';
-import {QuestionInputComponent} from '../component/base-component';
+import {QuestionInputComponent} from '../component/question-input-base-component';
 
 @Directive({
   standalone: true,

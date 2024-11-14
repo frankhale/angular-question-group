@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {ControlType, QuestionInputComponent} from '../component/base-component';
+import {ControlType, QuestionInputComponent} from '../component/question-input-base-component';
 import {MatButton} from '@angular/material/button';
 
 @Component({

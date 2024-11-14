@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {ControlType, QuestionInputComponent} from '../component/base-component';
+import {ControlType, QuestionInputComponent} from '../component/question-input-base-component';
 import {MatRadioButton, MatRadioGroup} from '@angular/material/radio';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';

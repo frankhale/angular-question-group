@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ControlType, QuestionInputComponent} from '../component/base-component';
+import {ControlType, QuestionInputComponent} from '../component/question-input-base-component';
 
 @Component({
   selector: 'app-question-input-text',

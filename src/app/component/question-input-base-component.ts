@@ -1,11 +1,9 @@
 import {
-  AfterContentInit,
   AfterViewInit,
   ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
-  OnInit,
   Output,
   TemplateRef,
   ViewChild
@@ -39,7 +37,7 @@ export abstract class QuestionInputComponent<T> implements AfterViewInit {
   ngAfterViewInit() {
     this.valueChanged(this.initialValue, true);
 
-    if(this.formGroup) {
+    if (this.formGroup) {
       this.formGroup.get(this.name)?.valueChanges.subscribe(value => {
         //console.log(`value changed: ${value}`);
         this.valueChanged(value);

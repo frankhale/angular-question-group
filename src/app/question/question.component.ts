@@ -18,7 +18,7 @@ import {MatRadioButton, MatRadioGroup} from '@angular/material/radio';
 import {FormGroup, FormsModule} from '@angular/forms';
 import {YesNoOrEmpty} from '../models/yes-no-empty';
 import {KeyValue} from '@angular/common';
-import {QuestionInputComponent} from '../component/base-component';
+import {QuestionInputComponent} from '../component/question-input-base-component';
 import {QuestionDirective} from '../directives/question-directive';
 
 @Component({

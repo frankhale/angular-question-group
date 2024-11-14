@@ -1,7 +1,6 @@
 import {
   AfterContentInit,
   AfterViewInit,
-  ChangeDetectorRef,
   Component,
   ContentChildren,
   EventEmitter,
@@ -38,10 +37,6 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
 
   data: Map<string, Map<string, T>> = new Map<string, Map<string, T>>();
 
-  constructor(private viewContainerRef: ViewContainerRef,
-              private cdr: ChangeDetectorRef) {
-  }
-
   valueChange(key: string, value: KeyValue<string, T>) {
     if (value.value !== '') {
       if (!this.data.has(key)) {
@@ -56,7 +51,7 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
   }
 
   ngAfterContentInit() {
-    this.questionGroups.forEach((questionGroup, i) => {
+    this.questionGroups.forEach((questionGroup) => {
       questionGroup.formGroup = this.formGroup;
       questionGroup.questions.forEach(question => {
         question.formGroup = this.formGroup;
@@ -95,9 +90,5 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
         }
       }
     }
-  }
-
-  onSubmit() {
-    console.log("Submitting form...");
   }
 }
