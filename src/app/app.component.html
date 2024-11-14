@@ -1,6 +1,9 @@
 <div class="content">
   <form [formGroup]="formGroup" (ngSubmit)="submit()">
-    <app-question-group-collection (onValueChanged)="valueChanged($event)" name="my_question_group_collection">
+    <app-question-group-collection
+        [formGroup]="formGroup"
+        (onValueChanged)="valueChanged($event)"
+        name="my_question_group_collection">
       <app-question-group name="first_group">
         <app-question
           [completed]="are_you_cool_completed"
@@ -10,11 +13,9 @@
           [warning]="'You must be cool to proceed'"
           name="first_question">
           <app-question-input-text name="name_input"
-                                   [title]="'Name'"
-                                   [formGroup]="formGroup"></app-question-input-text>
+                                   [title]="'Name'"></app-question-input-text>
           <app-question-input-date name="date_input"
-                                   [title]="'Date you became cool'"
-                                   [formGroup]="formGroup"></app-question-input-date>
+                                   [title]="'Date you became cool'"></app-question-input-date>
           <app-question-input-button name="my_button"
                                      (buttonClick)="openSnackBar()"
                                      [text]="'If you are really cool, click the button!'"
@@ -39,7 +40,6 @@
                                           { name: 'blue', value: 'blue'}
                                         ]"
                                           [title]="'What is your favorite color?'"
-                                          [formGroup]="formGroup"
                                           name="radio_group">
           </app-question-input-radio-group>
         </app-question>
@@ -54,7 +54,6 @@
                                             { name: 'blue' }
                                           ]"
                                             [title]="'What is your favorite color?'"
-                                            [formGroup]="formGroup"
                                             name="checkbox_list">
           </app-question-input-checkbox-list>
         </app-question>

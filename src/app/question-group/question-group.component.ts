@@ -1,5 +1,6 @@
 import {
-  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef,
+  AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ContentChildren,
   EventEmitter,
@@ -25,6 +26,7 @@ import {FormGroup, ReactiveFormsModule} from '@angular/forms';
 })
 export class QuestionGroupComponent<T> implements AfterViewInit {
   @Input({required: true}) name: string = '';
+  @Input() formGroup!: FormGroup;
   @Output() onValueChanged = new EventEmitter<KeyValue<string, KeyValue<string, T>>>();
 
   @ViewChild("questionGroupTemplate", {static: true}) template!: TemplateRef<any>;
@@ -53,6 +55,7 @@ export class QuestionGroupComponent<T> implements AfterViewInit {
 
       question.questionInputs?.forEach(questionInputDirective => {
         const questionInput = questionInputDirective.baseComponent;
+        questionInput.formGroup = this.formGroup;
         if (questionInput && questionInput.onValueChanged) {
           questionInput.onValueChanged.subscribe((newValue: T) => {
             this.valueChange(questionInput!.name, newValue);
@@ -73,5 +76,4 @@ export class QuestionGroupComponent<T> implements AfterViewInit {
       }
     });
   }
-
 }

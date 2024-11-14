@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {QuestionComponent} from './question/question.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -8,12 +8,12 @@ import {QuestionInputTextComponent} from './question-input-text/question-input-t
 import {QuestionGroupComponent} from './question-group/question-group.component';
 import {QuestionInputDateComponent} from './question-input-date/question-input-date.component';
 import {QuestionGroupCollectionComponent} from './question-group-collection/question-group-collection.component';
+import {QuestionInputButtonComponent} from './question-input-button/question-input-button.component';
+import {MatButton} from '@angular/material/button';
 import {QuestionInputRadioGroupComponent} from './question-input-radio-group/question-input-radio-group.component';
 import {
   QuestionInputCheckboxListComponent
 } from './question-input-checkbox-list/question-input-checkbox-list.component';
-import {QuestionInputButtonComponent} from './question-input-button/question-input-button.component';
-import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-cool-snack-bar',
@@ -39,13 +39,11 @@ export class CoolSnackBarComponent {
     QuestionInputTextComponent,
     QuestionInputDateComponent,
     QuestionGroupCollectionComponent,
-    QuestionInputRadioGroupComponent,
-    QuestionInputCheckboxListComponent,
-    QuestionInputButtonComponent, MatButton, ReactiveFormsModule],
+    QuestionInputButtonComponent, MatButton, ReactiveFormsModule, QuestionInputRadioGroupComponent, QuestionInputCheckboxListComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'question-app';
   are_you_cool_completed = false;
   private _snackBar = inject(MatSnackBar);
@@ -63,10 +61,6 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-
-  }
-
   valueChanged(data: Map<string, Map<string, string | string[]>>) {
     //console.table(data);
     // for (const key of data.keys()) {
@@ -76,7 +70,8 @@ export class AppComponent implements OnInit {
   }
 
   submit() {
-    if(!this.formGroup.valid) {
+    if (!this.formGroup.valid) {
+      console.log('Form is not valid');
       this.formGroup.markAllAsTouched();
       return;
     }

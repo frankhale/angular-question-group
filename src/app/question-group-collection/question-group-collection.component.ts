@@ -1,11 +1,15 @@
 import {
+  AfterContentInit,
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ContentChildren,
   EventEmitter,
   Input,
+  OnInit,
   Output,
-  QueryList, TemplateRef,
+  QueryList,
+  TemplateRef,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
@@ -22,8 +26,9 @@ import {FormGroup, ReactiveFormsModule} from '@angular/forms';
   templateUrl: './question-group-collection.component.html',
   styleUrl: './question-group-collection.component.scss'
 })
-export class QuestionGroupCollectionComponent<T = string | string[]> implements AfterViewInit {
+export class QuestionGroupCollectionComponent<T = string | string[]> implements AfterViewInit, AfterContentInit {
   @Input({required: true}) name: string = '';
+  @Input() formGroup!: FormGroup;
   @Output() onValueChanged = new EventEmitter<Map<string, Map<string, T>>>();
 
   @ViewChild('tempQuestionGroupContainer', {read: ViewContainerRef}) tempQuestionGroupContainer!: ViewContainerRef;
@@ -34,7 +39,8 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
 
   data: Map<string, Map<string, T>> = new Map<string, Map<string, T>>();
 
-  constructor(private viewContainerRef: ViewContainerRef) {
+  constructor(private viewContainerRef: ViewContainerRef,
+              private cdr: ChangeDetectorRef) {
   }
 
   valueChange(key: string, value: KeyValue<string, T>) {
@@ -48,6 +54,18 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
     }
 
     this.onValueChanged.emit(this.data);
+  }
+
+  ngAfterContentInit() {
+    this.questionGroups.forEach((questionGroup, i) => {
+      questionGroup.formGroup = this.formGroup;
+      questionGroup.questions.forEach(question => {
+        question.formGroup = this.formGroup;
+        question.questionInputs?.forEach(questionInputDirective => {
+          questionInputDirective.baseComponent.formGroup = this.formGroup;
+        });
+      });
+    });
   }
 
   ngAfterViewInit(): void {
@@ -66,11 +84,11 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
 
       setTimeout(() => {
         if (this.questionGroupContainer) {
-            const view = this.tempQuestionGroupContainer.detach(0);
-            if (view) {
-              this.questionGroupContainer.insert(view);
-            }
+          const view = this.tempQuestionGroupContainer.detach(0);
+          if (view) {
+            this.questionGroupContainer.insert(view);
           }
+        }
       });
 
       questionGroup.onValueChanged.subscribe((newValue: KeyValue<string, KeyValue<string, T>>) => {

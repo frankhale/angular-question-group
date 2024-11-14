@@ -1,4 +1,5 @@
 import {
+  AfterContentInit,
   AfterViewInit,
   ChangeDetectorRef,
   Component,
@@ -19,10 +20,10 @@ export type ControlType = 'text' | 'radio' | 'checkbox' | 'date' | 'button';
   inputs: ['question'],
   hostDirectives: [QuestionDirective]
 })
-export abstract class QuestionInputComponent<T> implements AfterViewInit, OnInit {
+export abstract class QuestionInputComponent<T> implements AfterViewInit {
   @Input({required: true}) name: string = '';
   @Input({required: true}) title: string = '';
-  @Input({required: true}) formGroup!: FormGroup;
+  @Input() formGroup!: FormGroup;
   @Input() formControlName?: FormControlName;
   @Input() initialValue: T | undefined;
   @Output() onValueChanged = new EventEmitter<T>();
@@ -35,17 +36,15 @@ export abstract class QuestionInputComponent<T> implements AfterViewInit, OnInit
   constructor(private cdr: ChangeDetectorRef) {
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit() {
+    this.valueChanged(this.initialValue, true);
+
     if(this.formGroup) {
       this.formGroup.get(this.name)?.valueChanges.subscribe(value => {
-        console.log(`value changed: ${value}`);
+        //console.log(`value changed: ${value}`);
         this.valueChanged(value);
       });
     }
-  }
-
-  ngAfterViewInit() {
-    this.valueChanged(this.initialValue, true);
   }
 
   public valueChanged(value?: T, initial?: boolean) {
