@@ -6,7 +6,6 @@ import {
   ContentChildren,
   EventEmitter,
   Input,
-  OnInit,
   Output,
   QueryList,
   TemplateRef,
@@ -32,8 +31,8 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
   @Output() onValueChanged = new EventEmitter<Map<string, Map<string, T>>>();
 
   @ViewChild('tempQuestionGroupContainer', {read: ViewContainerRef}) tempQuestionGroupContainer!: ViewContainerRef;
-  @ViewChild("formTemplate", {static: true}) template!: TemplateRef<any>;
-  @ViewChild('questionGroupContainer', {read: ViewContainerRef}) questionGroupContainer!: ViewContainerRef;
+  @ViewChild("questionGroupTemplate", {static: true}) template!: TemplateRef<any>;
+  @ViewChild('questionGroupTemplate', {read: ViewContainerRef}) questionGroupContainer!: ViewContainerRef;
 
   @ContentChildren(QuestionGroupComponent, {descendants: true}) questionGroups!: QueryList<QuestionGroupComponent<T>>;
 
@@ -68,10 +67,14 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
     });
   }
 
-  ngAfterViewInit(): void {
+  async ngAfterViewInit() {
     this.tempQuestionGroupContainer.clear();
 
     this.questionGroups.forEach((questionGroup, i) => {
+      questionGroup.onValueChanged.subscribe((newValue: KeyValue<string, KeyValue<string, T>>) => {
+        this.valueChange(newValue.key, newValue.value);
+      });
+
       const context = {
         separator: false
       };
@@ -81,20 +84,17 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
       }
 
       this.tempQuestionGroupContainer.createEmbeddedView(questionGroup.template, context);
-
-      setTimeout(() => {
-        if (this.questionGroupContainer) {
-          const view = this.tempQuestionGroupContainer.detach(0);
-          if (view) {
-            this.questionGroupContainer.insert(view);
-          }
-        }
-      });
-
-      questionGroup.onValueChanged.subscribe((newValue: KeyValue<string, KeyValue<string, T>>) => {
-        this.valueChange(newValue.key, newValue.value);
-      });
     });
+
+    if (this.questionGroupContainer) {
+      const viewCount = this.tempQuestionGroupContainer.length;
+      for (let i = 0; i < viewCount; i++) {
+        const view = this.tempQuestionGroupContainer.detach(0);
+        if (view) {
+          this.questionGroupContainer.insert(view);
+        }
+      }
+    }
   }
 
   onSubmit() {
