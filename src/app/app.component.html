@@ -1,9 +1,9 @@
 <div class="content">
   <form [formGroup]="formGroup" (ngSubmit)="submit()">
     <app-question-group-collection
-        [formGroup]="formGroup"
-        (onValueChanged)="valueChanged($event)"
-        name="my_question_group_collection">
+      [formGroup]="formGroup"
+      (onValueChanged)="valueChange($event)"
+      name="my_question_group_collection">
       <app-question-group name="first_group">
         <app-question
           [completed]="are_you_cool_completed"

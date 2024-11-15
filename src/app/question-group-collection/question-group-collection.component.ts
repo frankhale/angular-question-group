@@ -27,7 +27,7 @@ import {FormGroup, ReactiveFormsModule} from '@angular/forms';
 export class QuestionGroupCollectionComponent<T = string | string[]> implements AfterViewInit, AfterContentInit {
   @Input({required: true}) name: string = '';
   @Input() formGroup!: FormGroup;
-  @Output() onValueChanged = new EventEmitter<Map<string, Map<string, T>>>();
+  @Output() onValueChanged = new EventEmitter<KeyValue<string, KeyValue<string, T>>>();
 
   @ViewChild('tempQuestionGroupContainer', {read: ViewContainerRef}) tempQuestionGroupContainer!: ViewContainerRef;
   @ViewChild("questionGroupTemplate", {static: true}) template!: TemplateRef<any>;
@@ -35,19 +35,8 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
 
   @ContentChildren(QuestionGroupComponent, {descendants: true}) questionGroups!: QueryList<QuestionGroupComponent<T>>;
 
-  data: Map<string, Map<string, T>> = new Map<string, Map<string, T>>();
-
-  valueChange(key: string, value: KeyValue<string, T>) {
-    if (value.value !== '') {
-      if (!this.data.has(key)) {
-        this.data.set(key, new Map<string, T>());
-      }
-      this.data.get(key)?.set(value.key, value.value);
-    } else {
-      this.data.delete(key);
-    }
-
-    this.onValueChanged.emit(this.data);
+  valueChange(kv: KeyValue<string, KeyValue<string, T>>) {
+    this.onValueChanged.emit(kv);
   }
 
   ngAfterContentInit() {
@@ -67,7 +56,7 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
 
     this.questionGroups.forEach((questionGroup, i) => {
       questionGroup.onValueChanged.subscribe((newValue: KeyValue<string, KeyValue<string, T>>) => {
-        this.valueChange(newValue.key, newValue.value);
+        this.valueChange(newValue);
       });
 
       const context = {

@@ -1,11 +1,11 @@
 import {
   AfterContentInit,
   AfterViewInit,
-  ChangeDetectorRef,
   Component,
   ContentChildren,
   EventEmitter,
   Input,
+  OnInit,
   Output,
   QueryList,
   TemplateRef,
@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import {QuestionComponent} from '../question/question.component';
 import {KeyValue} from '@angular/common';
-import {FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-question-group',
@@ -25,7 +25,7 @@ import {FormGroup, ReactiveFormsModule} from '@angular/forms';
   templateUrl: './question-group.component.html',
   styleUrl: './question-group.component.scss'
 })
-export class QuestionGroupComponent<T> implements AfterViewInit, AfterContentInit {
+export class QuestionGroupComponent<T> implements AfterViewInit {
   @Input({required: true}) name: string = '';
   @Input() formGroup!: FormGroup;
   @Output() onValueChanged = new EventEmitter<KeyValue<string, KeyValue<string, T>>>();
@@ -36,24 +36,28 @@ export class QuestionGroupComponent<T> implements AfterViewInit, AfterContentIni
 
   @ContentChildren(QuestionComponent, {descendants: true}) questions!: QueryList<QuestionComponent<T>>;
 
-  constructor(private viewContainerRef: ViewContainerRef,
-              private cdr: ChangeDetectorRef) {
+  constructor(private viewContainerRef: ViewContainerRef) {
   }
 
   valueChange(key: string, value: T) {
     this.onValueChanged.emit({key: this.name, value: {key, value}});
   }
 
-  ngAfterContentInit() {
-    this.questions!.forEach(question => {
-      question.formGroup = this.formGroup;
-      question.questionInputs?.forEach(questionInput => {
-        questionInput.baseComponent.formGroup = this.formGroup;
-      });
-    });
-  }
-
   async ngAfterViewInit() {
+    if (!this.formGroup) {
+      this.formGroup = new FormGroup({});
+      this.questions!.forEach(question => {
+        question.formGroup = this.formGroup;
+        question.questionInputs?.forEach(questionInput => {
+          questionInput.baseComponent.formGroup = this.formGroup;
+
+          if (!this.formGroup.get(questionInput.baseComponent.name)) {
+            this.formGroup.addControl(questionInput.baseComponent.name, new FormControl(''));
+          }
+        });
+      });
+    }
+
     await this.renderViews();
 
     if (this.questionContainer) {

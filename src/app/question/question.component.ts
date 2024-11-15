@@ -15,7 +15,7 @@ import {
 } from '@angular/core';
 import {MatGridList, MatGridTile} from '@angular/material/grid-list';
 import {MatRadioButton, MatRadioGroup} from '@angular/material/radio';
-import {FormGroup, FormsModule} from '@angular/forms';
+import {FormControl, FormGroup, FormsModule} from '@angular/forms';
 import {YesNoOrEmpty} from '../models/yes-no-empty';
 import {KeyValue} from '@angular/common';
 import {QuestionInputComponent} from '../component/question-input-base-component';
@@ -35,7 +35,7 @@ import {QuestionDirective} from '../directives/question-directive';
   templateUrl: './question.component.html',
   styleUrl: './question.component.scss'
 })
-export class QuestionComponent<T> implements AfterViewInit, OnInit {
+export class QuestionComponent<T> implements AfterViewInit {
   @Input({required: true}) name: string = '';
   @Input({required: true}) question: string = '';
   @Input() showQuestionInputOnSelectedValue: YesNoOrEmpty = '';
@@ -53,15 +53,27 @@ export class QuestionComponent<T> implements AfterViewInit, OnInit {
 
   selectedOption: string = '';
 
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor(private viewContainerRef: ViewContainerRef) {
   }
 
-  ngOnInit(): void {
+  async ngAfterViewInit() {
+    //await this.renderView();
+    //console.log(this.questionInputContainer);
+
+    if(!this.formGroup) {
+      this.formGroup = new FormGroup({});
+      this.questionInputs?.forEach(questionInput => {
+        questionInput.baseComponent.formGroup = this.formGroup;
+        if (!this.formGroup.get(questionInput.baseComponent.name)) {
+          this.formGroup.addControl(questionInput.baseComponent.name, new FormControl(''));
+        }
+      });
+    }
   }
 
-  ngAfterViewInit(): void {
-    // this.viewContainerRef.clear();
-    // this.viewContainerRef.createEmbeddedView(this.template);
+  async renderView() {
+    this.viewContainerRef.clear();
+    this.viewContainerRef.createEmbeddedView(this.template);
   }
 
   onSelectedOption(value: T): void {

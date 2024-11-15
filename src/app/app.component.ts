@@ -14,6 +14,7 @@ import {QuestionInputRadioGroupComponent} from './question-input-radio-group/que
 import {
   QuestionInputCheckboxListComponent
 } from './question-input-checkbox-list/question-input-checkbox-list.component';
+import {KeyValue} from '@angular/common';
 
 @Component({
   selector: 'app-cool-snack-bar',
@@ -61,12 +62,15 @@ export class AppComponent {
     });
   }
 
-  valueChanged(data: Map<string, Map<string, string | string[]>>) {
-    //console.table(data);
-    // for (const key of data.keys()) {
-    //   console.log(data.get(key));
-    // }
-    this.data = data;
+  valueChange(kv: KeyValue<string, KeyValue<string, string | string[]>>) {
+    if (kv.value.value !== '') {
+      if (!this.data.has(kv.key)) {
+        this.data.set(kv.key, new Map<string, string | string[]>());
+      }
+      this.data.get(kv.key)?.set(kv.value.key, kv.value.value);
+    } else {
+      this.data.delete(kv.key);
+    }
   }
 
   submit() {

@@ -8,7 +8,7 @@
     <mat-datepicker-toggle [for]="picker" matIconSuffix></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
     @if(formGroup && formGroup.get(name)?.touched && formGroup.get(name)?.invalid) {
-      <small style="color: red;">This field is required.</small>
+      <small style="color: red;">This field contains an invalid date.</small>
     }
   </mat-form-field>
 </ng-template>
