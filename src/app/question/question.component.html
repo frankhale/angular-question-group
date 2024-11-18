@@ -1,4 +1,6 @@
-<ng-container #tempQuestionInputContainer></ng-container>
+@if(!questionGroupIsParent) {
+<ng-container *ngTemplateOutlet="template"></ng-container>
+}
 
 <ng-template #questionTemplate>
 <div class="container">

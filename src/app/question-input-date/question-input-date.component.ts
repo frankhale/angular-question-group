@@ -1,10 +1,11 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatFormFieldModule, MatLabel} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {provideNativeDateAdapter} from '@angular/material/core'
 import {ControlType, QuestionInputComponent} from '../component/question-input-base-component';
+import {NgTemplateOutlet} from '@angular/common';
 
 @Component({
   selector: 'app-question-input-date',
@@ -18,6 +19,7 @@ import {ControlType, QuestionInputComponent} from '../component/question-input-b
     MatLabel,
     MatDatepickerModule,
     ReactiveFormsModule,
+    NgTemplateOutlet,
   ],
   templateUrl: './question-input-date.component.html',
   styleUrl: './question-input-date.component.scss'

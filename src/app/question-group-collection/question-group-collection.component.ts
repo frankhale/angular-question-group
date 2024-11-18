@@ -6,10 +6,7 @@ import {
   EventEmitter,
   Input,
   Output,
-  QueryList,
-  TemplateRef,
-  ViewChild,
-  ViewContainerRef
+  QueryList
 } from '@angular/core';
 import {QuestionGroupComponent} from '../question-group/question-group.component';
 import {KeyValue} from '@angular/common';
@@ -29,9 +26,7 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
   @Input() formGroup!: FormGroup;
   @Output() onValueChanged = new EventEmitter<KeyValue<string, KeyValue<string, T>>>();
 
-  @ViewChild('tempQuestionGroupContainer', {read: ViewContainerRef}) tempQuestionGroupContainer!: ViewContainerRef;
-  @ViewChild("questionGroupTemplate", {static: true}) template!: TemplateRef<any>;
-  @ViewChild('questionGroupTemplate', {read: ViewContainerRef}) questionGroupContainer!: ViewContainerRef;
+  //@ViewChild('questionGroupContainer', {read: ViewContainerRef}) questionGroupContainer!: ViewContainerRef;
 
   @ContentChildren(QuestionGroupComponent, {descendants: true}) questionGroups!: QueryList<QuestionGroupComponent<T>>;
 
@@ -51,8 +46,8 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
     });
   }
 
-  async ngAfterViewInit() {
-    this.tempQuestionGroupContainer.clear();
+  ngAfterViewInit() {
+    //this.questionGroupContainer.clear();
 
     this.questionGroups.forEach((questionGroup, i) => {
       questionGroup.onValueChanged.subscribe((newValue: KeyValue<string, KeyValue<string, T>>) => {
@@ -67,17 +62,7 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
         context.separator = true;
       }
 
-      this.tempQuestionGroupContainer.createEmbeddedView(questionGroup.template, context);
+      //this.questionGroupContainer.createEmbeddedView(questionGroup.template, context);
     });
-
-    if (this.questionGroupContainer) {
-      const viewCount = this.tempQuestionGroupContainer.length;
-      for (let i = 0; i < viewCount; i++) {
-        const view = this.tempQuestionGroupContainer.detach(0);
-        if (view) {
-          this.questionGroupContainer.insert(view);
-        }
-      }
-    }
   }
 }

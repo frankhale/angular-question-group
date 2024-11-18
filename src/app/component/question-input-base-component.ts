@@ -35,13 +35,17 @@ export abstract class QuestionInputComponent<T> implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.valueChanged(this.initialValue, true);
+    if (this.initialValue) {
+      this.valueChanged(this.initialValue, true);
+    }
 
     if (this.formGroup) {
       this.formGroup.get(this.name)?.valueChanges.subscribe(value => {
-        //console.log(`value changed: ${value}`);
+        console.log(`value changed: ${value}`);
         this.valueChanged(value);
       });
+    } else {
+      console.log(`formGroup is undefined`);
     }
   }
 
