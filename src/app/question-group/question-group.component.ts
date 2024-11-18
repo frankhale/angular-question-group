@@ -1,4 +1,5 @@
 import {
+  AfterContentInit,
   AfterViewInit,
   Component,
   ContentChildren,
@@ -9,11 +10,10 @@ import {
   Output,
   QueryList,
   TemplateRef,
-  ViewChild,
-  ViewContainerRef
+  ViewChild
 } from '@angular/core';
 import {QuestionComponent} from '../question/question.component';
-import {KeyValue, NgTemplateOutlet} from '@angular/common';
+import {KeyValue, NgForOf, NgTemplateOutlet} from '@angular/common';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {QuestionGroupCollectionComponent} from '../question-group-collection/question-group-collection.component';
 
@@ -22,21 +22,20 @@ import {QuestionGroupCollectionComponent} from '../question-group-collection/que
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    NgTemplateOutlet
+    NgTemplateOutlet,
+    NgForOf
   ],
   templateUrl: './question-group.component.html',
   styleUrl: './question-group.component.scss'
 })
-export class QuestionGroupComponent<T> implements AfterViewInit {
+export class QuestionGroupComponent<T> implements AfterContentInit, AfterViewInit {
   @Input({required: true}) name: string = '';
   @Input() formGroup!: FormGroup;
   @Output() onValueChanged = new EventEmitter<KeyValue<string, KeyValue<string, T>>>();
 
   @ViewChild("questionGroupTemplate", {static: true}) template!: TemplateRef<any>;
-  @ViewChild('questionContainer', {read: ViewContainerRef}) questionContainer!: ViewContainerRef;
 
   @ContentChildren(QuestionComponent, {descendants: true}) questions!: QueryList<QuestionComponent<T>>;
-
   questionGroupCollectionIsParent: boolean;
 
   constructor(@Optional() @Host() private parent: QuestionGroupCollectionComponent) {
@@ -47,24 +46,25 @@ export class QuestionGroupComponent<T> implements AfterViewInit {
     this.onValueChanged.emit({key: this.name, value: {key, value}});
   }
 
-  ngAfterViewInit() {
+  ngAfterContentInit() {
     if (!this.formGroup) {
       this.formGroup = new FormGroup({});
-      this.questions!.forEach(question => {
-        question.formGroup = this.formGroup;
-        question.questionInputs?.forEach(questionInput => {
-          questionInput.baseComponent.formGroup = this.formGroup;
-
-          if (!this.formGroup.get(questionInput.baseComponent.name)) {
-            this.formGroup.addControl(questionInput.baseComponent.name, new FormControl(''));
-          }
-        });
-      });
     }
 
-    this.questions.forEach(question => {
-      this.questionContainer.createEmbeddedView(question.template);
+    this.questions!.forEach(question => {
+      question.formGroup = this.formGroup;
+      question.questionInputs?.forEach(questionInput => {
+        questionInput.baseComponent.formGroup = this.formGroup;
 
+        if (!this.formGroup.get(questionInput.baseComponent.name)) {
+          this.formGroup.addControl(questionInput.baseComponent.name, new FormControl(''));
+        }
+      });
+    });
+  }
+
+  ngAfterViewInit() {
+    this.questions.forEach(question => {
       question.onQuestionAnswered.subscribe((answer: KeyValue<string, T>) => {
         this.valueChange(answer.key, answer.value);
       });

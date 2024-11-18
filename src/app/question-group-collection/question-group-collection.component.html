@@ -1,1 +1,12 @@
-<ng-content></ng-content>
+<div *ngFor="let group of questionGroups; let i = index">
+  <ng-container *ngTemplateOutlet="group.template"></ng-container>
+
+  <div *ngFor="let question of group.questions">
+    <ng-container *ngTemplateOutlet="question.template"></ng-container>
+  </div>
+
+  @if(i !== questionGroups.length - 1) {
+    <hr>
+  }
+</div>
+

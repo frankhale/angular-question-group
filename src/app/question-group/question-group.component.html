@@ -1,13 +1,3 @@
-@if(!questionGroupCollectionIsParent) {
-<ng-container *ngTemplateOutlet="questionGroupTemplate"></ng-container>
-}
-
-<ng-template #questionContainer></ng-template>
-
-<ng-template #questionGroupTemplate let-separator="separator">
-  <p>questions should be below this!</p>
-  <ng-container *ngTemplateOutlet="questionContainer"></ng-container>
-  @if (separator) {
-    <hr/>
-  }
-</ng-template>
+<div *ngFor="let question of questions">
+  <ng-container *ngTemplateOutlet="question.template"></ng-container>
+</div>

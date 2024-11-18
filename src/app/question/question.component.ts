@@ -48,18 +48,13 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   @Input() formGroup!: FormGroup;
   @Output() onQuestionAnswered = new EventEmitter<KeyValue<string, T>>();
 
-
   @ViewChild("questionTemplate", {static: true}) template!: TemplateRef<any>;
-  @ViewChild('questionInputContainer', {read: ViewContainerRef}) questionInputContainer!: ViewContainerRef;
 
   @ContentChildren(QuestionDirective, {descendants: true}) questionInputs?: QueryList<QuestionDirective<T>>;
 
-  selectedOption: string = '';
-  questionGroupIsParent: boolean;
+  questionInputTemplates: TemplateRef<any>[] = [];
 
-  constructor(@Optional() @Host() private parent: QuestionGroupComponent<T>) {
-    this.questionGroupIsParent = !!parent;
-  }
+  selectedOption: string = '';
 
   ngOnInit() {
     if (!this.formGroup) {
@@ -70,21 +65,24 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   ngAfterContentInit() {
     this.questionInputs?.forEach(questionInput => {
       questionInput.baseComponent.formGroup = this.formGroup;
+      this.questionInputTemplates.push(questionInput.baseComponent.template);
       if (!this.formGroup.get(questionInput.baseComponent.name)) {
         this.formGroup.addControl(questionInput.baseComponent.name, new FormControl(''));
       }
+
+      // NOTE: Need to create onValueChanged so that a single question can provide info
+      // about the values that were entered into the form.
+
+      // if (questionInput && questionInput.baseComponent.onValueChanged) {
+      //   questionInput.baseComponent.onValueChanged.subscribe((newValue: T) => {
+      //     //this.valueChange(questionInput!.name, newValue);
+      //     console.log(questionInput!.baseComponent.name, newValue);
+      //   });
+      // }
     });
   }
 
   onSelectedOption(value: T): void {
-    this.questionInputContainer.clear();
-
-    if (value === this.showQuestionInputOnSelectedValue) {
-      this.questionInputs?.forEach(questionInput => {
-        this.questionInputContainer.createEmbeddedView(questionInput.baseComponent.template);
-      });
-    }
-
     this.onQuestionAnswered.emit({key: this.name, value: value});
   }
 }

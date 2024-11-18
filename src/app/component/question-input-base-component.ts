@@ -41,11 +41,8 @@ export abstract class QuestionInputComponent<T> implements AfterViewInit {
 
     if (this.formGroup) {
       this.formGroup.get(this.name)?.valueChanges.subscribe(value => {
-        console.log(`value changed: ${value}`);
         this.valueChanged(value);
       });
-    } else {
-      console.log(`formGroup is undefined`);
     }
   }
 
