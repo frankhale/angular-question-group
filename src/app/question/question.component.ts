@@ -1,17 +1,15 @@
 import {
   AfterContentInit,
   Component,
-  ContentChildren,
-  EventEmitter,
   Host,
-  Input,
   OnInit,
   Optional,
-  Output,
-  QueryList,
   TemplateRef,
-  ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
+  input, model,
+  output,
+  viewChild,
+  contentChildren
 } from '@angular/core';
 import {MatGridList, MatGridTile} from '@angular/material/grid-list';
 import {MatRadioButton, MatRadioGroup} from '@angular/material/radio';
@@ -38,35 +36,37 @@ import {QuestionGroupComponent} from '../question-group/question-group.component
     styleUrl: './question.component.scss'
 })
 export class QuestionComponent<T> implements AfterContentInit, OnInit {
-  @Input({required: true}) name: string = '';
-  @Input({required: true}) question: string = '';
-  @Input() showQuestionInputOnSelectedValue: YesNoOrEmpty = '';
-  @Input() warning: string = '';
-  @Input() info: string = '';
-  @Input() completed: boolean = false;
-  @Input() formGroup!: FormGroup;
-  @Output() onQuestionAnswered = new EventEmitter<KeyValue<string, T>>();
+  readonly name = input.required<string>();
+  readonly question = input.required<string>();
+  readonly showQuestionInputOnSelectedValue = input<YesNoOrEmpty>('');
+  readonly warning = input<string>('');
+  readonly info = input<string>('');
+  readonly completed = input<boolean>(false);
+  formGroup = model<FormGroup>();
+  readonly onQuestionAnswered = output<KeyValue<string, T>>();
 
-  @ViewChild("questionTemplate", {static: true}) template!: TemplateRef<any>;
+  readonly template = viewChild.required<TemplateRef<any>>("questionTemplate");
 
-  @ContentChildren(QuestionDirective, {descendants: true}) questionInputs?: QueryList<QuestionDirective<T>>;
+  readonly questionInputs = contentChildren(QuestionDirective, { descendants: true });
 
   questionInputTemplates: TemplateRef<any>[] = [];
 
   selectedOption: string = '';
 
   ngOnInit() {
-    if (!this.formGroup) {
-      this.formGroup = new FormGroup({});
+    if (!this.formGroup()) {
+      this.formGroup.set(new FormGroup({}));
     }
   }
 
   ngAfterContentInit() {
-    this.questionInputs?.forEach(questionInput => {
-      questionInput.baseComponent.formGroup = this.formGroup;
-      this.questionInputTemplates.push(questionInput.baseComponent.template);
-      if (!this.formGroup.get(questionInput.baseComponent.name)) {
-        this.formGroup.addControl(questionInput.baseComponent.name, new FormControl(''));
+    this.questionInputs()?.forEach(questionInput => {
+      questionInput.baseComponent.formGroup.set(this.formGroup());
+      this.questionInputTemplates.push(questionInput.baseComponent.template());
+      const name = questionInput.baseComponent.name();
+      const formGroup = this.formGroup();
+      if (!formGroup?.get(name)) {
+        formGroup?.addControl(name, new FormControl(''));
       }
 
       // NOTE: Need to create onValueChanged so that a single question can provide info
@@ -82,6 +82,6 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   }
 
   onSelectedOption(value: T): void {
-    this.onQuestionAnswered.emit({key: this.name, value: value});
+    this.onQuestionAnswered.emit({key: this.name(), value: value});
   }
 }

@@ -1,11 +1,13 @@
 <ng-template #component>
-    <mat-form-field class="input-style" [formGroup]="formGroup">
-      <mat-label>{{ title }}</mat-label>
-      <input [formControlName]="name"
+    <mat-form-field class="input-style" [formGroup]="formGroup()!">
+      <mat-label>{{ title() }}</mat-label>
+      <input [formControlName]="name()"
              matInput
-             placeholder="{{title}}"
+             placeholder="{{title()}}"
              type="text">
-      @if(formGroup && formGroup.get(name)?.touched && formGroup.get(name)?.invalid) {
+      @if(formGroup() &&
+          formGroup()!.get(name())?.touched &&
+          formGroup()!.get(name())?.invalid) {
         <small style="color: red;">This field is required.</small>
       }
     </mat-form-field>

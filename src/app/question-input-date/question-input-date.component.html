@@ -1,13 +1,13 @@
 <ng-template #component>
-  <mat-form-field [formGroup]="formGroup">
-    <mat-label>{{ title }}</mat-label>
+  <mat-form-field [formGroup]="formGroup()!">
+    <mat-label>{{ title() }}</mat-label>
     <input [matDatepicker]="picker"
-           [formControlName]="name"
+           [formControlName]="name()"
            matInput>
     <mat-hint>MM/DD/YYYY</mat-hint>
     <mat-datepicker-toggle [for]="picker" matIconSuffix></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
-    @if(formGroup && formGroup.get(name)?.touched && formGroup.get(name)?.invalid) {
+    @if(formGroup() && formGroup()!.get(name())?.touched && formGroup()!.get(name())?.invalid) {
       <small style="color: red;">This field contains an invalid date.</small>
     }
   </mat-form-field>

@@ -2,11 +2,10 @@ import {
   AfterContentInit,
   AfterViewInit,
   Component,
-  ContentChildren,
-  EventEmitter,
-  Input,
-  Output,
-  QueryList, TemplateRef
+  TemplateRef,
+  input, model,
+  output,
+  contentChildren
 } from '@angular/core';
 import {QuestionGroupComponent} from '../question-group/question-group.component';
 import {KeyValue, NgForOf, NgTemplateOutlet} from '@angular/common';
@@ -23,11 +22,11 @@ import {FormGroup, ReactiveFormsModule} from '@angular/forms';
     styleUrl: './question-group-collection.component.scss'
 })
 export class QuestionGroupCollectionComponent<T = string | string[]> implements AfterViewInit, AfterContentInit {
-  @Input({required: true}) name: string = '';
-  @Input() formGroup!: FormGroup;
-  @Output() onValueChanged = new EventEmitter<KeyValue<string, KeyValue<string, T>>>();
+  readonly name = input.required<string>();
+  formGroup = model<FormGroup>();
+  readonly onValueChanged = output<KeyValue<string, KeyValue<string, T>>>();
 
-  @ContentChildren(QuestionGroupComponent, {descendants: true}) questionGroups!: QueryList<QuestionGroupComponent<T>>;
+  readonly questionGroups = contentChildren(QuestionGroupComponent, { descendants: true });
 
   questionInputTemplates: TemplateRef<any>[] = [];
 
@@ -36,20 +35,23 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
   }
 
   ngAfterContentInit() {
-    this.questionGroups.forEach((questionGroup) => {
-      questionGroup.formGroup = this.formGroup;
-      questionGroup.questions.forEach(question => {
-        question.formGroup = this.formGroup;
-        question.questionInputs?.forEach(questionInputDirective => {
-          this.questionInputTemplates.push(questionInputDirective.baseComponent.template);
-          questionInputDirective.baseComponent.formGroup = this.formGroup;
+    this.questionGroups().forEach((questionGroup) => {
+      console.log(questionGroup.name());
+
+      questionGroup.formGroup.set(this.formGroup());
+      questionGroup.questions().forEach(question => {
+        question.formGroup.set(this.formGroup());
+        question.questionInputs()?.forEach(questionInputDirective => {
+          this.questionInputTemplates.push(questionInputDirective.baseComponent.template());
+          questionInputDirective.baseComponent.formGroup.set(this.formGroup());
         });
+
       });
     });
   }
 
   ngAfterViewInit() {
-    this.questionGroups.forEach((questionGroup, i) => {
+    this.questionGroups().forEach((questionGroup, i) => {
       questionGroup.onValueChanged.subscribe((newValue: KeyValue<string, KeyValue<string, T>>) => {
         this.valueChange(newValue);
       });

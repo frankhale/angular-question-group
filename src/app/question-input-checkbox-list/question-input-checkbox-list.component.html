@@ -1,7 +1,7 @@
 <ng-template #component>
-<div [formGroup]="formGroup">
-  @for (option of options; track option.name) {
-    <mat-checkbox [formControlName]="name"
+<div [formGroup]="formGroup()!">
+  @for (option of options(); track option.name) {
+    <mat-checkbox [formControlName]="name()"
                   (change)="onCheckboxChange($event.source.name, $event.checked)"
                   [name]="option.name">
       {{ option.name }}

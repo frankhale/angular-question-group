@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, input, output} from '@angular/core';
 import {ControlType, QuestionInputComponent} from '../component/question-input-base-component';
 import {MatButton} from '@angular/material/button';
 
@@ -12,8 +12,8 @@ import {MatButton} from '@angular/material/button';
     styleUrl: './question-input-button.component.scss'
 })
 export class QuestionInputButtonComponent extends QuestionInputComponent<void> {
-  @Input() text: string = '';
-  @Output() buttonClick = new EventEmitter<void>();
+  readonly text = input<string>('');
+  readonly buttonClick = output<void>();
 
   controlType: ControlType = 'button';
 

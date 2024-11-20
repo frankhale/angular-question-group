@@ -2,11 +2,10 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
-  EventEmitter,
-  Input,
-  Output,
   TemplateRef,
-  ViewChild
+  input, model,
+  output,
+  viewChild
 } from '@angular/core';
 import {QuestionDirective} from '../directives/question-directive';
 import {FormControlName, FormGroup} from '@angular/forms';
@@ -20,13 +19,15 @@ export type ControlType = 'text' | 'radio' | 'checkbox' | 'date' | 'button';
     standalone: false
 })
 export abstract class QuestionInputComponent<T> implements AfterViewInit {
-  @Input({required: true}) name: string = '';
-  @Input({required: true}) title: string = '';
-  @Input() formGroup!: FormGroup;
-  @Input() formControlName?: FormControlName;
-  @Input() initialValue: T | undefined;
-  @Output() onValueChanged = new EventEmitter<T>();
-  @ViewChild("component", {static: true}) template!: TemplateRef<any>;
+  readonly name = input.required<string>();
+  readonly title = input.required<string>();
+  readonly formControlName = input<FormControlName>();
+  readonly initialValue = input<T>();
+
+  formGroup = model<FormGroup>();
+
+  readonly onValueChanged = output<T>();
+  readonly template = viewChild.required<TemplateRef<any>>("component");
 
   abstract controlType: ControlType;
 
@@ -36,12 +37,14 @@ export abstract class QuestionInputComponent<T> implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (this.initialValue) {
-      this.valueChanged(this.initialValue, true);
+    const initialValue = this.initialValue();
+    if (initialValue) {
+      this.valueChanged(initialValue, true);
     }
 
-    if (this.formGroup) {
-      this.formGroup.get(this.name)?.valueChanges.subscribe(value => {
+    const formGroup = this.formGroup();
+    if (formGroup) {
+      formGroup.get(this.name())?.valueChanges.subscribe(value => {
         this.valueChanged(value);
       });
     }

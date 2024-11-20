@@ -1,8 +1,8 @@
 <ng-template #component>
 <div class="content">
-  @if (text) {
-    <span class="text">{{ text }}</span>
+  @if (text()) {
+    <span class="text">{{ text() }}</span>
   }
-  <button (click)="onButtonClick()" type="button" mat-flat-button name="{{name}}">{{title}}</button>
+  <button (click)="onButtonClick()" type="button" mat-flat-button name="{{name()}}">{{title()}}</button>
 </div>
 </ng-template>
