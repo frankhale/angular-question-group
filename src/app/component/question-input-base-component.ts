@@ -14,9 +14,10 @@ import {FormControlName, FormGroup} from '@angular/forms';
 export type ControlType = 'text' | 'radio' | 'checkbox' | 'date' | 'button';
 
 @Component({
-  template: ``,
-  inputs: ['question'],
-  hostDirectives: [QuestionDirective]
+    template: ``,
+    inputs: ['question'],
+    hostDirectives: [QuestionDirective],
+    standalone: false
 })
 export abstract class QuestionInputComponent<T> implements AfterViewInit {
   @Input({required: true}) name: string = '';

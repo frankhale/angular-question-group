@@ -8,21 +8,20 @@ import {ControlType, QuestionInputComponent} from '../component/question-input-b
 import {NgTemplateOutlet} from '@angular/common';
 
 @Component({
-  selector: 'app-question-input-date',
-  standalone: true,
-  providers: [provideNativeDateAdapter(),
-    {provide: QuestionInputComponent, useExisting: QuestionInputDateComponent}],
-  imports: [
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatLabel,
-    MatDatepickerModule,
-    ReactiveFormsModule,
-    NgTemplateOutlet,
-  ],
-  templateUrl: './question-input-date.component.html',
-  styleUrl: './question-input-date.component.scss'
+    selector: 'app-question-input-date',
+    providers: [provideNativeDateAdapter(),
+        { provide: QuestionInputComponent, useExisting: QuestionInputDateComponent }],
+    imports: [
+        FormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatLabel,
+        MatDatepickerModule,
+        ReactiveFormsModule,
+        NgTemplateOutlet,
+    ],
+    templateUrl: './question-input-date.component.html',
+    styleUrl: './question-input-date.component.scss'
 })
 export class QuestionInputDateComponent extends QuestionInputComponent<string> {
   controlType: ControlType = 'date';

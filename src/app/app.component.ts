@@ -17,32 +17,30 @@ import {
 import {KeyValue} from '@angular/common';
 
 @Component({
-  selector: 'app-cool-snack-bar',
-  standalone: true,
-  template: `
+    selector: 'app-cool-snack-bar',
+    template: `
     <div matSnackBarLabel>You really are cool!!!</div>`,
-  imports: [
-    MatSnackBarLabel
-  ]
+    imports: [
+        MatSnackBarLabel
+    ]
 })
 export class CoolSnackBarComponent {
   snackBarRef = inject(MatSnackBarRef);
 }
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [QuestionGroupComponent,
-    QuestionComponent,
-    MatInputModule,
-    MatFormFieldModule,
-    FormsModule,
-    QuestionInputTextComponent,
-    QuestionInputDateComponent,
-    QuestionGroupCollectionComponent,
-    QuestionInputButtonComponent, MatButton, ReactiveFormsModule, QuestionInputRadioGroupComponent, QuestionInputCheckboxListComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+    selector: 'app-root',
+    imports: [QuestionGroupComponent,
+        QuestionComponent,
+        MatInputModule,
+        MatFormFieldModule,
+        FormsModule,
+        QuestionInputTextComponent,
+        QuestionInputDateComponent,
+        QuestionGroupCollectionComponent,
+        QuestionInputButtonComponent, MatButton, ReactiveFormsModule, QuestionInputRadioGroupComponent, QuestionInputCheckboxListComponent],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'question-app';

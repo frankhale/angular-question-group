@@ -18,15 +18,14 @@ import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {QuestionGroupCollectionComponent} from '../question-group-collection/question-group-collection.component';
 
 @Component({
-  selector: 'app-question-group',
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    NgTemplateOutlet,
-    NgForOf
-  ],
-  templateUrl: './question-group.component.html',
-  styleUrl: './question-group.component.scss'
+    selector: 'app-question-group',
+    imports: [
+        ReactiveFormsModule,
+        NgTemplateOutlet,
+        NgForOf
+    ],
+    templateUrl: './question-group.component.html',
+    styleUrl: './question-group.component.scss'
 })
 export class QuestionGroupComponent<T> implements AfterContentInit, AfterViewInit {
   @Input({required: true}) name: string = '';

@@ -23,20 +23,19 @@ import {QuestionDirective} from '../directives/question-directive';
 import {QuestionGroupComponent} from '../question-group/question-group.component';
 
 @Component({
-  selector: 'app-question',
-  standalone: true,
-  imports: [
-    MatGridTile,
-    MatGridList,
-    MatRadioGroup,
-    MatRadioButton,
-    FormsModule,
-    NgTemplateOutlet,
-    NgForOf
-  ],
-  providers: [{provide: QuestionInputComponent, useExisting: QuestionComponent}],
-  templateUrl: './question.component.html',
-  styleUrl: './question.component.scss'
+    selector: 'app-question',
+    imports: [
+        MatGridTile,
+        MatGridList,
+        MatRadioGroup,
+        MatRadioButton,
+        FormsModule,
+        NgTemplateOutlet,
+        NgForOf
+    ],
+    providers: [{ provide: QuestionInputComponent, useExisting: QuestionComponent }],
+    templateUrl: './question.component.html',
+    styleUrl: './question.component.scss'
 })
 export class QuestionComponent<T> implements AfterContentInit, OnInit {
   @Input({required: true}) name: string = '';

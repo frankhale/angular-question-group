@@ -3,14 +3,13 @@ import {ControlType, QuestionInputComponent} from '../component/question-input-b
 import {MatButton} from '@angular/material/button';
 
 @Component({
-  selector: 'app-question-input-button',
-  standalone: true,
-  providers: [{provide: QuestionInputComponent, useExisting: QuestionInputButtonComponent}],
-  imports: [
-    MatButton
-  ],
-  templateUrl: './question-input-button.component.html',
-  styleUrl: './question-input-button.component.scss'
+    selector: 'app-question-input-button',
+    providers: [{ provide: QuestionInputComponent, useExisting: QuestionInputButtonComponent }],
+    imports: [
+        MatButton
+    ],
+    templateUrl: './question-input-button.component.html',
+    styleUrl: './question-input-button.component.scss'
 })
 export class QuestionInputButtonComponent extends QuestionInputComponent<void> {
   @Input() text: string = '';
