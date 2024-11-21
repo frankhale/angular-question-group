@@ -23,9 +23,7 @@ export abstract class QuestionInputComponent<T> implements AfterViewInit {
   readonly title = input.required<string>();
   readonly formControlName = input<FormControlName>();
   readonly initialValue = input<T>();
-
-  formGroup = model<FormGroup>();
-
+  readonly formGroup = model<FormGroup>();
   readonly onValueChanged = output<T>();
   readonly template = viewChild.required<TemplateRef<any>>("component");
 

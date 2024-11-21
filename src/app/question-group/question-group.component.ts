@@ -2,13 +2,14 @@ import {
   AfterContentInit,
   AfterViewInit,
   Component,
+  contentChildren,
   Host,
+  input,
+  model,
   Optional,
-  TemplateRef,
-  input, model,
   output,
-  viewChild,
-  contentChildren
+  TemplateRef,
+  viewChild
 } from '@angular/core';
 import {QuestionComponent} from '../question/question.component';
 import {KeyValue, NgForOf, NgTemplateOutlet} from '@angular/common';
@@ -16,23 +17,22 @@ import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {QuestionGroupCollectionComponent} from '../question-group-collection/question-group-collection.component';
 
 @Component({
-    selector: 'app-question-group',
-    imports: [
-        ReactiveFormsModule,
-        NgTemplateOutlet,
-        NgForOf
-    ],
-    templateUrl: './question-group.component.html',
-    styleUrl: './question-group.component.scss'
+  selector: 'app-question-group',
+  imports: [
+    ReactiveFormsModule,
+    NgTemplateOutlet,
+    NgForOf
+  ],
+  templateUrl: './question-group.component.html',
+  styleUrl: './question-group.component.scss'
 })
 export class QuestionGroupComponent<T> implements AfterContentInit, AfterViewInit {
   readonly name = input.required<string>();
-  formGroup = model<FormGroup>();
-  readonly onValueChanged = output<KeyValue<string, KeyValue<string, T>>>();
-
   readonly template = viewChild.required<TemplateRef<any>>("questionGroupTemplate");
+  readonly questions = contentChildren(QuestionComponent, {descendants: true});
+  readonly onValueChanged = output<KeyValue<string, KeyValue<string, T>>>();
+  readonly formGroup = model<FormGroup>();
 
-  readonly questions = contentChildren(QuestionComponent, { descendants: true });
   questionGroupCollectionIsParent: boolean;
 
   constructor(@Optional() @Host() private parent: QuestionGroupCollectionComponent) {
@@ -49,13 +49,16 @@ export class QuestionGroupComponent<T> implements AfterContentInit, AfterViewIni
     }
 
     this.questions()!.forEach(question => {
-      question.formGroup.set(this.formGroup());
+      if (!question.formGroup()) {
+        question.formGroup.set(this.formGroup());
+      }
       question.questionInputs()?.forEach(questionInput => {
-        questionInput.baseComponent.formGroup.set(this.formGroup());
-        const name = questionInput.baseComponent.name();
-        const formGroup = this.formGroup();
-        if (!formGroup?.get(name)) {
-          formGroup?.addControl(name, new FormControl(''));
+        if (!questionInput.baseComponent.formGroup()) {
+          questionInput.baseComponent.formGroup.set(this.formGroup());
+        }
+
+        if (!this.formGroup()?.get(questionInput.baseComponent.name())) {
+          this.formGroup()?.addControl(questionInput.baseComponent.name(), new FormControl(''));
         }
       });
     });

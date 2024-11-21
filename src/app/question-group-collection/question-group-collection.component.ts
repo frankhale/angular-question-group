@@ -2,31 +2,31 @@ import {
   AfterContentInit,
   AfterViewInit,
   Component,
-  TemplateRef,
-  input, model,
+  contentChildren,
+  input,
+  model,
   output,
-  contentChildren
+  TemplateRef
 } from '@angular/core';
 import {QuestionGroupComponent} from '../question-group/question-group.component';
 import {KeyValue, NgForOf, NgTemplateOutlet} from '@angular/common';
 import {FormGroup, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
-    selector: 'app-question-group-collection',
-    imports: [
-        ReactiveFormsModule,
-        NgForOf,
-        NgTemplateOutlet
-    ],
-    templateUrl: './question-group-collection.component.html',
-    styleUrl: './question-group-collection.component.scss'
+  selector: 'app-question-group-collection',
+  imports: [
+    ReactiveFormsModule,
+    NgForOf,
+    NgTemplateOutlet
+  ],
+  templateUrl: './question-group-collection.component.html',
+  styleUrl: './question-group-collection.component.scss'
 })
 export class QuestionGroupCollectionComponent<T = string | string[]> implements AfterViewInit, AfterContentInit {
   readonly name = input.required<string>();
-  formGroup = model<FormGroup>();
+  readonly formGroup = model<FormGroup>();
   readonly onValueChanged = output<KeyValue<string, KeyValue<string, T>>>();
-
-  readonly questionGroups = contentChildren(QuestionGroupComponent, { descendants: true });
+  readonly questionGroups = contentChildren(QuestionGroupComponent, {descendants: true});
 
   questionInputTemplates: TemplateRef<any>[] = [];
 
