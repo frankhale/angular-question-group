@@ -5,6 +5,10 @@
       (onQuestionAnswered)="valueChange($event)"
       [question]="'This is a question!'"
       name="first_question"
+      [messages]="[
+        { type: 'info', description: 'This is an info box that shows regardless of answer selected', showOnValue: '' },
+        { type: 'warning', description: 'OMG!', showOnValue: 'no' }
+      ]"
     >
       <app-question-template [showOnAnswer]="'no'">
         <app-question

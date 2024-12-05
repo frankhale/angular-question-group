@@ -28,13 +28,13 @@
       </span>
     }
 
-    @for(message of messages(); track message.description) {
-      @if (message.type === 'info' && message.showOnValue === this.selectedOption) {
+    @for (message of messages(); track message.description) {
+      @if (message.type === 'info' && (message.showOnValue === this.selectedOption || message.showOnValue === '')) {
         <div class="info">
           {{ message.description }}
         </div>
       }
-      @if (message.type === 'warning' && message.showOnValue === this.selectedOption) {
+      @if (message.type === 'warning' && (message.showOnValue === this.selectedOption || message.showOnValue === '')) {
         <div class="warning">
           {{ message.description }}
         </div>
@@ -46,8 +46,8 @@
 
 <ng-template #questionsTemplate>
   <div *ngFor="let questionTemplate of questionTemplateComponents()">
-    @if(questionTemplate.showOnAnswer() === this.selectedOption) {
-    <ng-container *ngTemplateOutlet="questionTemplate.template()"></ng-container>
+    @if (questionTemplate.showOnAnswer() === this.selectedOption) {
+      <ng-container *ngTemplateOutlet="questionTemplate.template()"></ng-container>
     }
   </div>
 </ng-template>
