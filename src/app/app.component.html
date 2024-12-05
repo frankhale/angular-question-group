@@ -1,23 +1,39 @@
 <div class="content">
   <form [formGroup]="formGroup" (ngSubmit)="submit()">
-    <app-question
+    <app-question-group-collection
       [formGroup]="formGroup"
-      (onQuestionAnswered)="valueChange($event)"
-      [question]="'This is a question!'"
-      name="first_question"
-      [messages]="[
+      (onValueChanged)="valueChange($event)"
+      name="my_question_group_collection">
+      <app-question-group name="first_group">
+        <app-question
+          [question]="'This is a question!'"
+          name="first_question"
+          [showQuestionInputOnSelectedValue]="'yes'"
+          [messages]="[
         { type: 'info', description: 'This is an info box that shows regardless of answer selected', showOnValue: '' },
         { type: 'warning', description: 'OMG!', showOnValue: 'no' }
       ]"
-    >
-      <app-question-template [showOnAnswer]="'no'">
-        <app-question
-          [question]="'This is a child question!'"
-          name="child_of_first_question"
         >
+          <app-question-input-text name="name_input"
+                                   [title]="'Name'"></app-question-input-text>
+          <app-question-input-date name="date_input"
+                                   [title]="'Date you became cool'"></app-question-input-date>
+          <app-question-input-button name="my_button"
+                                     (buttonClick)="openSnackBar()"
+                                     [text]="'If you are really cool, click the button!'"
+                                     [title]="'Click me!'">
+          </app-question-input-button>
+
+          <app-question-template [showOnAnswer]="'no'">
+            <app-question
+              [question]="'This is a child question!'"
+              name="child_of_first_question"
+            >
+            </app-question>
+          </app-question-template>
         </app-question>
-      </app-question-template>
-    </app-question>
+      </app-question-group>
+    </app-question-group-collection>
     <div class="submit">
       <button mat-flat-button type="submit">Submit</button>
     </div>
