@@ -1,71 +1,12 @@
 <div class="content">
   <form [formGroup]="formGroup" (ngSubmit)="submit()">
-    <app-question-group-collection
+    <app-question
       [formGroup]="formGroup"
-      (onValueChanged)="valueChange($event)"
-      name="my_question_group_collection">
-      <app-question-group name="first_group">
-        <app-question
-          [completed]="are_you_cool_completed"
-          [info]="'We need to know if you are cool or not'"
-          [question]="'Are you cool? If so enter your name below.'"
-          [showQuestionInputOnSelectedValue]="'yes'"
-          [warning]="'You must be cool to proceed'"
-          name="first_question">
-          <app-question-input-text name="name_input"
-                                   [title]="'Name'"></app-question-input-text>
-          <app-question-input-date name="date_input"
-                                   [title]="'Date you became cool'"></app-question-input-date>
-          <app-question-input-button name="my_button"
-                                     (buttonClick)="openSnackBar()"
-                                     [text]="'If you are really cool, click the button!'"
-                                     [title]="'Click me!'">
-          </app-question-input-button>
-        </app-question>
-      </app-question-group>
-      <app-question-group name="second_group">
-        <app-question
-          [question]="'This is another question!'"
-          name="second_question"
-        >
-        </app-question>
-        <app-question
-          [question]="'This is yet another question!'"
-          [showQuestionInputOnSelectedValue]="'yes'"
-          name="third_question"
-        >
-          <app-question-input-radio-group [options]="[
-                                          { name: 'red', value: 'red'},
-                                          { name: 'green', value: 'green'},
-                                          { name: 'blue', value: 'blue'}
-                                        ]"
-                                          [title]="'What is your favorite color?'"
-                                          name="radio_group">
-          </app-question-input-radio-group>
-        </app-question>
-        <app-question
-          [question]="'Lets do some checkboxes!!!'"
-          [showQuestionInputOnSelectedValue]="'yes'"
-          name="fourth_question"
-        >
-          <app-question-input-checkbox-list [options]="[
-                                            { name: 'red' },
-                                            { name: 'green' },
-                                            { name: 'blue' }
-                                          ]"
-                                            [title]="'What is your favorite color?'"
-                                            name="checkbox_list">
-          </app-question-input-checkbox-list>
-        </app-question>
-      </app-question-group>
-      <app-question-group name="third_group">
-        <app-question
-          [question]="'This is another question in the third group!'"
-          name="fifth_question"
-        >
-        </app-question>
-      </app-question-group>
-    </app-question-group-collection>
+      (onQuestionAnswered)="valueChange($event)"
+      [question]="'This is a question!'"
+      name="chip_question"
+    >
+    </app-question>
     <div class="submit">
       <button mat-flat-button type="submit">Submit</button>
     </div>
