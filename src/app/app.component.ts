@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular
 import {MatSnackBar, MatSnackBarLabel, MatSnackBarRef,} from '@angular/material/snack-bar';
 import {MatButton} from '@angular/material/button';
 import {KeyValue} from '@angular/common';
+import {QuestionTemplateComponent} from './question-template/question-template.component';
 
 @Component({
   selector: 'app-cool-snack-bar',
@@ -25,7 +26,7 @@ export class CoolSnackBarComponent {
     MatInputModule,
     MatFormFieldModule,
     FormsModule,
-    MatButton, ReactiveFormsModule],
+    MatButton, ReactiveFormsModule, QuestionTemplateComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

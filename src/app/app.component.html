@@ -4,8 +4,15 @@
       [formGroup]="formGroup"
       (onQuestionAnswered)="valueChange($event)"
       [question]="'This is a question!'"
-      name="chip_question"
+      name="first_question"
     >
+      <app-question-template [showOnAnswer]="'no'">
+        <app-question
+          [question]="'This is a child question!'"
+          name="child_of_first_question"
+        >
+        </app-question>
+      </app-question-template>
     </app-question>
     <div class="submit">
       <button mat-flat-button type="submit">Submit</button>

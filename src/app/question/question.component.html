@@ -24,19 +24,30 @@
 
     @if (selectedOption === this.showQuestionInputOnSelectedValue()) {
       <span *ngFor="let questionInputTemplate of questionInputTemplates">
-    <ng-container #questionInputContainer *ngTemplateOutlet="questionInputTemplate"></ng-container>
-  </span>
+        <ng-container #questionInputContainer *ngTemplateOutlet="questionInputTemplate"></ng-container>
+      </span>
     }
 
-    @if (info().length > 0) {
-      <div class="info">
-        {{ info() }}
-      </div>
+    @for(message of messages(); track message.description) {
+      @if (message.type === 'info' && message.showOnValue === this.selectedOption) {
+        <div class="info">
+          {{ message.description }}
+        </div>
+      }
+      @if (message.type === 'warning' && message.showOnValue === this.selectedOption) {
+        <div class="warning">
+          {{ message.description }}
+        </div>
+      }
     }
-    @if (warning().length > 0) {
-      <div class="warning">
-        {{ warning() }}
-      </div>
+  </div>
+  <ng-container *ngTemplateOutlet="questionsTemplate"></ng-container>
+</ng-template>
+
+<ng-template #questionsTemplate>
+  <div *ngFor="let questionTemplate of questionTemplateComponents()">
+    @if(questionTemplate.showOnAnswer() === this.selectedOption) {
+    <ng-container *ngTemplateOutlet="questionTemplate.template()"></ng-container>
     }
   </div>
 </ng-template>
