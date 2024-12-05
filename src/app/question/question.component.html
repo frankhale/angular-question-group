@@ -23,8 +23,8 @@
     </mat-grid-list>
 
     @if (selectedOption === this.showQuestionInputOnSelectedValue()) {
-      <span *ngFor="let questionInputTemplate of questionInputTemplates">
-        <ng-container #questionInputContainer *ngTemplateOutlet="questionInputTemplate"></ng-container>
+      <span *ngFor="let questionInput of questionInputs()">
+        <ng-container #questionInputContainer *ngTemplateOutlet="questionInput.baseComponent.template()"></ng-container>
       </span>
     }
 
@@ -41,10 +41,10 @@
       }
     }
   </div>
-  <ng-container *ngTemplateOutlet="questionsTemplate"></ng-container>
+  <ng-container *ngTemplateOutlet="childQuestionsTemplate"></ng-container>
 </ng-template>
 
-<ng-template #questionsTemplate>
+<ng-template #childQuestionsTemplate>
   <div *ngFor="let questionTemplate of questionTemplateComponents()">
     @if (questionTemplate.showOnAnswer() === this.selectedOption) {
       <ng-container *ngTemplateOutlet="questionTemplate.template()"></ng-container>

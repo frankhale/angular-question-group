@@ -43,10 +43,8 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   readonly onQuestionAnswered = output<KeyValue<string, T>>();
   readonly formGroup = model<FormGroup>();
   readonly template = viewChild.required<TemplateRef<any>>("questionTemplate");
-  readonly questionInputs = contentChildren(QuestionDirective, {descendants: true});
+  readonly questionInputs = contentChildren(QuestionDirective);
   readonly questionTemplateComponents = contentChildren(QuestionTemplateComponent, {descendants: true});
-
-  questionInputTemplates: TemplateRef<any>[] = [];
 
   selectedOption: string = '';
 
@@ -54,6 +52,14 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
     if (!this.formGroup()) {
       this.formGroup.set(new FormGroup({}));
     }
+
+    this.onQuestionAnswered.subscribe((answer: KeyValue<string, T>) => {
+      if (answer.value === 'no') {
+        this.questionInputs()?.forEach(questionInput => {
+          questionInput.baseComponent.formGroup()?.get(questionInput.baseComponent.name())?.setValue('');
+        });
+      }
+    });
   }
 
   ngAfterContentInit() {
@@ -62,13 +68,11 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
         questionInput.baseComponent.formGroup.set(this.formGroup());
       }
 
-      this.questionInputTemplates.push(questionInput.baseComponent.template());
-
       if (!this.formGroup()?.get(questionInput.baseComponent.name())) {
         this.formGroup()?.addControl(questionInput.baseComponent.name(), new FormControl(''));
       }
 
-      // NOTE: Need to create onValueChanged so that a single question can provide info
+      // MAYBE?!?: Create onValueChanged so that a single question can provide info
       // about the values that were entered into the form.
 
       // if (questionInput && questionInput.baseComponent.onValueChanged) {
@@ -80,18 +84,13 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
     });
 
     this.questionTemplateComponents()?.forEach(questionTemplateComponent => {
-      if(questionTemplateComponent.questions()) {
+      if (questionTemplateComponent.questions()) {
         questionTemplateComponent.questions().forEach(question => {
           if (!question.formGroup()) {
             question.formGroup.set(this.formGroup());
           }
 
-          question.onQuestionAnswered.subscribe((answer: KeyValue<string, T>) => {
-            this.onQuestionAnswered.emit(answer);
-          });
-
           question.questionInputs()?.forEach(questionInputDirective => {
-            this.questionInputTemplates.push(questionInputDirective.baseComponent.template());
             questionInputDirective.baseComponent.formGroup.set(this.formGroup());
           });
         });

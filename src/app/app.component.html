@@ -6,7 +6,7 @@
       name="my_question_group_collection">
       <app-question-group name="first_group">
         <app-question
-          [question]="'This is a question!'"
+          [question]="'This is a parent question!'"
           name="first_question"
           [showQuestionInputOnSelectedValue]="'yes'"
           [messages]="[
@@ -23,7 +23,6 @@
                                      [text]="'If you are really cool, click the button!'"
                                      [title]="'Click me!'">
           </app-question-input-button>
-
           <app-question-template [showOnAnswer]="'no'">
             <app-question
               [question]="'This is a child question!'"

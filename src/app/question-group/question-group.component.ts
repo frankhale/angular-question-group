@@ -29,7 +29,7 @@ import {QuestionGroupCollectionComponent} from '../question-group-collection/que
 export class QuestionGroupComponent<T> implements AfterContentInit, AfterViewInit {
   readonly name = input.required<string>();
   readonly template = viewChild.required<TemplateRef<any>>("questionGroupTemplate");
-  readonly questions = contentChildren(QuestionComponent, {descendants: true});
+  readonly questions = contentChildren(QuestionComponent);
   readonly onValueChanged = output<KeyValue<string, KeyValue<string, T>>>();
   readonly formGroup = model<FormGroup>();
 
