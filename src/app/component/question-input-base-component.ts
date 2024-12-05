@@ -8,7 +8,7 @@ import {
   viewChild
 } from '@angular/core';
 import {QuestionDirective} from '../directives/question-directive';
-import {FormControlName, FormGroup} from '@angular/forms';
+import {FormControlName, FormGroup, ValidatorFn} from '@angular/forms';
 
 export type ControlType = 'text' | 'radio' | 'checkbox' | 'date' | 'button' | 'select';
 
@@ -27,6 +27,8 @@ export abstract class QuestionInputComponent<T> implements AfterViewInit {
   readonly onValueChanged = output<T>();
   readonly template = viewChild.required<TemplateRef<any>>("component");
 
+  validators: ValidatorFn[] | null = null;
+
   abstract controlType: ControlType;
 
   value: T | undefined;
@@ -42,13 +44,31 @@ export abstract class QuestionInputComponent<T> implements AfterViewInit {
 
     const formGroup = this.formGroup();
     if (formGroup) {
-      formGroup.get(this.name())?.valueChanges.subscribe(value => {
-        this.valueChanged(value);
-      });
+      const control = formGroup.get(this.name());
+
+      if(control) {
+        this.validators = control.validator ? [control.validator] : null;
+        control.valueChanges.subscribe(value => {
+          this.valueChanged(value);
+        });
+      }
     }
   }
 
-  public valueChanged(value?: T, initial?: boolean) {
+  toggleValidators(value: boolean) {
+    const control = this.formGroup()?.get(this.name());
+    if(control) {
+      if (value) {
+        control.setValidators(this.validators);
+      } else {
+        control?.setValidators(null);
+      }
+
+      control.updateValueAndValidity();
+    }
+  }
+
+  valueChanged(value?: T, initial?: boolean) {
     if (value) {
       this.value = value;
       this.onValueChanged.emit(this.value);

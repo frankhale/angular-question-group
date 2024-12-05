@@ -52,14 +52,6 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
     if (!this.formGroup()) {
       this.formGroup.set(new FormGroup({}));
     }
-
-    this.onQuestionAnswered.subscribe((answer: KeyValue<string, T>) => {
-      if (answer.value === 'no') {
-        this.questionInputs()?.forEach(questionInput => {
-          questionInput.baseComponent.formGroup()?.get(questionInput.baseComponent.name())?.setValue('');
-        });
-      }
-    });
   }
 
   ngAfterContentInit() {
@@ -78,7 +70,7 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
       // if (questionInput && questionInput.baseComponent.onValueChanged) {
       //   questionInput.baseComponent.onValueChanged.subscribe((newValue: T) => {
       //     //this.valueChange(questionInput!.name, newValue);
-      //     console.log(questionInput!.baseComponent.name, newValue);
+      //     console.log(questionInput!.baseComponent.name(), newValue);
       //   });
       // }
     });
@@ -90,6 +82,10 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
             question.formGroup.set(this.formGroup());
           }
 
+          question.onQuestionAnswered.subscribe((answer: KeyValue<string, T>) => {
+            this.onQuestionAnswered.emit(answer);
+          });
+
           question.questionInputs()?.forEach(questionInputDirective => {
             questionInputDirective.baseComponent.formGroup.set(this.formGroup());
           });
@@ -99,6 +95,29 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   }
 
   onSelectedOption(value: T): void {
+    if (value !== this.showQuestionInputOnSelectedValue() &&
+      this.showQuestionInputOnSelectedValue() !== '') {
+      this.questionInputs()?.forEach(questionInput => {
+        questionInput.baseComponent.formGroup()?.get(questionInput.baseComponent.name())?.setValue('DELETE_ME');
+        questionInput.baseComponent.toggleValidators(false);
+      });
+    } else if (value === this.showQuestionInputOnSelectedValue()){
+      this.questionInputs()?.forEach(questionInput => {
+        questionInput.baseComponent.formGroup()?.get(questionInput.baseComponent.name())?.setValue('');
+        questionInput.baseComponent.toggleValidators(true);
+      });
+    }
+
+    this.questionTemplateComponents()?.forEach(questionTemplateComponent => {
+      if(questionTemplateComponent.showOnAnswer() !== this.selectedOption) return;
+
+      if (questionTemplateComponent.questions()) {
+        questionTemplateComponent.questions().forEach(question => {
+          question.onSelectedOption("DELETE_ME");
+        });
+      }
+    })
+
     this.onQuestionAnswered.emit({key: this.name(), value: value});
   }
 }

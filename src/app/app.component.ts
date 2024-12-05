@@ -54,14 +54,19 @@ export class AppComponent {
   //valueChange(kv: KeyValue<string, string | string[]>) {
   valueChange(kv: KeyValue<string, KeyValue<string, string | string[]>>) {
     //console.log(kv);
-
-    if (kv.value.value !== '') {
-      if (!this.data.has(kv.key)) {
-        this.data.set(kv.key, new Map<string, string | string[]>());
-      }
-      this.data.get(kv.key)?.set(kv.value.key, kv.value.value);
+    if (kv.value.value === 'DELETE_ME') {
+      // console.log(
+      //   `Deleting ${kv.value.key} with value ${kv.value.value}`);
+      this.data.get(kv.key)?.delete(kv.value.key);
     } else {
-      this.data.delete(kv.key);
+      if (kv.value.value !== '') {
+        if (!this.data.has(kv.key)) {
+          this.data.set(kv.key, new Map<string, string | string[]>());
+        }
+        this.data.get(kv.key)?.set(kv.value.key, kv.value.value);
+      } else {
+        this.data.delete(kv.key);
+      }
     }
   }
 

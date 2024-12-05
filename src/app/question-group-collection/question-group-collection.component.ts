@@ -36,8 +36,6 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
 
   ngAfterContentInit() {
     this.questionGroups().forEach((questionGroup) => {
-      console.log(questionGroup.name());
-
       questionGroup.formGroup.set(this.formGroup());
       questionGroup.questions().forEach(question => {
         question.formGroup.set(this.formGroup());
