@@ -3,7 +3,7 @@ import {QuestionComponent} from './question/question.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MatSnackBar, MatSnackBarLabel, MatSnackBarRef,} from '@angular/material/snack-bar';
+import {MatSnackBar, MatSnackBarLabel,} from '@angular/material/snack-bar';
 import {MatButton} from '@angular/material/button';
 import {KeyValue} from '@angular/common';
 import {QuestionTemplateComponent} from './question-template/question-template.component';
@@ -16,13 +16,12 @@ import {QuestionInputTextComponent} from './question-input-text/question-input-t
 @Component({
   selector: 'app-cool-snack-bar',
   template: `
-    <div matSnackBarLabel>You really are cool!!!</div>`,
+    <div matSnackBarLabel>Hello, World!</div>`,
   imports: [
     MatSnackBarLabel
   ]
 })
 export class CoolSnackBarComponent {
-  snackBarRef = inject(MatSnackBarRef);
 }
 
 @Component({
@@ -37,7 +36,6 @@ export class CoolSnackBarComponent {
 })
 export class AppComponent {
   title = 'question-app';
-  are_you_cool_completed = false;
   data: Map<string, Map<string, string | string[]>> = new Map<string, Map<string, string | string[]>>();
   formGroup!: FormGroup;
   private _snackBar = inject(MatSnackBar);
