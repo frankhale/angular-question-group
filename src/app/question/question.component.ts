@@ -78,6 +78,25 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
       //   });
       // }
     });
+
+    this.questionTemplateComponents()?.forEach(questionTemplateComponent => {
+      if(questionTemplateComponent.questions()) {
+        questionTemplateComponent.questions().forEach(question => {
+          if (!question.formGroup()) {
+            question.formGroup.set(this.formGroup());
+          }
+
+          question.onQuestionAnswered.subscribe((answer: KeyValue<string, T>) => {
+            this.onQuestionAnswered.emit(answer);
+          });
+
+          question.questionInputs()?.forEach(questionInputDirective => {
+            this.questionInputTemplates.push(questionInputDirective.baseComponent.template());
+            questionInputDirective.baseComponent.formGroup.set(this.formGroup());
+          });
+        });
+      }
+    });
   }
 
   onSelectedOption(value: T): void {
