@@ -1,13 +1,16 @@
 <ng-template #component>
-  <mat-form-field>
-    <h3>NOT FINISHED!!!</h3>
+  <mat-form-field [formGroup]="formGroup()!">
     <mat-label>{{title()}}</mat-label>
     <mat-select [(value)]="selected">
-      @for (val of values(); track val.name;) {
+      @for (val of categories(); track val.name;) {
         <mat-option [value]="val.name">{{val.value}}</mat-option>
       }
     </mat-select>
   </mat-form-field>
   <br />
   option selected: {{selected ? selected : 'none'}}
+</ng-template>
+
+<ng-template #chipSelector>
+  <!-- Chip Selector Goes Here -->
 </ng-template>

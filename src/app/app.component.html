@@ -14,15 +14,13 @@
         { type: 'warning', description: 'OMG!', showOnValue: 'no' }
       ]"
         >
-          <app-question-input-text name="name_input"
-                                   [title]="'Name'"></app-question-input-text>
-          <app-question-input-date name="date_input"
-                                   [title]="'Date you became cool'"></app-question-input-date>
-          <app-question-input-button name="my_button"
-                                     (buttonClick)="openSnackBar()"
-                                     [text]="'If you are really cool, click the button!'"
-                                     [title]="'Click me!'">
-          </app-question-input-button>
+          <app-question-input-chip-selector name="chip_selector"
+                                            [title]="'Chip Selector'"
+                                            [categories]="[{ name: 'Cat 1', value: 'Cat 1' }, { name: 'Cat 2', value: 'Cat 2'}]"
+                                            [chipCategories]="[{ category: 'Cat 1', chips: ['Foo', 'Bar'] },
+                                            { category: 'Cat 2', chips: ['Yiz', 'Qux'] }]">
+          </app-question-input-chip-selector>
+
           <app-question-template [showOnAnswer]="'no'">
             <app-question
               [question]="'This is a child question!'"

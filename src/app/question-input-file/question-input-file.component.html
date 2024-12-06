@@ -1,0 +1,27 @@
+<ng-template #component>
+  <div [formGroup]="formGroup()!" class="file-input-container">
+    <button mat-stroked-button color="primary" (click)="fileInput.click()">{{ title() }}</button>
+    <div class="file-container" *ngIf="files.length > 0">
+      @for (file of files; track file.fileName) {
+        <div class="file">
+          <div>{{ file.fileName }}</div>
+          <button class="delete" mat-icon-button>
+            <mat-icon (click)="onDelete(file.id)">delete</mat-icon>
+          </button>
+        </div>
+      }
+    </div>
+    <input
+      #fileInput
+      type="file"
+      hidden
+      [formControlName]="name()"
+      (change)="onFileSelected($event)"
+    />
+    @if(formGroup() &&
+    formGroup()!.get(name())?.touched &&
+    formGroup()!.get(name())?.invalid) {
+      <div><small style="color: red;">This field is required.</small></div>
+    }
+  </div>
+</ng-template>

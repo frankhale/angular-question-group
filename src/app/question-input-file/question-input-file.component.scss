@@ -1,0 +1,27 @@
+.file-container {
+  gap: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.file {
+  position: relative;
+  flex: 1 1 150px;
+  border: 1px solid black;
+  min-width: 100px;
+  max-width: 100px;
+  padding: 25px;
+  margin: 0 10px;
+  text-align: center;
+  background-color: #ddd;
+}
+
+.delete {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}

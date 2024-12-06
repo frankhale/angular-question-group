@@ -10,7 +10,7 @@ import {
 import {QuestionDirective} from '../directives/question-directive';
 import {FormControlName, FormGroup, ValidatorFn} from '@angular/forms';
 
-export type ControlType = 'text' | 'radio' | 'checkbox' | 'date' | 'button' | 'select';
+export type ControlType = 'text' | 'radio' | 'checkbox' | 'date' | 'button' | 'select' | 'file';
 
 @Component({
     template: ``,
