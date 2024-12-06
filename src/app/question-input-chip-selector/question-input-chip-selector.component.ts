@@ -1,4 +1,4 @@
-import {Component, input} from '@angular/core';
+import {Component, input, TemplateRef, viewChild, ViewChild, ViewContainerRef, ProviderToken} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
@@ -17,8 +17,15 @@ import {ChipCategory} from '../models/chip-category';
 export class QuestionInputChipSelectorComponent extends QuestionInputComponent<string> {
   controlType: ControlType = 'select';
 
-  categories = input.required<NameValue[]>();
-  chipCategories = input.required<ChipCategory[]>();
+  readonly categories = input.required<NameValue[]>();
+  readonly chipCategories = input.required<ChipCategory[]>();
+
+  readonly chipSelectorTemplate = viewChild.required<TemplateRef<any>>("chipSelectorTemplate");
+  readonly chipContainerRef = viewChild.required("chipContainer", { read: ViewContainerRef });
 
   selected: string = "";
+
+  onChipSelectorChange(event: any) {
+    this.chipContainerRef().createEmbeddedView(this.chipSelectorTemplate());
+  }
 }

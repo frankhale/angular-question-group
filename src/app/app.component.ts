@@ -7,11 +7,11 @@ import {MatSnackBar, MatSnackBarLabel,} from '@angular/material/snack-bar';
 import {MatButton} from '@angular/material/button';
 import {KeyValue} from '@angular/common';
 import {QuestionTemplateComponent} from './question-template/question-template.component';
-import {QuestionGroupCollectionComponent} from './question-group-collection/question-group-collection.component';
-import {QuestionGroupComponent} from './question-group/question-group.component';
 import {
   QuestionInputChipSelectorComponent
 } from './question-input-chip-selector/question-input-chip-selector.component';
+import {QuestionGroupCollectionComponent} from './question-group-collection/question-group-collection.component';
+import {QuestionGroupComponent} from './question-group/question-group.component';
 
 @Component({
   selector: 'app-cool-snack-bar',
@@ -30,7 +30,7 @@ export class CoolSnackBarComponent {
     MatInputModule,
     MatFormFieldModule,
     FormsModule,
-    MatButton, ReactiveFormsModule, QuestionTemplateComponent, QuestionGroupCollectionComponent, QuestionGroupComponent, QuestionInputChipSelectorComponent],
+    MatButton, ReactiveFormsModule, QuestionTemplateComponent, QuestionInputChipSelectorComponent, QuestionGroupCollectionComponent, QuestionGroupComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

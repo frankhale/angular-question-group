@@ -1,7 +1,7 @@
 <ng-template #component>
   <mat-form-field [formGroup]="formGroup()!">
     <mat-label>{{title()}}</mat-label>
-    <mat-select [(value)]="selected">
+    <mat-select [(value)]="selected" (selectionChange)="onChipSelectorChange($event)">
       @for (val of categories(); track val.name;) {
         <mat-option [value]="val.name">{{val.value}}</mat-option>
       }
@@ -9,8 +9,11 @@
   </mat-form-field>
   <br />
   option selected: {{selected ? selected : 'none'}}
+  <br/>
+  <ng-container #chipContainer></ng-container>
 </ng-template>
 
-<ng-template #chipSelector>
-  <!-- Chip Selector Goes Here -->
+<ng-template #chipSelectorTemplate>
+  <div class="chip-selector">Chip Selector Placeholder</div>
 </ng-template>
+
