@@ -17,8 +17,8 @@ import {ChipCategory} from '../models/chip-category';
 export class QuestionInputChipSelectorComponent extends QuestionInputComponent<string> {
   controlType: ControlType = 'select';
 
-  readonly categories = input.required<NameValue[]>();
-  readonly chipCategories = input.required<ChipCategory[]>();
+  categories = input.required<NameValue[]>();
+  chipCategories = input.required<ChipCategory[]>();
 
   readonly chipSelectorTemplate = viewChild.required<TemplateRef<any>>("chipSelectorTemplate");
   readonly chipContainerRef = viewChild.required("chipContainer", {read: ViewContainerRef});

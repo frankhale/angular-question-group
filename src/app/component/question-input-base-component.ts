@@ -20,7 +20,7 @@ export type ControlType = 'text' | 'radio' | 'checkbox' | 'date' | 'button' | 's
 })
 export abstract class QuestionInputComponent<T> implements AfterViewInit {
   readonly name = input.required<string>();
-  readonly title = input.required<string>();
+  title = input.required<string>();
   readonly formControlName = input<FormControlName>();
   readonly initialValue = input<T>();
   readonly formGroup = model<FormGroup>();

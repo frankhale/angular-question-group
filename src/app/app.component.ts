@@ -4,7 +4,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatSnackBar, MatSnackBarLabel,} from '@angular/material/snack-bar';
-import {MatButton} from '@angular/material/button';
+import {MatButtonModule} from '@angular/material/button';
 import {KeyValue} from '@angular/common';
 import {QuestionTemplateComponent} from './question-template/question-template.component';
 import {
@@ -18,7 +18,7 @@ import {QuestionGroupComponent} from './question-group/question-group.component'
   template: `
     <div matSnackBarLabel>Hello, World!</div>`,
   imports: [
-    MatSnackBarLabel
+    MatSnackBarLabel,
   ]
 })
 export class CoolSnackBarComponent {
@@ -26,11 +26,7 @@ export class CoolSnackBarComponent {
 
 @Component({
   selector: 'app-root',
-  imports: [QuestionComponent,
-    MatInputModule,
-    MatFormFieldModule,
-    FormsModule,
-    MatButton, ReactiveFormsModule, QuestionTemplateComponent, QuestionInputChipSelectorComponent, QuestionGroupCollectionComponent, QuestionGroupComponent],
+  imports: [QuestionComponent, MatInputModule, MatFormFieldModule, FormsModule, MatButtonModule, ReactiveFormsModule, QuestionTemplateComponent, QuestionInputChipSelectorComponent, QuestionGroupCollectionComponent, QuestionGroupComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

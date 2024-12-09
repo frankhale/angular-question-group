@@ -2,8 +2,8 @@
 
 <ng-template #questionTemplate>
   <div class="container">
-    <mat-grid-list class="content" cols="2" rowHeight="50px">
-      <mat-grid-tile class="tile">
+    <mat-grid-list class="content" cols="4" rowHeight="80px">
+      <mat-grid-tile class="tile" [colspan]="3">
         <div class="column-content-left">
           {{ question() }}
         </div>

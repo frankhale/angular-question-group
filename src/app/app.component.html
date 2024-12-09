@@ -10,9 +10,9 @@
           name="first_question"
           [showQuestionInputOnSelectedValue]="'yes'"
           [messages]="[
-        { type: 'info', description: 'This is an info box that shows regardless of answer selected', showOnValue: '' },
-        { type: 'warning', description: 'OMG!', showOnValue: 'no' }
-      ]"
+            { type: 'info', description: 'This is an info box that shows regardless of answer selected', showOnValue: '' },
+            { type: 'warning', description: 'OMG!', showOnValue: 'no' }
+          ]"
         >
           <app-question-input-chip-selector name="chip_selector"
                                             [title]="'Chip Selector'"
@@ -28,6 +28,12 @@
             >
             </app-question>
           </app-question-template>
+        </app-question>
+
+        <app-question
+          [question]="'This is a yet another question!'"
+          name="yet_another_question"
+        >
         </app-question>
       </app-question-group>
     </app-question-group-collection>
