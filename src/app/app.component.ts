@@ -12,6 +12,7 @@ import {
 } from './question-input-chip-selector/question-input-chip-selector.component';
 import {QuestionGroupCollectionComponent} from './question-group-collection/question-group-collection.component';
 import {QuestionGroupComponent} from './question-group/question-group.component';
+import {QuestionInputFileComponent} from './question-input-file/question-input-file.component';
 
 @Component({
   selector: 'app-cool-snack-bar',
@@ -26,7 +27,7 @@ export class CoolSnackBarComponent {
 
 @Component({
   selector: 'app-root',
-  imports: [QuestionComponent, MatInputModule, MatFormFieldModule, FormsModule, MatButtonModule, ReactiveFormsModule, QuestionTemplateComponent, QuestionInputChipSelectorComponent, QuestionGroupCollectionComponent, QuestionGroupComponent],
+  imports: [QuestionComponent, MatInputModule, MatFormFieldModule, FormsModule, MatButtonModule, ReactiveFormsModule, QuestionTemplateComponent, QuestionInputChipSelectorComponent, QuestionGroupCollectionComponent, QuestionGroupComponent, QuestionInputFileComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -40,7 +41,7 @@ export class AppComponent {
     this.formGroup = this.fb.group({
       //name_input: ['', Validators.required],
       //date_input: ['', Validators.required],
-      file_upload: ['', Validators.required]
+      file_input: ['']
       //radio_group: [],
       //checkbox_list: [],
     });

@@ -1,5 +1,17 @@
+.title {
+  font-weight: bold;
+}
+
+.caption {
+  margin-top: 25px;
+}
+
+.upload-button {
+  margin-top: 25px;
+}
+
 .file-container {
-  gap: 10px;
+  gap: 5px;
   padding: 10px;
   display: flex;
   flex-direction: row;
@@ -17,7 +29,9 @@
   padding: 25px;
   margin: 0 10px;
   text-align: center;
-  background-color: #ddd;
+  text-transform: lowercase;
+  background-color: #eee;
+  border-radius: 15px;
 }
 
 .delete {

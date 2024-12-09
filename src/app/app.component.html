@@ -6,8 +6,9 @@
       name="my_question_group_collection">
       <app-question-group name="first_group">
         <app-question
-          [question]="'This is a parent question!'"
           name="first_question"
+          [question]="'This is a parent question!'"
+          [title]="'Question Title Goes Here'"
           [showQuestionInputOnSelectedValue]="'yes'"
           [messages]="[
             { type: 'info', description: 'This is an info box that shows regardless of answer selected', showOnValue: '' },
@@ -31,9 +32,26 @@
         </app-question>
 
         <app-question
-          [question]="'This is a yet another question!'"
+          [question]="'This is a question that has a child question with a file input.'"
           name="yet_another_question"
+          [showQuestionInputOnSelectedValue]="'yes'"
         >
+          <app-question-template [title]="'foo'"
+                                 [showOnAnswer]="'yes'">
+            <app-question
+              [question]="'This is a yet another question!'"
+              name="yet_another_question"
+              [showQuestionInputOnSelectedValue]="'yes'"
+            >
+              <app-question-input-file
+                name="file_input"
+                [caption]="'Upload a file!'"
+                [buttonTitle]="'Upload'"
+                [title]="'File Input'"
+              >
+              </app-question-input-file>
+            </app-question>
+          </app-question-template>
         </app-question>
       </app-question-group>
     </app-question-group-collection>

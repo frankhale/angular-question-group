@@ -36,6 +36,7 @@ import {Message} from '../models/message';
 })
 export class QuestionComponent<T> implements AfterContentInit, OnInit {
   readonly name = input.required<string>();
+  readonly title = input<string>();
   readonly question = input.required<string>();
   readonly showQuestionInputOnSelectedValue = input<YesNoOrEmpty>('');
   readonly messages = input<Message[]>();
@@ -87,7 +88,13 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
           });
 
           question.questionInputs()?.forEach(questionInputDirective => {
-            questionInputDirective.baseComponent.formGroup.set(this.formGroup());
+            if (!questionInputDirective.baseComponent.formGroup()) {
+              questionInputDirective.baseComponent.formGroup.set(this.formGroup());
+            }
+
+            if (!this.formGroup()?.get(questionInputDirective.baseComponent.name())) {
+              this.formGroup()?.addControl(questionInputDirective.baseComponent.name(), new FormControl(''));
+            }
           });
         });
       }

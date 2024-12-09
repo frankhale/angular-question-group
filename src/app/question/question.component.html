@@ -2,6 +2,9 @@
 
 <ng-template #questionTemplate>
   <div class="container">
+    @if(title()) {
+        <div class="title">{{ title() }}</div>
+    }
     <mat-grid-list class="content" cols="4" rowHeight="80px">
       <mat-grid-tile class="tile" [colspan]="3">
         <div class="column-content-left">
