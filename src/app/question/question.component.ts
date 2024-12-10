@@ -108,6 +108,9 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
     });
   }
 
+  // TODO: Remove showQuestionInputOnSelectedValue and start using the showOnAnswer input
+  // that is part of the base input component
+
   onSelectedOption(value: T): void {
     if (value !== this.showQuestionInputOnSelectedValue() &&
       this.showQuestionInputOnSelectedValue() !== '') {
