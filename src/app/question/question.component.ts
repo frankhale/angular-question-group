@@ -46,12 +46,19 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   readonly template = viewChild.required<TemplateRef<any>>("questionTemplate");
   readonly questionInputs = contentChildren(QuestionDirective);
   readonly questionTemplateComponents = contentChildren(QuestionTemplateComponent, {descendants: true});
+  readonly initialValue = input<YesNoOrEmpty>();
 
   selectedOption: string = '';
 
   ngOnInit() {
     if (!this.formGroup()) {
       this.formGroup.set(new FormGroup({}));
+    }
+
+    const iv = this.initialValue();
+    if (iv) {
+      this.selectedOption = iv;
+      this.onSelectedOption(this.selectedOption as T);
     }
   }
 
@@ -108,7 +115,7 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
         questionInput.baseComponent.formGroup()?.get(questionInput.baseComponent.name())?.setValue('DELETE_ME');
         questionInput.baseComponent.toggleValidators(false);
       });
-    } else if (value === this.showQuestionInputOnSelectedValue()){
+    } else if (value === this.showQuestionInputOnSelectedValue()) {
       this.questionInputs()?.forEach(questionInput => {
         questionInput.baseComponent.formGroup()?.get(questionInput.baseComponent.name())?.setValue('');
         questionInput.baseComponent.toggleValidators(true);
@@ -116,7 +123,7 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
     }
 
     this.questionTemplateComponents()?.forEach(questionTemplateComponent => {
-      if(questionTemplateComponent.showOnAnswer() !== this.selectedOption) return;
+      if (questionTemplateComponent.showOnAnswer() !== this.selectedOption) return;
 
       if (questionTemplateComponent.questions()) {
         questionTemplateComponent.questions().forEach(question => {

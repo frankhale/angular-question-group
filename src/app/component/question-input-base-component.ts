@@ -13,14 +13,14 @@ import {FormControlName, FormGroup, ValidatorFn} from '@angular/forms';
 export type ControlType = 'text' | 'radio' | 'checkbox' | 'date' | 'button' | 'select' | 'file';
 
 @Component({
-    template: ``,
+    template: '',
     inputs: ['question'],
     hostDirectives: [QuestionDirective],
-    standalone: false
 })
 export abstract class QuestionInputComponent<T> implements AfterViewInit {
   readonly name = input.required<string>();
-  title = input.required<string>();
+  readonly title = input.required<string>();
+  readonly showOnAnswer = input<boolean>();
   readonly formControlName = input<FormControlName>();
   readonly initialValue = input<T>();
   readonly formGroup = model<FormGroup>();

@@ -49,7 +49,8 @@
 
 <ng-template #childQuestionsTemplate>
   <div *ngFor="let questionTemplate of questionTemplateComponents()">
-    @if (questionTemplate.showOnAnswer() === this.selectedOption) {
+    @if (questionTemplate.showOnAnswer() === this.selectedOption ||
+      questionTemplate.showOnAnswer() === '') {
       <ng-container *ngTemplateOutlet="questionTemplate.template()"></ng-container>
     }
   </div>
