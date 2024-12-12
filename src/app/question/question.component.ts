@@ -1,13 +1,5 @@
 import {
-  AfterContentInit,
-  Component,
-  contentChildren,
-  input,
-  model,
-  OnInit,
-  output,
-  TemplateRef,
-  viewChild
+  AfterContentInit, Component, contentChildren, input, model, OnInit, output, TemplateRef, viewChild
 } from '@angular/core';
 import {MatGridList, MatGridTile} from '@angular/material/grid-list';
 import {MatRadioButton, MatRadioGroup} from '@angular/material/radio';
@@ -21,15 +13,7 @@ import {Message} from '../models/message';
 
 @Component({
   selector: 'app-question',
-  imports: [
-    MatGridTile,
-    MatGridList,
-    MatRadioGroup,
-    MatRadioButton,
-    FormsModule,
-    NgTemplateOutlet,
-    NgForOf
-  ],
+  imports: [MatGridTile, MatGridList, MatRadioGroup, MatRadioButton, FormsModule, NgTemplateOutlet, NgForOf],
   providers: [{provide: QuestionInputComponent, useExisting: QuestionComponent}],
   templateUrl: './question.component.html',
   styleUrl: './question.component.scss'
@@ -38,7 +22,7 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   readonly name = input.required<string>();
   readonly title = input<string>();
   readonly question = input.required<string>();
-  readonly showQuestionInputOnSelectedValue = input<YesNoOrEmpty>('');
+  //readonly showQuestionInputOnSelectedValue = input<YesNoOrEmpty>('');
   readonly messages = input<Message[]>();
   readonly completed = input<boolean>(false);
   readonly onQuestionAnswered = output<KeyValue<string, T>>();
@@ -108,22 +92,29 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
     });
   }
 
-  // TODO: Remove showQuestionInputOnSelectedValue and start using the showOnAnswer input
-  // that is part of the base input component
-
   onSelectedOption(value: T): void {
-    if (value !== this.showQuestionInputOnSelectedValue() &&
-      this.showQuestionInputOnSelectedValue() !== '') {
-      this.questionInputs()?.forEach(questionInput => {
+    // if (value !== this.showQuestionInputOnSelectedValue() &&
+    //   this.showQuestionInputOnSelectedValue() !== '') {
+    //   this.questionInputs()?.forEach(questionInput => {
+    //     questionInput.baseComponent.formGroup()?.get(questionInput.baseComponent.name())?.setValue('DELETE_ME');
+    //     questionInput.baseComponent.toggleValidators(false);
+    //   });
+    // } else if (value === this.showQuestionInputOnSelectedValue()) {
+    //   this.questionInputs()?.forEach(questionInput => {
+    //     questionInput.baseComponent.formGroup()?.get(questionInput.baseComponent.name())?.setValue('');
+    //     questionInput.baseComponent.toggleValidators(true);
+    //   });
+    // }
+
+    this.questionInputs()?.forEach(questionInput => {
+      if (value !== questionInput.baseComponent.showOnAnswer() && questionInput.baseComponent.showOnAnswer() !== '') {
         questionInput.baseComponent.formGroup()?.get(questionInput.baseComponent.name())?.setValue('DELETE_ME');
         questionInput.baseComponent.toggleValidators(false);
-      });
-    } else if (value === this.showQuestionInputOnSelectedValue()) {
-      this.questionInputs()?.forEach(questionInput => {
+      } else if (value !== questionInput.baseComponent.showOnAnswer()) {
         questionInput.baseComponent.formGroup()?.get(questionInput.baseComponent.name())?.setValue('');
         questionInput.baseComponent.toggleValidators(true);
-      });
-    }
+      }
+    });
 
     this.questionTemplateComponents()?.forEach(questionTemplateComponent => {
       if (questionTemplateComponent.showOnAnswer() !== this.selectedOption) return;

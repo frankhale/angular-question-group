@@ -2,11 +2,11 @@
 
 <ng-template #questionTemplate>
   <div class="container">
-    @if(title()) {
-        <div class="title">{{ title() }}</div>
+    @if (title()) {
+      <div class="title">{{ title() }}</div>
     }
     <mat-grid-list class="content" cols="4" rowHeight="80px">
-      <mat-grid-tile class="tile" [colspan]="3">
+      <mat-grid-tile [colspan]="3" class="tile">
         <div class="column-content-left">
           {{ question() }}
         </div>
@@ -25,11 +25,13 @@
       </mat-grid-tile>
     </mat-grid-list>
 
-    @if (selectedOption === this.showQuestionInputOnSelectedValue()) {
-      <span *ngFor="let questionInput of questionInputs()">
-        <ng-container #questionInputContainer *ngTemplateOutlet="questionInput.baseComponent.template()"></ng-container>
-      </span>
-    }
+    <span *ngFor="let questionInput of questionInputs()">
+        @if (selectedOption === questionInput.baseComponent.showOnAnswer()) {
+          <ng-container #questionInputContainer
+                        *ngTemplateOutlet="questionInput.baseComponent.template()"></ng-container>
+        }
+    </span>
+
 
     @for (message of messages(); track message.description) {
       @if (message.type === 'info' && (message.showOnValue === this.selectedOption || message.showOnValue === '')) {
@@ -50,7 +52,7 @@
 <ng-template #childQuestionsTemplate>
   <div *ngFor="let questionTemplate of questionTemplateComponents()">
     @if (questionTemplate.showOnAnswer() === this.selectedOption ||
-      questionTemplate.showOnAnswer() === '') {
+    questionTemplate.showOnAnswer() === '') {
       <ng-container *ngTemplateOutlet="questionTemplate.template()"></ng-container>
     }
   </div>
