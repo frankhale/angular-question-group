@@ -28,8 +28,6 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
   readonly onValueChanged = output<KeyValue<string, KeyValue<string, T>>>();
   readonly questionGroups = contentChildren(QuestionGroupComponent, {descendants: true});
 
-  questionInputTemplates: TemplateRef<any>[] = [];
-
   valueChange(kv: KeyValue<string, KeyValue<string, T>>) {
     this.onValueChanged.emit(kv);
   }
@@ -40,10 +38,8 @@ export class QuestionGroupCollectionComponent<T = string | string[]> implements 
       questionGroup.questions().forEach(question => {
         question.formGroup.set(this.formGroup());
         question.questionInputs()?.forEach(questionInputDirective => {
-          this.questionInputTemplates.push(questionInputDirective.baseComponent.template());
           questionInputDirective.baseComponent.formGroup.set(this.formGroup());
         });
-
       });
     });
   }

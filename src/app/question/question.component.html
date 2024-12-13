@@ -32,7 +32,6 @@
         }
     </span>
 
-
     @for (message of messages(); track message.description) {
       @if (message.type === 'info' && (message.showOnValue === this.selectedOption || message.showOnValue === '')) {
         <div class="info">

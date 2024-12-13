@@ -22,7 +22,6 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   readonly name = input.required<string>();
   readonly title = input<string>();
   readonly question = input.required<string>();
-  //readonly showQuestionInputOnSelectedValue = input<YesNoOrEmpty>('');
   readonly messages = input<Message[]>();
   readonly completed = input<boolean>(false);
   readonly onQuestionAnswered = output<KeyValue<string, T>>();
@@ -93,19 +92,6 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   }
 
   onSelectedOption(value: T): void {
-    // if (value !== this.showQuestionInputOnSelectedValue() &&
-    //   this.showQuestionInputOnSelectedValue() !== '') {
-    //   this.questionInputs()?.forEach(questionInput => {
-    //     questionInput.baseComponent.formGroup()?.get(questionInput.baseComponent.name())?.setValue('DELETE_ME');
-    //     questionInput.baseComponent.toggleValidators(false);
-    //   });
-    // } else if (value === this.showQuestionInputOnSelectedValue()) {
-    //   this.questionInputs()?.forEach(questionInput => {
-    //     questionInput.baseComponent.formGroup()?.get(questionInput.baseComponent.name())?.setValue('');
-    //     questionInput.baseComponent.toggleValidators(true);
-    //   });
-    // }
-
     this.questionInputs()?.forEach(questionInput => {
       if (value !== questionInput.baseComponent.showOnAnswer() && questionInput.baseComponent.showOnAnswer() !== '') {
         questionInput.baseComponent.formGroup()?.get(questionInput.baseComponent.name())?.setValue('DELETE_ME');
