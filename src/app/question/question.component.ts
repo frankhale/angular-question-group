@@ -24,12 +24,12 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   readonly question = input.required<string>();
   readonly messages = input<Message[]>();
   readonly completed = input<boolean>(false);
-  readonly onQuestionAnswered = output<KeyValue<string, T>>();
   readonly formGroup = model<FormGroup>();
   readonly template = viewChild.required<TemplateRef<any>>("questionTemplate");
   readonly questionInputs = contentChildren(QuestionDirective);
   readonly questionTemplateComponents = contentChildren(QuestionTemplateComponent, {descendants: true});
   readonly initialValue = input<YesNoOrEmpty>();
+  readonly onQuestionAnswered = output<KeyValue<string, T>>();
 
   selectedOption: string = '';
 

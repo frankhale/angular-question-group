@@ -22,10 +22,10 @@ import { MatIcon } from '@angular/material/icon';
   styleUrl: './question-input-file.component.scss',
 })
 export class QuestionInputFileComponent extends QuestionInputComponent<File[]> {
+  controlType: ControlType = 'file';
+
   readonly buttonTitle = input.required<string>();
   readonly caption = input<string>();
-
-  controlType: ControlType = 'file';
 
   files: File[] = [];
 

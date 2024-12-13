@@ -25,8 +25,8 @@ export abstract class QuestionInputComponent<T> implements AfterViewInit {
   readonly formControlName = input<FormControlName>();
   readonly initialValue = input<T>();
   readonly formGroup = model<FormGroup>();
-  readonly onValueChanged = output<T>();
   readonly template = viewChild.required<TemplateRef<any>>("component");
+  readonly onValueChanged = output<T>();
 
   validators: ValidatorFn[] | null = null;
 
@@ -58,6 +58,7 @@ export abstract class QuestionInputComponent<T> implements AfterViewInit {
 
   toggleValidators(value: boolean) {
     const control = this.formGroup()?.get(this.name());
+
     if(control) {
       if (value) {
         control.setValidators(this.validators);

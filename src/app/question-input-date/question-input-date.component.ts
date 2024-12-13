@@ -23,6 +23,5 @@ import {ControlType, QuestionInputComponent} from '../component/question-input-b
 })
 export class QuestionInputDateComponent extends QuestionInputComponent<string> {
   controlType: ControlType = 'date';
-
   // initialValue is in the form of 2024-11-08T05:00:00.000Z
 }

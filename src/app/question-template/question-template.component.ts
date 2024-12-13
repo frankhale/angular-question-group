@@ -15,5 +15,5 @@ import {YesNoOrEmpty} from '../models/yes-no-empty';
 export class QuestionTemplateComponent {
   readonly template = viewChild.required<TemplateRef<any>>("questionTemplate");
   readonly questions = contentChildren(QuestionComponent);
-  showOnAnswer = input.required<YesNoOrEmpty>();
+  readonly showOnAnswer = input.required<YesNoOrEmpty>();
 }

@@ -4,24 +4,18 @@ import {MatCheckbox} from '@angular/material/checkbox';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
-    selector: 'app-question-input-checkbox-list',
-    providers: [{ provide: QuestionInputComponent, useExisting: QuestionInputCheckboxListComponent }],
-    imports: [
-        MatCheckbox,
-        FormsModule,
-        ReactiveFormsModule
-    ],
-    templateUrl: './question-input-checkbox-list.component.html',
-    styleUrl: './question-input-checkbox-list.component.scss'
+  selector: 'app-question-input-checkbox-list',
+  providers: [{provide: QuestionInputComponent, useExisting: QuestionInputCheckboxListComponent}],
+  imports: [MatCheckbox, FormsModule, ReactiveFormsModule],
+  templateUrl: './question-input-checkbox-list.component.html',
+  styleUrl: './question-input-checkbox-list.component.scss'
 })
 export class QuestionInputCheckboxListComponent extends QuestionInputComponent<string[]> {
-  readonly options = input.required<Array<{
-    name: string;
-}>>();
+  readonly options = input.required<Array<{ name: string; }>>();
 
   controlType: ControlType = 'checkbox';
 
-  optionsChecked: string[] = [];
+  private optionsChecked: string[] = [];
 
   onCheckboxChange(name: string | null, checked: boolean) {
     if (checked) {

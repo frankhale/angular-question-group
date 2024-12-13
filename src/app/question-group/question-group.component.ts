@@ -30,8 +30,8 @@ export class QuestionGroupComponent<T> implements AfterContentInit, AfterViewIni
   readonly name = input.required<string>();
   readonly template = viewChild.required<TemplateRef<any>>("questionGroupTemplate");
   readonly questions = contentChildren(QuestionComponent);
-  readonly onValueChanged = output<KeyValue<string, KeyValue<string, T>>>();
   readonly formGroup = model<FormGroup>();
+  readonly onValueChanged = output<KeyValue<string, KeyValue<string, T>>>();
 
   questionGroupCollectionIsParent: boolean;
 

@@ -12,7 +12,7 @@ import {MatButton} from '@angular/material/button';
     styleUrl: './question-input-button.component.scss'
 })
 export class QuestionInputButtonComponent extends QuestionInputComponent<void> {
-  readonly text = input<string>('');
+  readonly text = input.required<string>();
   readonly buttonClick = output<void>();
 
   controlType: ControlType = 'button';
