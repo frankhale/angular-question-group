@@ -30,7 +30,9 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   readonly questionTemplateComponents = contentChildren(QuestionTemplateComponent, {descendants: true});
   readonly initialValue = input<YesNoOrEmpty>();
   readonly onQuestionAnswered = output<KeyValue<string, T>>();
+  //readonly onNumberOfChildrenUpdated = output<number>();
 
+  //private numberOfChildren: number = 0;
   selectedOption: string = '';
 
   ngOnInit() {

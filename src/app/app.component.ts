@@ -13,6 +13,7 @@ import {
 import {QuestionGroupCollectionComponent} from './question-group-collection/question-group-collection.component';
 import {QuestionGroupComponent} from './question-group/question-group.component';
 import {QuestionInputFileComponent} from './question-input-file/question-input-file.component';
+import {QuestionInputPlaceholderComponent} from './question-input-placeholder/question-input-placeholder.component';
 
 @Component({
   selector: 'app-cool-snack-bar',
@@ -27,7 +28,7 @@ export class CoolSnackBarComponent {
 
 @Component({
   selector: 'app-root',
-  imports: [QuestionComponent, MatInputModule, MatFormFieldModule, FormsModule, MatButtonModule, ReactiveFormsModule, QuestionTemplateComponent, QuestionInputChipSelectorComponent, QuestionGroupCollectionComponent, QuestionGroupComponent, QuestionInputFileComponent],
+  imports: [QuestionComponent, MatInputModule, MatFormFieldModule, FormsModule, MatButtonModule, ReactiveFormsModule, QuestionTemplateComponent, QuestionInputChipSelectorComponent, QuestionGroupCollectionComponent, QuestionGroupComponent, QuestionInputFileComponent, QuestionInputPlaceholderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
