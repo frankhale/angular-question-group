@@ -15,11 +15,5 @@ import {NgClass} from '@angular/common';
 export class ButtonGroupComponent {
   readonly buttons = input.required<ActionGroup[]>();
 
-  getColor(color?: string) {
-    if(!color) return '';
-
-    return `background-color: ${color} !important;`;
-  }
-
   noAction() {}
 }
