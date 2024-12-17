@@ -2,3 +2,29 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.white-button {
+  color: black !important;
+  background-color: white !important;
+  border: 1px solid black !important;
+}
+
+.white-button-ripple .mat-ripple-element {
+  background-color: #eee !important; /* Red ripple color with transparency */
+}
+
+.black-button {
+  color: #fff !important;
+  background-color: #000 !important;
+}
+
+.dark-gray-button {
+  color: #fff !important;
+  background-color: #888 !important;
+}
+
+.light-gray-button {
+  color: #000 !important;
+  background-color: #aaa !important;
+  border: 1px solid #000 !important;
+}
