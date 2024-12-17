@@ -70,6 +70,20 @@ export class QuestionGroupComponent<T> implements AfterContentInit, AfterViewIni
         this.valueChange(answer.key, answer.value);
       });
 
+      question.questionTemplateComponents().forEach(questionTemplateComponent => {
+        questionTemplateComponent.questions().forEach(question => {
+          question.questionInputs()?.forEach(questionInputDirective => {
+            const questionInput = questionInputDirective.baseComponent;
+
+            if (questionInput && questionInput.onValueChanged) {
+              questionInput.onValueChanged.subscribe((newValue: T) => {
+                this.valueChange(questionInput!.name(), newValue);
+              });
+            }
+          });
+        });
+      });
+
       question.questionInputs()?.forEach(questionInputDirective => {
         const questionInput = questionInputDirective.baseComponent;
 

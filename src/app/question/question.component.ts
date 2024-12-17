@@ -1,5 +1,13 @@
 import {
-  AfterContentInit, Component, contentChildren, input, model, OnInit, output, TemplateRef, viewChild
+  AfterContentInit,
+  Component,
+  contentChildren,
+  input,
+  model,
+  OnInit,
+  output,
+  TemplateRef,
+  viewChild
 } from '@angular/core';
 import {MatGridList, MatGridTile} from '@angular/material/grid-list';
 import {MatRadioButton, MatRadioGroup} from '@angular/material/radio';
@@ -95,12 +103,26 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
 
   onSelectedOption(value: T): void {
     this.questionInputs()?.forEach(questionInput => {
-      if (value !== questionInput.baseComponent.showOnAnswer() && questionInput.baseComponent.showOnAnswer() !== '') {
-        questionInput.baseComponent.formGroup()?.get(questionInput.baseComponent.name())?.setValue('DELETE_ME');
-        questionInput.baseComponent.toggleValidators(false);
-      } else if (value !== questionInput.baseComponent.showOnAnswer()) {
-        questionInput.baseComponent.formGroup()?.get(questionInput.baseComponent.name())?.setValue('');
+      const formGroup = questionInput.baseComponent.formGroup();
+      const control = formGroup?.get(questionInput.baseComponent.name());
+
+      const showOnAnswer = questionInput.baseComponent.showOnAnswer();
+      const controlValue = control?.value;
+      const valueMismatch = value !== showOnAnswer;
+
+      if (controlValue === 'DELETE_ME') {
+        // If the control's value is already 'DELETE_ME', reset it to an empty string
+        control?.setValue('');
         questionInput.baseComponent.toggleValidators(true);
+      } else if (valueMismatch) {
+        if (showOnAnswer !== '') {
+          // Set value to 'DELETE_ME' if conditions are met
+          control?.setValue('DELETE_ME');
+          questionInput.baseComponent.toggleValidators(false);
+        } else {
+          control?.setValue('');
+          questionInput.baseComponent.toggleValidators(true);
+        }
       }
     });
 
@@ -109,7 +131,11 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
 
       if (questionTemplateComponent.questions()) {
         questionTemplateComponent.questions().forEach(question => {
-          question.onSelectedOption("DELETE_ME");
+          if (question.selectedOption === "DELETE_ME") {
+            this.selectedOption = '';
+          } else {
+            question.onSelectedOption("DELETE_ME");
+          }
         });
       }
     })

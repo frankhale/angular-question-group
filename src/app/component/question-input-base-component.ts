@@ -32,9 +32,13 @@ export abstract class QuestionInputComponent<T> implements AfterViewInit {
 
   abstract controlType: ControlType;
 
-  value: T | undefined;
+  _value: T | undefined;
 
   constructor(private cdr: ChangeDetectorRef) {
+  }
+
+  public get value() {
+    return this._value;
   }
 
   ngAfterViewInit() {
@@ -72,8 +76,8 @@ export abstract class QuestionInputComponent<T> implements AfterViewInit {
 
   valueChanged(value?: T, initial?: boolean) {
     if (value) {
-      this.value = value;
-      this.onValueChanged.emit(this.value);
+      this._value = value;
+      this.onValueChanged.emit(this._value);
 
       if (initial) {
         this.cdr.detectChanges();
