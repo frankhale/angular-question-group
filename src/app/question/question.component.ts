@@ -1,5 +1,5 @@
 import {
-  AfterContentInit,
+  AfterContentInit, ChangeDetectorRef,
   Component,
   contentChildren,
   input,
@@ -43,19 +43,22 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   //private numberOfChildren: number = 0;
   selectedOption: string = '';
 
+  constructor(private cdr: ChangeDetectorRef) {
+  }
+
   ngOnInit() {
     if (!this.formGroup()) {
       this.formGroup.set(new FormGroup({}));
     }
+  }
 
+  ngAfterContentInit() {
     const iv = this.initialValue();
     if (iv) {
       this.selectedOption = iv;
       this.onSelectedOption(this.selectedOption as T);
     }
-  }
 
-  ngAfterContentInit() {
     this.questionInputs()?.forEach(questionInput => {
       if (!questionInput.baseComponent.formGroup()) {
         questionInput.baseComponent.formGroup.set(this.formGroup());
@@ -138,7 +141,7 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
           }
         });
       }
-    })
+    });
 
     this.onQuestionAnswered.emit({key: this.name(), value: value});
   }

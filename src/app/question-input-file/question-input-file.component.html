@@ -20,7 +20,7 @@
       <div class="file">
         <div>{{ file.fileName }}</div>
         <button class="delete" mat-icon-button>
-          <mat-icon (click)="onDelete(file.id)">delete</mat-icon>
+          <mat-icon (click)="onDelete($event, file.id)">delete</mat-icon>
         </button>
       </div>
       }
@@ -29,7 +29,6 @@
       #fileInput
       type="file"
       hidden
-      [formControlName]="name()"
       (change)="onFileSelected($event)"
     />
     @if(formGroup() && formGroup()!.get(name())?.touched &&

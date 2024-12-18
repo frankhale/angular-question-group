@@ -39,17 +39,19 @@
         </app-question>
 
         <app-question
+          [name]="'yet_another_question'"
           [question]="'This is a question that has a child question with a file input.'"
-          name="yet_another_question"
+          [initialValue]="'yes'"
         >
           <app-question-template [title]="'foo'"
                                  [showOnAnswer]="'yes'">
             <app-question
+              [name]="'yet_another_question'"
               [question]="'This is a yet another question!'"
-              name="yet_another_question"
+              [initialValue]="'yes'"
             >
               <app-question-input-file
-                name="file_input"
+                [name]="'file_input'"
                 [showOnAnswer]="'yes'"
                 [caption]="'Upload a file!'"
                 [buttonTitle]="'Upload'"

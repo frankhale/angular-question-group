@@ -2,7 +2,7 @@ import {Component, inject} from '@angular/core';
 import {QuestionComponent} from './question/question.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatSnackBar, MatSnackBarLabel,} from '@angular/material/snack-bar';
 import {MatButtonModule} from '@angular/material/button';
 import {KeyValue} from '@angular/common';
@@ -53,7 +53,7 @@ export class AppComponent {
     this.formGroup = this.fb.group({
       //name_input: ['', Validators.required],
       //date_input: ['', Validators.required],
-      file_input: ['']
+      file_input: [null]
       //radio_group: [],
       //checkbox_list: [],
     });

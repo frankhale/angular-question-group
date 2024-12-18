@@ -29,8 +29,9 @@ export class QuestionInputFileComponent extends QuestionInputComponent<File[]> {
 
   files: File[] = [];
 
-  onDelete(id: string): void {
+  onDelete(event: any, id: string): void {
     this.files = this.files.filter((file) => file.id !== id);
+    event.preventDefault();
   }
 
   onFileSelected(event: Event): void {
@@ -62,6 +63,11 @@ export class QuestionInputFileComponent extends QuestionInputComponent<File[]> {
       });
     };
     reader.readAsDataURL(file);
+
+    if (input.files && input.files.length > 0) {
+      this.formGroup()?.patchValue(this.files);
+      this.formGroup()?.get(this.name())?.updateValueAndValidity(); // Update validity
+    }
 
     this.onValueChanged.emit(this.files);
   }
