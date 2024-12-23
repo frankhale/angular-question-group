@@ -3,10 +3,8 @@ import {
   AfterViewInit,
   Component,
   contentChildren,
-  Host,
   input,
   model,
-  Optional,
   output,
   TemplateRef,
   viewChild
@@ -14,15 +12,11 @@ import {
 import {QuestionComponent} from '../question/question.component';
 import {KeyValue, NgForOf, NgTemplateOutlet} from '@angular/common';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
-import {QuestionGroupCollectionComponent} from '../question-group-collection/question-group-collection.component';
+import {QuestionDirective} from '../directives/question-directive';
 
 @Component({
   selector: 'app-question-group',
-  imports: [
-    ReactiveFormsModule,
-    NgTemplateOutlet,
-    NgForOf
-  ],
+  imports: [ReactiveFormsModule, NgTemplateOutlet, NgForOf],
   templateUrl: './question-group.component.html',
   styleUrl: './question-group.component.scss'
 })
@@ -32,12 +26,6 @@ export class QuestionGroupComponent<T> implements AfterContentInit, AfterViewIni
   readonly questions = contentChildren(QuestionComponent);
   readonly formGroup = model<FormGroup>();
   readonly onValueChanged = output<KeyValue<string, KeyValue<string, T>>>();
-
-  questionGroupCollectionIsParent: boolean;
-
-  constructor(@Optional() @Host() private parent: QuestionGroupCollectionComponent) {
-    this.questionGroupCollectionIsParent = !!parent;
-  }
 
   valueChange(key: string, value: T) {
     this.onValueChanged.emit({key: this.name(), value: {key, value}});
@@ -72,14 +60,15 @@ export class QuestionGroupComponent<T> implements AfterContentInit, AfterViewIni
 
       question.questionTemplateComponents().forEach(questionTemplateComponent => {
         questionTemplateComponent.questions().forEach(question => {
-          question.questionInputs()?.forEach(questionInputDirective => {
-            const questionInput = questionInputDirective.baseComponent;
+          question.questionInputs()?.forEach(
+            (questionInputDirective: QuestionDirective<T>) => {
+              const questionInput = questionInputDirective.baseComponent;
 
-            if (questionInput && questionInput.onValueChanged) {
-              questionInput.onValueChanged.subscribe((newValue: T) => {
-                this.valueChange(questionInput!.name(), newValue);
-              });
-            }
+              if (questionInput && questionInput.onValueChanged) {
+                questionInput.onValueChanged.subscribe((newValue: T) => {
+                  this.valueChange(questionInput!.name(), newValue);
+                });
+              }
           });
         });
       });

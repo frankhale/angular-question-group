@@ -1,5 +1,5 @@
 import {
-  AfterContentInit, ChangeDetectorRef,
+  AfterContentInit,
   Component,
   contentChildren,
   input,
@@ -38,13 +38,8 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   readonly questionTemplateComponents = contentChildren(QuestionTemplateComponent, {descendants: true});
   readonly initialValue = input<YesNoOrEmpty>();
   readonly onQuestionAnswered = output<KeyValue<string, T>>();
-  //readonly onNumberOfChildrenUpdated = output<number>();
 
-  //private numberOfChildren: number = 0;
   selectedOption: string = '';
-
-  constructor(private cdr: ChangeDetectorRef) {
-  }
 
   ngOnInit() {
     if (!this.formGroup()) {
@@ -90,7 +85,7 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
             this.onQuestionAnswered.emit(answer);
           });
 
-          question.questionInputs()?.forEach(questionInputDirective => {
+          question.questionInputs()?.forEach((questionInputDirective: QuestionDirective<T>) => {
             if (!questionInputDirective.baseComponent.formGroup()) {
               questionInputDirective.baseComponent.formGroup.set(this.formGroup());
             }
@@ -105,6 +100,7 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   }
 
   onSelectedOption(value: T): void {
+    console.log(`${this.name()} = ${value}`);
     this.questionInputs()?.forEach(questionInput => {
       const formGroup = questionInput.baseComponent.formGroup();
       const control = formGroup?.get(questionInput.baseComponent.name());

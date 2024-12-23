@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ButtonGroupComponent } from './button-group.component';
+import {ButtonGroupComponent} from './button-group.component';
 
 describe('ButtonGroupComponent', () => {
   let component: ButtonGroupComponent;
@@ -10,9 +10,12 @@ describe('ButtonGroupComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ButtonGroupComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ButtonGroupComponent);
+    fixture.componentRef.setInput('buttons', [{
+      name: "submit", type: "submit", title: "Submit"
+    }])
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

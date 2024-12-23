@@ -1,21 +1,16 @@
 import {Component, inject} from '@angular/core';
-import {QuestionComponent} from './question/question.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSnackBar, MatSnackBarLabel,} from '@angular/material/snack-bar';
 import {MatButtonModule} from '@angular/material/button';
 import {KeyValue} from '@angular/common';
-import {QuestionTemplateComponent} from './question-template/question-template.component';
-import {
-  QuestionInputChipSelectorComponent
-} from './question-input-chip-selector/question-input-chip-selector.component';
-import {QuestionGroupCollectionComponent} from './question-group-collection/question-group-collection.component';
-import {QuestionGroupComponent} from './question-group/question-group.component';
-import {QuestionInputFileComponent} from './question-input-file/question-input-file.component';
-import {QuestionInputPlaceholderComponent} from './question-input-placeholder/question-input-placeholder.component';
 import {ActionGroup} from './models/action-group';
+import {QuestionComponent} from './question/question.component';
+import {QuestionTemplateComponent} from './question-template/question-template.component';
+import {QuestionInputFileComponent} from './question-input-file/question-input-file.component';
 import {ButtonGroupComponent} from './button-group/button-group.component';
+import {QuestionGroupComponent} from './question-group/question-group.component';
 
 @Component({
   selector: 'app-cool-snack-bar', template: `
@@ -26,7 +21,7 @@ export class CoolSnackBarComponent {
 
 @Component({
   selector: 'app-root',
-  imports: [QuestionComponent, MatInputModule, MatFormFieldModule, FormsModule, MatButtonModule, ReactiveFormsModule, QuestionTemplateComponent, QuestionInputChipSelectorComponent, QuestionGroupCollectionComponent, QuestionGroupComponent, QuestionInputFileComponent, QuestionInputPlaceholderComponent, ButtonGroupComponent],
+  imports: [MatInputModule, MatFormFieldModule, FormsModule, MatButtonModule, ReactiveFormsModule, QuestionComponent, QuestionTemplateComponent, QuestionInputFileComponent, ButtonGroupComponent, QuestionGroupComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -35,15 +30,17 @@ export class AppComponent {
   data: Map<string, Map<string, string | string[]>> = new Map<string, Map<string, string | string[]>>();
   formGroup!: FormGroup;
 
-  buttonActions: ActionGroup[] = [{
-    name: "cancel", title: "Cancel", class: "white-button white-button-ripple"
-  }, {
-    name: "save_draft", title: "Save Draft", class: "black-button"
-  }, {
-    name: "generate_email", title: "Generate Email", class: "dark-gray-button"
-  }, {
-    name: "mark_complete", title: "Mark Complete", class: "light-gray-button"
-  }, {
+  buttonActions: ActionGroup[] = [
+  //   {
+  //   name: "cancel", title: "Cancel", class: "white-button white-button-ripple"
+  // }, {
+  //   name: "save_draft", title: "Save Draft", class: "black-button"
+  // }, {
+  //   name: "generate_email", title: "Generate Email", class: "dark-gray-button"
+  // }, {
+  //   name: "mark_complete", title: "Mark Complete", class: "light-gray-button"
+  // },
+    {
     name: "submit", type: "submit", title: "Submit"
   }];
 
