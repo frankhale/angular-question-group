@@ -18,10 +18,11 @@ import {QuestionInputComponent} from '../component/question-input-base-component
 import {QuestionDirective} from '../directives/question-directive';
 import {QuestionTemplateComponent} from '../question-template/question-template.component';
 import {Message} from '../models/message';
+import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-question',
-  imports: [MatGridTile, MatGridList, MatRadioGroup, MatRadioButton, FormsModule, NgTemplateOutlet, NgForOf],
+  imports: [MatGridTile, MatGridList, MatRadioGroup, MatRadioButton, FormsModule, NgTemplateOutlet, NgForOf, MatButton],
   providers: [{provide: QuestionInputComponent, useExisting: QuestionComponent}],
   templateUrl: './question.component.html',
   styleUrl: './question.component.scss'
@@ -37,6 +38,7 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   readonly questionInputs = contentChildren(QuestionDirective);
   readonly questionTemplateComponents = contentChildren(QuestionTemplateComponent, {descendants: true});
   readonly initialValue = input<YesNoOrEmpty>();
+  readonly onMarkComplete = output();
   readonly onQuestionAnswered = output<KeyValue<string, T>>();
 
   selectedOption: string = '';
@@ -97,6 +99,13 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
         });
       }
     });
+  }
+
+  onComplete() {
+    // TODO: May need to disable validators if question had inputs that were not filled out
+    // but mark complete was clicked.
+
+    this.onMarkComplete.emit();
   }
 
   onSelectedOption(value: T): void {

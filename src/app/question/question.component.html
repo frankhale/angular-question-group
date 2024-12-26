@@ -2,16 +2,28 @@
 
 <ng-template #questionTemplate>
   <div class="container">
-    @if (title()) {
-      <div class="title">{{ title() }}</div>
-    }
+    <mat-grid-list class="content" cols="4" rowHeight="80px">
+      <mat-grid-tile [colspan]="3" class="tile">
+        <div class="column-content-left">
+          @if (title()) {
+            <div class="title">{{ title() }}</div>
+          }
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile >
+        <button class="light-gray-button column-content-right"
+                (click)="onComplete()"
+                mat-flat-button>Mark Complete</button>
+      </mat-grid-tile>
+    </mat-grid-list>
+
     <mat-grid-list class="content" cols="4" rowHeight="80px">
       <mat-grid-tile [colspan]="3" class="tile">
         <div class="column-content-left">
           {{ question() }}
         </div>
       </mat-grid-tile>
-      <mat-grid-tile class="tile">
+      <mat-grid-tile>
         <div class="column-content-right">
           @if (!completed()) {
             <mat-radio-group aria-label="Yes or No" [(ngModel)]="selectedOption">

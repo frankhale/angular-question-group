@@ -17,3 +17,4 @@ export class QuestionTemplateComponent {
   readonly questions = contentChildren(forwardRef(() => QuestionComponent));
   readonly showOnAnswer = input.required<YesNoOrEmpty>();
 }
+
