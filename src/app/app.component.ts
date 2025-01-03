@@ -90,6 +90,10 @@ export class AppComponent {
     }
   }
 
+  questionChildCount(num: number) {
+    console.log(`Question child count: ${num}`);
+  }
+
   openSnackBar() {
     this._snackBar.openFromComponent(CoolSnackBarComponent, {
       duration: 3000,

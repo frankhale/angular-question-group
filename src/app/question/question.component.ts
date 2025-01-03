@@ -40,8 +40,11 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   readonly initialValue = input<YesNoOrEmpty>();
   readonly onMarkComplete = output();
   readonly onQuestionAnswered = output<KeyValue<string, T>>();
+  readonly childCount = output<number>();
 
   selectedOption: string = '';
+
+  private _childCount: number = 0;
 
   ngOnInit() {
     if (!this.formGroup()) {
@@ -55,6 +58,8 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
       this.selectedOption = iv;
       this.onSelectedOption(this.selectedOption as T);
     }
+
+    this.childCount.emit(this._childCount);
 
     this.questionInputs()?.forEach(questionInput => {
       if (!questionInput.baseComponent.formGroup()) {
@@ -83,6 +88,10 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
             question.formGroup.set(this.formGroup());
           }
 
+          question.childCount.subscribe((count: number) => {
+            this.childCount.emit(count);
+          })
+
           question.onQuestionAnswered.subscribe((answer: KeyValue<string, T>) => {
             this.onQuestionAnswered.emit(answer);
           });
@@ -109,7 +118,15 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   }
 
   onSelectedOption(value: T): void {
-    console.log(`${this.name()} = ${value}`);
+    if(value as string === 'yes' || value as string === 'no') {
+      this.selectedOption = value as string;
+    }
+
+    this._childCount = 0;
+    // this._childCount += this.questionInputs()?.map(questionInput =>
+    //   questionInput.baseComponent.showOnAnswer() === this.selectedOption).length;
+    // this.childCount.emit(Math.max(0, this._childCount));
+
     this.questionInputs()?.forEach(questionInput => {
       const formGroup = questionInput.baseComponent.formGroup();
       const control = formGroup?.get(questionInput.baseComponent.name());
@@ -135,7 +152,15 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
     });
 
     this.questionTemplateComponents()?.forEach(questionTemplateComponent => {
-      if (questionTemplateComponent.showOnAnswer() !== this.selectedOption) return;
+      // console.log(`QUESTION TEMPLATE SHOW ON ANSWER: ${questionTemplateComponent.showOnAnswer()}`);
+      // console.log(`SELECTED OPTION: ${this.selectedOption}`);
+
+      if (questionTemplateComponent.showOnAnswer() !== this.selectedOption) {
+        this.childCount.emit(Math.max(0, --this._childCount));
+        return;
+      }
+
+      this.childCount.emit(++this._childCount);
 
       if (questionTemplateComponent.questions()) {
         questionTemplateComponent.questions().forEach(question => {
