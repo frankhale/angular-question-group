@@ -106,12 +106,10 @@ export class AppComponent {
       this.taskCount.push(result);
     }
 
-    //console.log(`${crypto.randomUUID()} (${result.key}) -> Children = ${result.value}`);
-
     let total = 0;
     this.taskCount.forEach(item => {
       total += item.value;
     });
-    console.log(`Total count of tasks: ${total}`);
+    console.log(`Total count of children: ${total}`);
   }
 }
