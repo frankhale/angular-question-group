@@ -110,6 +110,7 @@ export class AppComponent {
     this.taskCount.forEach(item => {
       total += item.value;
     });
+
     console.log(`Total count of children: ${total}`);
   }
 }
