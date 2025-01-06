@@ -30,6 +30,8 @@ export class AppComponent {
   data: Map<string, Map<string, string | string[]>> = new Map<string, Map<string, string | string[]>>();
   formGroup!: FormGroup;
 
+  taskCount: KeyValue<string, number>[] = [];
+
   buttonActions: ActionGroup[] = [
   //   {
   //   name: "cancel", title: "Cancel", class: "white-button white-button-ripple"
@@ -90,13 +92,26 @@ export class AppComponent {
     }
   }
 
-  questionChildCount(num: number) {
-    console.log(`Question child count: ${num}`);
-  }
-
   openSnackBar() {
     this._snackBar.openFromComponent(CoolSnackBarComponent, {
       duration: 3000,
     });
+  }
+
+  childCountChanged(result: KeyValue<string, number>) {
+    const existingIndex = this.taskCount.findIndex(item => item.key === result.key);
+    if (existingIndex !== -1) {
+      this.taskCount[existingIndex] = result;
+    } else {
+      this.taskCount.push(result);
+    }
+
+    //console.log(`${crypto.randomUUID()} (${result.key}) -> Children = ${result.value}`);
+
+    let total = 0;
+    this.taskCount.forEach(item => {
+      total += item.value;
+    });
+    console.log(`Total count of tasks: ${total}`);
   }
 }

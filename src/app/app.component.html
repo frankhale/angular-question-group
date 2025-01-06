@@ -1,70 +1,67 @@
 <div class="content">
-  <form [formGroup]="formGroup" (ngSubmit)="submit()">
-<!--    <app-question-group-collection-->
-<!--      [formGroup]="formGroup"-->
-<!--      (onValueChanged)="valueChange($event)"-->
-<!--      name="my_question_group_collection">-->
-      <app-question-group [name]="'first_group'"
-                          [formGroup]="formGroup"
-                          (onValueChanged)="valueChange($event)">
-<!--        <app-question-->
-<!--          name="first_question"-->
-<!--          [question]="'This is a parent question!'"-->
-<!--          [title]="'Question Title Goes Here'"-->
-<!--          [messages]="[-->
-<!--            { type: 'info', description: 'This is an info box that shows regardless of answer selected', showOnValue: '' },-->
-<!--            { type: 'warning', description: 'OMG!', showOnValue: 'no' }-->
-<!--          ]"-->
-<!--        >-->
-<!--          <app-question-input-chip-selector name="chip_selector"-->
-<!--                                            [title]="'Chip Selector'"-->
-<!--                                            [showOnAnswer]="'yes'"-->
-<!--                                            [categories]="[{ name: 'Cat 1', value: 'Cat 1' }, { name: 'Cat 2', value: 'Cat 2'}]"-->
-<!--                                            [chipCategories]="[{ category: 'Cat 1', chips: ['Foo', 'Bar'] },-->
-<!--                                            { category: 'Cat 2', chips: ['Yiz', 'Qux'] }]">-->
-<!--          </app-question-input-chip-selector>-->
+  <form (ngSubmit)="submit()" [formGroup]="formGroup">
+    <app-question-group (onValueChanged)="valueChange($event)"
+                        [formGroup]="formGroup"
+                        [name]="'first_group'">
+      <!--        <app-question-->
+      <!--          name="first_question"-->
+      <!--          [question]="'This is a parent question!'"-->
+      <!--          [title]="'Question Title Goes Here'"-->
+      <!--          [messages]="[-->
+      <!--            { type: 'info', description: 'This is an info box that shows regardless of answer selected', showOnValue: '' },-->
+      <!--            { type: 'warning', description: 'OMG!', showOnValue: 'no' }-->
+      <!--          ]"-->
+      <!--        >-->
+      <!--          <app-question-input-chip-selector name="chip_selector"-->
+      <!--                                            [title]="'Chip Selector'"-->
+      <!--                                            [showOnAnswer]="'yes'"-->
+      <!--                                            [categories]="[{ name: 'Cat 1', value: 'Cat 1' }, { name: 'Cat 2', value: 'Cat 2'}]"-->
+      <!--                                            [chipCategories]="[{ category: 'Cat 1', chips: ['Foo', 'Bar'] },-->
+      <!--                                            { category: 'Cat 2', chips: ['Yiz', 'Qux'] }]">-->
+      <!--          </app-question-input-chip-selector>-->
 
-<!--          <app-question-input-placeholder-->
-<!--            name="placeholder"-->
-<!--            [title]="'Placeholder'"-->
-<!--            [showOnAnswer]="'yes'"-->
-<!--            [placeholderText]="'This is a placeholder for a question input'">-->
-<!--          </app-question-input-placeholder>-->
+      <!--          <app-question-input-placeholder-->
+      <!--            name="placeholder"-->
+      <!--            [title]="'Placeholder'"-->
+      <!--            [showOnAnswer]="'yes'"-->
+      <!--            [placeholderText]="'This is a placeholder for a question input'">-->
+      <!--          </app-question-input-placeholder>-->
 
-<!--          <app-question-template [showOnAnswer]="'no'">-->
-<!--            <app-question-->
-<!--              [question]="'This is a child question!'"-->
-<!--              name="child_of_first_question"-->
-<!--            >-->
-<!--            </app-question>-->
-<!--          </app-question-template>-->
-<!--        </app-question>-->
+      <!--          <app-question-template [showOnAnswer]="'no'">-->
+      <!--            <app-question-->
+      <!--              [question]="'This is a child question!'"-->
+      <!--              name="child_of_first_question"-->
+      <!--            >-->
+      <!--            </app-question>-->
+      <!--          </app-question-template>-->
+      <!--        </app-question>-->
 
-        <app-question
-          [name]="'yet_another_question_1'"
-          [question]="'This is a question that has a child question with a file input.'"
-          [title]="'Question Title Goes Here'"
-          (childCount)="questionChildCount($event)"
-        >
-          <app-question-template [title]="'foo'"
-                                 [showOnAnswer]="'yes'">
-            <app-question
-              [name]="'yet_another_question_2'"
-              [question]="'This is a yet another question!'"
+      <!--        (onChildCountChanged)="childCountChanged($event)"-->
+<!--      (onQuestionAnswered)="childCountChanged($event)"-->
+      <app-question
+        (onChildCountChanged)="childCountChanged($event)"
+        [name]="'question1'"
+        [question]="'This is a question that has a child question with a file input.'"
+        [title]="'Question Title Goes Here'"
+      >
+        <app-question-template [showOnAnswer]="'yes'"
+                               [title]="'foo'">
+          <app-question
+            [name]="'subQuestion2'"
+            [question]="'This is a yet another question!'"
+          >
+            <app-question-input-file
+              [buttonTitle]="'Upload1'"
+              [caption]="'Upload a file!'"
+              [name]="'file_input1'"
+              [showOnAnswer]="'yes'"
+              [title]="'File Input'"
             >
-              <app-question-input-file
-                [name]="'file_input'"
-                [showOnAnswer]="'yes'"
-                [caption]="'Upload a file!'"
-                [buttonTitle]="'Upload'"
-                [title]="'File Input'"
-              >
-              </app-question-input-file>
-            </app-question>
-          </app-question-template>
-        </app-question>
-      </app-question-group>
-<!--    </app-question-group-collection>-->
+            </app-question-input-file>
+          </app-question>
+        </app-question-template>
+      </app-question>
+    </app-question-group>
 
     <div class="submit">
       <app-button-group [buttons]="buttonActions"></app-button-group>

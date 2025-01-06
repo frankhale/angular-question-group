@@ -40,11 +40,11 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   readonly initialValue = input<YesNoOrEmpty>();
   readonly onMarkComplete = output();
   readonly onQuestionAnswered = output<KeyValue<string, T>>();
-  readonly childCount = output<number>();
+  readonly onChildCountChanged = output<KeyValue<string, number>>();
 
   selectedOption: string = '';
 
-  private _childCount: number = 0;
+  private _childCount = 0;
 
   ngOnInit() {
     if (!this.formGroup()) {
@@ -59,8 +59,6 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
       this.onSelectedOption(this.selectedOption as T);
     }
 
-    this.childCount.emit(this._childCount);
-
     this.questionInputs()?.forEach(questionInput => {
       if (!questionInput.baseComponent.formGroup()) {
         questionInput.baseComponent.formGroup.set(this.formGroup());
@@ -72,11 +70,10 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
 
       // MAYBE?!?: Create onValueChanged so that a single question can provide info
       // about the values that were entered into the form.
-
       // if (questionInput && questionInput.baseComponent.onValueChanged) {
       //   questionInput.baseComponent.onValueChanged.subscribe((newValue: T) => {
       //     //this.valueChange(questionInput!.name, newValue);
-      //     console.log(questionInput!.baseComponent.name(), newValue);
+      //     //console.log(questionInput!.baseComponent.name(), newValue);
       //   });
       // }
     });
@@ -88,13 +85,13 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
             question.formGroup.set(this.formGroup());
           }
 
-          question.childCount.subscribe((count: number) => {
-            this.childCount.emit(count);
-          })
-
           question.onQuestionAnswered.subscribe((answer: KeyValue<string, T>) => {
             this.onQuestionAnswered.emit(answer);
           });
+
+          question.onChildCountChanged.subscribe((answer: KeyValue<string, number>) => {
+            this.onChildCountChanged.emit(answer);
+          })
 
           question.questionInputs()?.forEach((questionInputDirective: QuestionDirective<T>) => {
             if (!questionInputDirective.baseComponent.formGroup()) {
@@ -118,14 +115,7 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   }
 
   onSelectedOption(value: T): void {
-    if(value as string === 'yes' || value as string === 'no') {
-      this.selectedOption = value as string;
-    }
-
-    this._childCount = 0;
-    // this._childCount += this.questionInputs()?.map(questionInput =>
-    //   questionInput.baseComponent.showOnAnswer() === this.selectedOption).length;
-    // this.childCount.emit(Math.max(0, this._childCount));
+    this.selectedOption = value as string;
 
     this.questionInputs()?.forEach(questionInput => {
       const formGroup = questionInput.baseComponent.formGroup();
@@ -152,15 +142,9 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
     });
 
     this.questionTemplateComponents()?.forEach(questionTemplateComponent => {
-      // console.log(`QUESTION TEMPLATE SHOW ON ANSWER: ${questionTemplateComponent.showOnAnswer()}`);
-      // console.log(`SELECTED OPTION: ${this.selectedOption}`);
-
       if (questionTemplateComponent.showOnAnswer() !== this.selectedOption) {
-        this.childCount.emit(Math.max(0, --this._childCount));
         return;
       }
-
-      this.childCount.emit(++this._childCount);
 
       if (questionTemplateComponent.questions()) {
         questionTemplateComponent.questions().forEach(question => {
@@ -174,5 +158,20 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
     });
 
     this.onQuestionAnswered.emit({key: this.name(), value: value});
+
+    if (this.selectedOption === 'yes' || this.selectedOption === 'no' || this.selectedOption === '') {
+      this.onChildCountChanged.emit({ key: this.name(), value: this.getChildCount(this.name(), this.selectedOption) });
+    }
+  }
+
+  getChildCount(name: string, value: string) {
+    this._childCount = 0;
+    //console.log(`question -> (${name}) === ${this.name()} and selectedOption === ${value}`);
+    const childQuestionInputs = this.questionInputs()?.filter(questionInput => questionInput.baseComponent.showOnAnswer() === value).length;
+    //console.log(`question Input Total = ${this.questionInputs()?.length}`);
+    //console.log(`question (${name}) -> Child QuestionInputs count: ${childQuestionInputs}`);
+    const childQuestionTemplates = this.questionTemplateComponents()?.filter(questionTemplate => questionTemplate.showOnAnswer() === value).length;
+    //console.log(`question (${name}) -> Child QuestionTemplate count: ${childQuestionTemplates}`);
+    return Math.max(0, childQuestionInputs + childQuestionTemplates);
   }
 }
