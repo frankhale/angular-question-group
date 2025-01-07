@@ -32,7 +32,7 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   readonly title = input<string>();
   readonly question = input.required<string>();
   readonly messages = input<Message[]>();
-  readonly completed = input<boolean>(false);
+  readonly completed = model<boolean>(false);
   readonly formGroup = model<FormGroup>();
   readonly template = viewChild.required<TemplateRef<any>>("questionTemplate");
   readonly questionInputs = contentChildren(QuestionDirective);
@@ -110,7 +110,7 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   onComplete() {
     // TODO: May need to disable validators if question had inputs that were not filled out
     // but mark complete was clicked.
-
+    this.completed.set(!this.completed());
     this.onMarkComplete.emit();
   }
 

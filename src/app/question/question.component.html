@@ -10,50 +10,56 @@
           }
         </div>
       </mat-grid-tile>
-      <mat-grid-tile >
-        <button class="light-gray-button column-content-right"
-                (click)="onComplete()"
-                mat-flat-button>Mark Complete</button>
+      <mat-grid-tile>
+        @if (!completed()) {
+          <button class="light-gray-button column-content-right"
+                  (click)="onComplete()"
+                  mat-flat-button>Mark Complete
+          </button>
+        } @else {
+          <button class="completed column-content-right"
+                  (click)="onComplete()"
+                  mat-flat-button>Completed
+          </button>
+        }
       </mat-grid-tile>
     </mat-grid-list>
 
-    <mat-grid-list class="content" cols="4" rowHeight="80px">
-      <mat-grid-tile [colspan]="3" class="tile">
-        <div class="column-content-left">
-          {{ question() }}
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <div class="column-content-right">
-          @if (!completed()) {
-            <mat-radio-group aria-label="Yes or No" [(ngModel)]="selectedOption">
+    @if (!completed()) {
+      <mat-grid-list class="content" cols="4" rowHeight="80px">
+        <mat-grid-tile [colspan]="3" class="tile">
+          <div class="column-content-left">
+            {{ question() }}
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="column-content-right">
+            <mat-radio-group [(ngModel)]="selectedOption" aria-label="Yes or No">
               <mat-radio-button (change)="onSelectedOption($event.value)" [value]="'yes'">Yes</mat-radio-button>
               <mat-radio-button (change)="onSelectedOption($event.value)" [value]="'no'">No</mat-radio-button>
             </mat-radio-group>
-          } @else {
-            <span class="completed">Completed</span>
-          }
-        </div>
-      </mat-grid-tile>
-    </mat-grid-list>
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
 
-    <span *ngFor="let questionInput of questionInputs()">
+      <span *ngFor="let questionInput of questionInputs()">
         @if (selectedOption === questionInput.baseComponent.showOnAnswer()) {
           <ng-container #questionInputContainer
                         *ngTemplateOutlet="questionInput.baseComponent.template()"></ng-container>
         }
     </span>
 
-    @for (message of messages(); track message.description) {
-      @if (message.type === 'info' && (message.showOnValue === this.selectedOption || message.showOnValue === '')) {
-        <div class="info">
-          {{ message.description }}
-        </div>
-      }
-      @if (message.type === 'warning' && (message.showOnValue === this.selectedOption || message.showOnValue === '')) {
-        <div class="warning">
-          {{ message.description }}
-        </div>
+      @for (message of messages(); track message.description) {
+        @if (message.type === 'info' && (message.showOnValue === this.selectedOption || message.showOnValue === '')) {
+          <div class="info">
+            {{ message.description }}
+          </div>
+        }
+        @if (message.type === 'warning' && (message.showOnValue === this.selectedOption || message.showOnValue === '')) {
+          <div class="warning">
+            {{ message.description }}
+          </div>
+        }
       }
     }
   </div>
