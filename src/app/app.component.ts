@@ -98,9 +98,43 @@ export class AppComponent {
       name: "textarea1",
       label: 'TextArea 1',
       type: 'textarea',
+      placeholder: 'Enter some text here',
       row: 2,
       required: false,
-    }
+    },
+    {
+      name: "dropdown4",
+      label: 'Dropdown 4',
+      type: 'select',
+      row: 3,
+      required: false,
+      options: [
+        {key: "option1", value: "Option 1"},
+        {key: "option2", value: "Option 2"},
+        {key: "option3", value: "Option 3"},
+      ]
+    },
+    {
+      name: "checkbox1",
+      label: 'Checkbox 1',
+      type: 'checkbox',
+      row: 3,
+      required: false,
+    },
+    {
+      name: "checkbox2",
+      label: 'Checkbox 2',
+      type: 'checkbox',
+      row: 3,
+      required: false,
+    },
+    {
+      name: "checkbox3",
+      label: 'Checkbox 3',
+      type: 'checkbox',
+      row: 3,
+      required: false,
+    },
   ];
 
   private _snackBar = inject(MatSnackBar);

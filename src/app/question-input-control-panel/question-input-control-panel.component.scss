@@ -8,24 +8,21 @@
 }
 
 .key-value-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  align-items: center;
-  justify-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  flex-wrap: wrap;
+  //border: 1px solid red;
 }
 
 .key-value-grid div {
   font-size: 11px;
   box-sizing: border-box;
-  text-align: center;
-  word-wrap: break-word;
-}
-
-.key-value-grid div:last-child {
-  justify-self: auto;
+  //border: 1px solid yellow;
 }
 
 .full-width {
   width: 100%;
+  text-align: center;
+  //border: 1px solid red;
 }
