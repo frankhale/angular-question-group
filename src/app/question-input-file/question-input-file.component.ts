@@ -1,23 +1,18 @@
-import { Component, input } from '@angular/core';
-import {
-  ControlType,
-  QuestionInputComponent,
-} from '../component/question-input-base-component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { File } from '../models/file';
-import { MatIcon } from '@angular/material/icon';
+import {Component, input} from '@angular/core';
+import {QuestionInputComponent,} from '../component/question-input-base-component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {NgIf} from '@angular/common';
+import {MatButton, MatIconButton} from '@angular/material/button';
+import {File} from '../models/file';
+import {MatIcon} from '@angular/material/icon';
+import {ControlType} from '../models/control-type';
 
 @Component({
   selector: 'app-question-input-file',
   imports: [ReactiveFormsModule, NgIf, MatButton, MatIconButton, MatIcon],
-  providers: [
-    {
-      provide: QuestionInputComponent,
-      useExisting: QuestionInputFileComponent,
-    },
-  ],
+  providers: [{
+    provide: QuestionInputComponent, useExisting: QuestionInputFileComponent,
+  },],
   templateUrl: './question-input-file.component.html',
   styleUrl: './question-input-file.component.scss',
 })
@@ -49,17 +44,12 @@ export class QuestionInputFileComponent extends QuestionInputComponent<File[]> {
       const result = reader.result as string;
       const fileContent = result.split(',')[1]; // Remove the Data URL prefix
 
-      if (
-        this.files.some((existingFile) => existingFile.fileName === fileName)
-      ) {
+      if (this.files.some((existingFile) => existingFile.fileName === fileName)) {
         return;
       }
 
       this.files.push({
-        id: crypto.randomUUID(),
-        fileContent,
-        fileName,
-        fileType,
+        id: crypto.randomUUID(), fileContent, fileName, fileType,
       });
     };
     reader.readAsDataURL(file);

@@ -4,7 +4,8 @@ import {MatFormFieldModule, MatLabel} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {provideNativeDateAdapter} from '@angular/material/core'
-import {ControlType, QuestionInputComponent} from '../component/question-input-base-component';
+import {QuestionInputComponent} from '../component/question-input-base-component';
+import {ControlType} from '../models/control-type';
 
 @Component({
   selector: 'app-question-input-date',

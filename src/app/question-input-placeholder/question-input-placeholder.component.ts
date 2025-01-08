@@ -1,5 +1,6 @@
 import {Component, input} from '@angular/core';
-import {ControlType, QuestionInputComponent} from '../component/question-input-base-component';
+import {QuestionInputComponent} from '../component/question-input-base-component';
+import {ControlType} from '../models/control-type';
 
 @Component({
   selector: 'app-question-input-placeholder',

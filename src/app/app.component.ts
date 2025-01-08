@@ -7,12 +7,15 @@ import {MatButtonModule} from '@angular/material/button';
 import {KeyValue} from '@angular/common';
 import {ActionGroup} from './models/action-group';
 import {QuestionComponent} from './question/question.component';
-import {QuestionTemplateComponent} from './question-template/question-template.component';
 import {ButtonGroupComponent} from './button-group/button-group.component';
 import {QuestionGroupComponent} from './question-group/question-group.component';
 import {
   QuestionInputInformationPanelComponent
 } from './question-input-information-panel/question-input-information-panel.component';
+import {
+  QuestionInputControlPanelComponent
+} from './question-input-control-panel/question-input-control-panel.component';
+import {Control} from './models/control';
 
 @Component({
   selector: 'app-cool-snack-bar', template: `
@@ -23,7 +26,7 @@ export class CoolSnackBarComponent {
 
 @Component({
   selector: 'app-root',
-  imports: [MatInputModule, MatFormFieldModule, FormsModule, MatButtonModule, ReactiveFormsModule, QuestionComponent, QuestionTemplateComponent, ButtonGroupComponent, QuestionGroupComponent, QuestionInputInformationPanelComponent],
+  imports: [MatInputModule, MatFormFieldModule, FormsModule, MatButtonModule, ReactiveFormsModule, QuestionComponent, ButtonGroupComponent, QuestionGroupComponent, QuestionInputInformationPanelComponent, QuestionInputControlPanelComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -48,11 +51,56 @@ export class AppComponent {
     }];
 
   infoData: KeyValue<string, string>[] = [{key: 'Name', value: 'John Smith'}, {
-    key: 'Email',
-    value: 'jsmith@somewhere.com'
-  }, {key: 'Phone', value: '123-456-7890'},
-    {key: 'Address', value: '123 Main St, Anytown, USA'},
-    {key: 'Notes', value: 'Some notes about the person.'}
+    key: 'Email', value: 'jsmith@somewhere.com'
+  }, {key: 'Phone', value: '123-456-7890'}, {key: 'Address', value: '123 Main St, Anytown, USA'}, {
+    key: 'Notes',
+    value: 'Some notes about the person.'
+  }];
+
+  controls: Control[] = [
+    {
+      name: "dropdown1",
+      label: 'Dropdown 1',
+      type: 'select',
+      row: 1,
+      required: false,
+      options: [
+        {key: "option1", value: "Option 1"},
+        {key: "option2", value: "Option 2"},
+        {key: "option3", value: "Option 3"},
+      ]
+    },
+    {
+      name: "dropdown2",
+      label: 'Dropdown 2',
+      type: 'select',
+      row: 1,
+      required: false,
+      options: [
+        {key: "option1", value: "Option 1"},
+        {key: "option2", value: "Option 2"},
+        {key: "option3", value: "Option 3"},
+      ]
+    },
+    {
+      name: "dropdown3",
+      label: 'Dropdown 3',
+      type: 'select',
+      row: 1,
+      required: false,
+      options: [
+        {key: "option1", value: "Option 1"},
+        {key: "option2", value: "Option 2"},
+        {key: "option3", value: "Option 3"},
+      ]
+    },
+    {
+      name: "textarea1",
+      label: 'TextArea 1',
+      type: 'textarea',
+      row: 2,
+      required: false,
+    }
   ];
 
   private _snackBar = inject(MatSnackBar);

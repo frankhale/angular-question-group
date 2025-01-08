@@ -37,27 +37,26 @@
       <!--        </app-question>-->
 
       <!--        (onChildCountChanged)="childCountChanged($event)"-->
-<!--      (onQuestionAnswered)="childCountChanged($event)"-->
+      <!--      (onQuestionAnswered)="childCountChanged($event)"-->
       <app-question
         (onChildCountChanged)="childCountChanged($event)"
         [name]="'question1'"
-        [question]="'This is a question that has a child question with a file input.'"
+        [question]="'This is the first question.'"
         [title]="'Question Title Goes Here'"
       >
-        <app-question-template [showOnAnswer]="'yes'"
-                               [title]="'foo'">
-          <app-question
-            [name]="'subQuestion2'"
-            [question]="'This is a yet another question!'"
-          >
-            <app-question-input-information-panel
-              [name]="'infoPanel1'"
-              [title]="'Info Panel Title...'"
-              [showOnAnswer]="'yes'"
-              [info]="infoData"></app-question-input-information-panel>
-          </app-question>
-        </app-question-template>
+        <app-question-input-information-panel
+          [info]="infoData"
+          [name]="'infoPanel1'"
+          [showOnAnswer]="'yes'"
+          [title]="'Info Panel Title...'"></app-question-input-information-panel>
+
+        <app-question-input-control-panel [controls]="controls"
+                                          [name]="'controlPanel1'"
+                                          [showOnAnswer]="'yes'"
+                                          [title]="'Control Panel'">
+        </app-question-input-control-panel>
       </app-question>
+
     </app-question-group>
 
     <div class="submit">
@@ -67,11 +66,3 @@
 </div>
 
 
-<!--<app-question-input-file-->
-<!--  [buttonTitle]="'Upload1'"-->
-<!--  [caption]="'Upload a file!'"-->
-<!--  [name]="'file_input1'"-->
-<!--  [showOnAnswer]="'yes'"-->
-<!--  [title]="'File Input'"-->
-<!--&gt;-->
-<!--</app-question-input-file>-->

@@ -4,8 +4,9 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {NameValue} from '../models/name-value';
-import {ControlType, QuestionInputComponent} from '../component/question-input-base-component';
+import {QuestionInputComponent} from '../component/question-input-base-component';
 import {ChipCategory} from '../models/chip-category';
+import {ControlType} from '../models/control-type';
 
 @Component({
   selector: 'app-question-input-chip-selector',

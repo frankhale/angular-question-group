@@ -1,0 +1,31 @@
+.title-bar {
+  border: 1px solid #999;
+  background-color: #eee;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.key-value-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  align-items: center;
+  justify-items: center;
+}
+
+.key-value-grid div {
+  font-size: 11px;
+  box-sizing: border-box;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.key-value-grid div:last-child {
+  justify-self: auto;
+}
+
+.full-width {
+  width: 100%;
+}

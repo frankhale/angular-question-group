@@ -1,7 +1,8 @@
 import {Component, input} from '@angular/core';
-import {ControlType, QuestionInputComponent} from '../component/question-input-base-component';
+import {QuestionInputComponent} from '../component/question-input-base-component';
 import {KeyValue} from '@angular/common';
 import {MatGridList, MatGridTile} from '@angular/material/grid-list';
+import {ControlType} from '../models/control-type';
 
 @Component({
   selector: 'app-question-input-information-panel',

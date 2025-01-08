@@ -10,8 +10,7 @@ import {
 import {QuestionDirective} from '../directives/question-directive';
 import {FormControlName, FormGroup, ValidatorFn} from '@angular/forms';
 import {YesNoOrEmpty} from '../models/yes-no-empty';
-
-export type ControlType = 'text' | 'radio' | 'checkbox' | 'date' | 'button' | 'select' | 'file' | 'placeholder' | 'panel';
+import {ControlType} from '../models/control-type';
 
 @Component({
     template: '',

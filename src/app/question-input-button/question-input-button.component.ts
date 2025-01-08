@@ -1,6 +1,7 @@
 import {Component, input, output} from '@angular/core';
-import {ControlType, QuestionInputComponent} from '../component/question-input-base-component';
+import {QuestionInputComponent} from '../component/question-input-base-component';
 import {MatButton} from '@angular/material/button';
+import {ControlType} from '../models/control-type';
 
 @Component({
     selector: 'app-question-input-button',

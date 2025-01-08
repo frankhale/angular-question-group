@@ -1,0 +1,26 @@
+<ng-template #component>
+  <div class="title-bar">
+    {{ title() ? title() : name() }}
+  </div>
+
+
+  <div class="key-value-grid">
+    @for (control of controls(); track control.name) {
+      @if (control.type == 'select') {
+        <mat-form-field [formGroup]="formGroup()!">
+          <mat-label>{{ control.label }}</mat-label>
+          <mat-select (selectionChange)="onSelectControlChanged(control.name, $event)">
+            @for (opt of control.options; track opt.key; ) {
+              <mat-option [value]="opt.key">{{ opt.value }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      } @else if(control.type == 'textarea') {
+        <mat-form-field class="full-width">
+          <mat-label>{{ control.label }}</mat-label>
+          <textarea matInput [placeholder]="control.placeholder ? control.placeholder : ''"></textarea>
+        </mat-form-field>
+      }
+    }
+  </div>
+</ng-template>
