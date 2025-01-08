@@ -10,7 +10,7 @@ import {NgForOf, NgTemplateOutlet} from '@angular/common';
   styleUrl: './question-template.component.scss'
 })
 export class QuestionTemplateComponent /*implements AfterContentInit*/ {
-  readonly title = input.required<string>();
+  //readonly title = input.required<string>();
   readonly template = viewChild.required<TemplateRef<any>>("questionTemplate");
   readonly questions = contentChildren(forwardRef(() => QuestionComponent));
   readonly showOnAnswer = input.required<YesNoOrEmpty>();
