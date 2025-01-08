@@ -50,14 +50,11 @@
             [name]="'subQuestion2'"
             [question]="'This is a yet another question!'"
           >
-            <app-question-input-file
-              [buttonTitle]="'Upload1'"
-              [caption]="'Upload a file!'"
-              [name]="'file_input1'"
+            <app-question-input-information-panel
+              [name]="'infoPanel1'"
+              [title]="'Info Panel Title...'"
               [showOnAnswer]="'yes'"
-              [title]="'File Input'"
-            >
-            </app-question-input-file>
+              [info]="infoData"></app-question-input-information-panel>
           </app-question>
         </app-question-template>
       </app-question>
@@ -68,3 +65,13 @@
     </div>
   </form>
 </div>
+
+
+<!--<app-question-input-file-->
+<!--  [buttonTitle]="'Upload1'"-->
+<!--  [caption]="'Upload a file!'"-->
+<!--  [name]="'file_input1'"-->
+<!--  [showOnAnswer]="'yes'"-->
+<!--  [title]="'File Input'"-->
+<!--&gt;-->
+<!--</app-question-input-file>-->

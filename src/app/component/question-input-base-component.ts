@@ -11,7 +11,7 @@ import {QuestionDirective} from '../directives/question-directive';
 import {FormControlName, FormGroup, ValidatorFn} from '@angular/forms';
 import {YesNoOrEmpty} from '../models/yes-no-empty';
 
-export type ControlType = 'text' | 'radio' | 'checkbox' | 'date' | 'button' | 'select' | 'file' | 'placeholder';
+export type ControlType = 'text' | 'radio' | 'checkbox' | 'date' | 'button' | 'select' | 'file' | 'placeholder' | 'panel';
 
 @Component({
     template: '',
@@ -20,7 +20,7 @@ export type ControlType = 'text' | 'radio' | 'checkbox' | 'date' | 'button' | 's
 })
 export abstract class QuestionInputComponent<T> implements AfterViewInit {
   readonly name = input.required<string>();
-  readonly title = input.required<string>();
+  readonly title = input<string>();
   readonly showOnAnswer = input.required<YesNoOrEmpty>();
   readonly formControlName = input<FormControlName>();
   readonly initialValue = input<T>();

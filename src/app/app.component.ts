@@ -8,9 +8,11 @@ import {KeyValue} from '@angular/common';
 import {ActionGroup} from './models/action-group';
 import {QuestionComponent} from './question/question.component';
 import {QuestionTemplateComponent} from './question-template/question-template.component';
-import {QuestionInputFileComponent} from './question-input-file/question-input-file.component';
 import {ButtonGroupComponent} from './button-group/button-group.component';
 import {QuestionGroupComponent} from './question-group/question-group.component';
+import {
+  QuestionInputInformationPanelComponent
+} from './question-input-information-panel/question-input-information-panel.component';
 
 @Component({
   selector: 'app-cool-snack-bar', template: `
@@ -21,7 +23,7 @@ export class CoolSnackBarComponent {
 
 @Component({
   selector: 'app-root',
-  imports: [MatInputModule, MatFormFieldModule, FormsModule, MatButtonModule, ReactiveFormsModule, QuestionComponent, QuestionTemplateComponent, QuestionInputFileComponent, ButtonGroupComponent, QuestionGroupComponent],
+  imports: [MatInputModule, MatFormFieldModule, FormsModule, MatButtonModule, ReactiveFormsModule, QuestionComponent, QuestionTemplateComponent, ButtonGroupComponent, QuestionGroupComponent, QuestionInputInformationPanelComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -32,19 +34,26 @@ export class AppComponent {
 
   taskCount: KeyValue<string, number>[] = [];
 
-  buttonActions: ActionGroup[] = [
-  //   {
-  //   name: "cancel", title: "Cancel", class: "white-button white-button-ripple"
-  // }, {
-  //   name: "save_draft", title: "Save Draft", class: "black-button"
-  // }, {
-  //   name: "generate_email", title: "Generate Email", class: "dark-gray-button"
-  // }, {
-  //   name: "mark_complete", title: "Mark Complete", class: "light-gray-button"
-  // },
+  buttonActions: ActionGroup[] = [//   {
+    //   name: "cancel", title: "Cancel", class: "white-button white-button-ripple"
+    // }, {
+    //   name: "save_draft", title: "Save Draft", class: "black-button"
+    // }, {
+    //   name: "generate_email", title: "Generate Email", class: "dark-gray-button"
+    // }, {
+    //   name: "mark_complete", title: "Mark Complete", class: "light-gray-button"
+    // },
     {
-    name: "submit", type: "submit", title: "Submit"
-  }];
+      name: "submit", type: "submit", title: "Submit"
+    }];
+
+  infoData: KeyValue<string, string>[] = [{key: 'Name', value: 'John Smith'}, {
+    key: 'Email',
+    value: 'jsmith@somewhere.com'
+  }, {key: 'Phone', value: '123-456-7890'},
+    {key: 'Address', value: '123 Main St, Anytown, USA'},
+    {key: 'Notes', value: 'Some notes about the person.'}
+  ];
 
   private _snackBar = inject(MatSnackBar);
 
@@ -52,7 +61,7 @@ export class AppComponent {
     this.formGroup = this.fb.group({
       //name_input: ['', Validators.required],
       //date_input: ['', Validators.required],
-      file_input: [null]
+      //file_input: [null]
       //radio_group: [],
       //checkbox_list: [],
     });

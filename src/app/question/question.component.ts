@@ -160,7 +160,7 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
     this.onQuestionAnswered.emit({key: this.name(), value: value});
 
     if (this.selectedOption === 'yes' || this.selectedOption === 'no' || this.selectedOption === '') {
-      this.onChildCountChanged.emit({ key: this.name(), value: this.getChildCount(this.name(), this.selectedOption) });
+      this.onChildCountChanged.emit({key: this.name(), value: this.getChildCount(this.name(), this.selectedOption)});
     }
   }
 

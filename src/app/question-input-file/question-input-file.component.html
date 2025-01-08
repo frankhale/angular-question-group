@@ -1,39 +1,41 @@
 <ng-template #component>
   <div [formGroup]="formGroup()!" class="file-input-container">
-    <div class="title">{{ title() }}</div>
-    @if(caption()) {
-    <div class="caption">
-      {{ caption() }}
-    </div>
+    @if (title()) {
+      <div class="title">{{ title() }}</div>
+    }
+    @if (caption()) {
+      <div class="caption">
+        {{ caption() }}
+      </div>
     }
     <button
-      mat-stroked-button
-      color="primary"
-      class="upload-button"
-      type="button"
       (click)="fileInput.click()"
+      class="upload-button"
+      color="primary"
+      mat-stroked-button
+      type="button"
     >
       {{ buttonTitle() }}
     </button>
-    <div class="file-container" *ngIf="files.length > 0">
+    <div *ngIf="files.length > 0" class="file-container">
       @for (file of files; track file.fileName) {
-      <div class="file">
-        <div>{{ file.fileName }}</div>
-        <button class="delete" mat-icon-button>
-          <mat-icon (click)="onDelete($event, file.id)">delete</mat-icon>
-        </button>
-      </div>
+        <div class="file">
+          <div>{{ file.fileName }}</div>
+          <button class="delete" mat-icon-button>
+            <mat-icon (click)="onDelete($event, file.id)">delete</mat-icon>
+          </button>
+        </div>
       }
     </div>
     <input
       #fileInput
-      type="file"
-      hidden
       (change)="onFileSelected($event)"
+      hidden
+      type="file"
     />
-    @if(formGroup() && formGroup()!.get(name())?.touched &&
+    @if (formGroup() && formGroup()!.get(name())?.touched &&
     formGroup()!.get(name())?.invalid) {
-    <div><small style="color: red">This field is required.</small></div>
+      <div><small style="color: red">This field is required.</small></div>
     }
   </div>
 </ng-template>

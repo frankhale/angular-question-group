@@ -2,7 +2,7 @@
 
 <ng-template #questionTemplate>
   <div class="container">
-    <mat-grid-list class="content" cols="4" rowHeight="80px">
+    <mat-grid-list cols="4" rowHeight="80px">
       <mat-grid-tile [colspan]="3" class="tile">
         <div class="column-content-left">
           @if (title()) {
@@ -63,7 +63,9 @@
       }
     }
   </div>
+  @if(!completed()) {
   <ng-container *ngTemplateOutlet="childQuestionsTemplate"></ng-container>
+  }
 </ng-template>
 
 <ng-template #childQuestionsTemplate>

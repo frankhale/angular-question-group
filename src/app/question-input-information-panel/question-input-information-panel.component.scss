@@ -1,0 +1,37 @@
+.content {
+  border: 1px solid #999;
+  background-color: #eee;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.key-value-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.key-value-grid span {
+  font-size: 11px;
+  flex: 1 1 calc(25% - 11px);
+  box-sizing: border-box;
+}
+
+.column-content-left {
+  width: 100%;
+  text-align: left;
+}
+
+.column-content-right {
+  width: 100%;
+  text-align: right;
+}
+
+.description {
+  background-color: #FFD530 !important;
+  border: 1px solid #999;
+  border-radius: 5px;
+  padding: 10px;
+  margin-left: 15px;
+  text-align: center;
+}

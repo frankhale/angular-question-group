@@ -1,0 +1,20 @@
+<ng-template #component>
+  <mat-grid-list cols="4" rowHeight="80px">
+    <mat-grid-tile [colspan]="3" class="tile">
+      <div class="content column-content-left">
+        @if (title()) {
+          {{ title() }}
+        }
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="description column-content-right">Something</div>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <div class="key-value-grid">
+    @for(keyValue of info(); track keyValue.key) {
+      <span><strong>{{ keyValue.key }}:</strong> {{ keyValue.value }}</span>
+    }
+  </div>
+</ng-template>
