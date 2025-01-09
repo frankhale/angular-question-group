@@ -9,6 +9,7 @@ import {MatSelect} from '@angular/material/select';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatInput} from '@angular/material/input';
 import {MatCheckbox} from '@angular/material/checkbox';
+import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-question-input-control-panel',
@@ -19,7 +20,8 @@ import {MatCheckbox} from '@angular/material/checkbox';
     MatSelect,
     ReactiveFormsModule,
     MatInput,
-    MatCheckbox
+    MatCheckbox,
+    MatButton
   ],
   providers: [{provide: QuestionInputComponent, useExisting: QuestionInputControlPanelComponent}],
   templateUrl: './question-input-control-panel.component.html',
@@ -30,6 +32,7 @@ export class QuestionInputControlPanelComponent extends QuestionInputComponent<M
 
   controls = input.required<Control[]>();
 
+  consent: boolean = false;
   groupedControls: Array<Control[]> = [];
 
   ngOnInit() {
@@ -57,7 +60,14 @@ export class QuestionInputControlPanelComponent extends QuestionInputComponent<M
   }
 
   onSelectControlChanged(name: string, event: any) {
-    console.log(`${name} changed to ${event.value}`);
+    console.log(`name = ${name}, event =`, event);
+
+    if(name === "consent") {
+      this.consent = event.checked;
+      console.log(`toggling consent to ${this.consent}`);
+    } else {
+      console.log(`${name} changed to ${event.value}`);
+    }
   }
 
   protected readonly Array = Array;

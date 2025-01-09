@@ -38,6 +38,7 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   readonly questionInputs = contentChildren(QuestionDirective);
   readonly questionTemplateComponents = contentChildren(QuestionTemplateComponent, {descendants: true});
   readonly initialValue = input<YesNoOrEmpty>();
+  readonly showMarkComplete = input<boolean>(true);
   readonly onMarkComplete = output();
   readonly onQuestionAnswered = output<KeyValue<string, T>>();
   readonly onChildCountChanged = output<KeyValue<string, number>>();

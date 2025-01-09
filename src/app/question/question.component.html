@@ -11,12 +11,19 @@
         </div>
       </mat-grid-tile>
       <mat-grid-tile>
-        @if (!completed()) {
-          <button class="light-gray-button column-content-right"
-                  (click)="onComplete()"
-                  mat-flat-button>Mark Complete
-          </button>
-        } @else {
+        @if (showMarkComplete()) {
+          @if (!completed()) {
+            <button class="light-gray-button column-content-right"
+                    (click)="onComplete()"
+                    mat-flat-button>Mark Complete
+            </button>
+          } @else {
+            <button class="completed column-content-right"
+                    (click)="onComplete()"
+                    mat-flat-button>Completed
+            </button>
+          }
+        } @else if (completed()) {
           <button class="completed column-content-right"
                   (click)="onComplete()"
                   mat-flat-button>Completed
@@ -63,8 +70,8 @@
       }
     }
   </div>
-  @if(!completed()) {
-  <ng-container *ngTemplateOutlet="childQuestionsTemplate"></ng-container>
+  @if (!completed()) {
+    <ng-container *ngTemplateOutlet="childQuestionsTemplate"></ng-container>
   }
 </ng-template>
 

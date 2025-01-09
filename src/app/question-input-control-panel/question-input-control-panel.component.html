@@ -41,5 +41,17 @@
         </div>
       }
     }
+    <div class="consent-container">
+      <mat-checkbox
+        (change)="onSelectControlChanged('consent', $event)"
+        [name]="'consent'">
+        I have verified that the information provided above is correct.
+      </mat-checkbox>
+      <button mat-flat-button
+              name="consent_button"
+              [disabled]="!consent">
+        Submit
+      </button>
+    </div>
   </div>
 </ng-template>
