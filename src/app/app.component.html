@@ -42,6 +42,7 @@
         (onChildCountChanged)="childCountChanged($event)"
         [name]="'question1'"
         [question]="'This is the first question.'"
+        [showMarkComplete]="false"
         [title]="'Question Title Goes Here'"
       >
         <app-question-input-information-panel
@@ -59,9 +60,9 @@
 
     </app-question-group>
 
-<!--    <div class="submit">-->
-<!--      <app-button-group [buttons]="buttonActions"></app-button-group>-->
-<!--    </div>-->
+    <!--    <div class="submit">-->
+    <!--      <app-button-group [buttons]="buttonActions"></app-button-group>-->
+    <!--    </div>-->
   </form>
 </div>
 

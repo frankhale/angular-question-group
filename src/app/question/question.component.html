@@ -2,59 +2,68 @@
 
 <ng-template #questionTemplate>
   <div class="container">
-    <mat-grid-list cols="4" rowHeight="80px">
-      <mat-grid-tile [colspan]="3" class="tile">
-        <div class="column-content-left">
-          @if (title()) {
-            <div class="title">{{ title() }}</div>
-          }
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        @if (showMarkComplete()) {
-          @if (!completed()) {
-            <button class="light-gray-button column-content-right"
-                    (click)="onComplete()"
-                    mat-flat-button>Mark Complete
-            </button>
-          } @else {
-            <button class="completed column-content-right"
-                    (click)="onComplete()"
-                    mat-flat-button>Completed
-            </button>
-          }
-        } @else if (completed()) {
-          <button class="completed column-content-right"
-                  (click)="onComplete()"
-                  mat-flat-button>Completed
-          </button>
-        }
-      </mat-grid-tile>
-    </mat-grid-list>
-
-    @if (!completed()) {
-      <mat-grid-list class="content" cols="4" rowHeight="80px">
+    @if (title() || !showMarkComplete()) {
+      <mat-grid-list cols="4" rowHeight="40px">
         <mat-grid-tile [colspan]="3" class="tile">
           <div class="column-content-left">
-            {{ question() }}
+            @if (title()) {
+              <div class="title">{{ title() }}</div>
+            }
           </div>
         </mat-grid-tile>
+        @if (showMarkComplete() || completed()) {
+          <mat-grid-tile>
+            <div class="column-content-right">
+              @if (showMarkComplete()) {
+                @if (!completed()) {
+                  <button class="light-gray-button"
+                          (click)="onComplete()"
+                          mat-flat-button>Mark Complete
+                  </button>
+                } @else {
+                  <button class="completed"
+                          (click)="onComplete()"
+                          mat-flat-button>Completed
+                  </button>
+                }
+              } @else if (completed()) {
+                <button class="completed"
+                        (click)="onComplete()"
+                        mat-flat-button>Completed
+                </button>
+              }
+            </div>
+          </mat-grid-tile>
+        }
+      </mat-grid-list>
+    }
+
+    <mat-grid-list class="content" cols="4" rowHeight="80px">
+      <mat-grid-tile [colspan]="3" class="tile">
+        <div class="column-content-left">
+          {{ question() }}
+        </div>
+      </mat-grid-tile>
         <mat-grid-tile>
+          @if (!completed()) {
           <div class="column-content-right">
             <mat-radio-group [(ngModel)]="selectedOption" aria-label="Yes or No">
               <mat-radio-button (change)="onSelectedOption($event.value)" [value]="'yes'">Yes</mat-radio-button>
               <mat-radio-button (change)="onSelectedOption($event.value)" [value]="'no'">No</mat-radio-button>
             </mat-radio-group>
           </div>
+          } @else if (!showMarkComplete()) {
+            <div class="completed">Completed</div>
+          }
         </mat-grid-tile>
-      </mat-grid-list>
-
+    </mat-grid-list>
+    @if (!completed()) {
       <span *ngFor="let questionInput of questionInputs()">
         @if (selectedOption === questionInput.baseComponent.showOnAnswer()) {
           <ng-container #questionInputContainer
                         *ngTemplateOutlet="questionInput.baseComponent.template()"></ng-container>
         }
-    </span>
+      </span>
 
       @for (message of messages(); track message.description) {
         @if (message.type === 'info' && (message.showOnValue === this.selectedOption || message.showOnValue === '')) {
