@@ -30,7 +30,8 @@ import {MatButton} from '@angular/material/button';
 export class QuestionInputControlPanelComponent extends QuestionInputComponent<Map<string, KeyValue<string, string>>> implements OnInit {
   controlType: ControlType = 'panel';
 
-  controls = input.required<Control[]>();
+  readonly consentText = input<string>("I have verified that the information provided above is correct.");
+  readonly controls = input.required<Control[]>();
 
   consent: boolean = false;
   groupedControls: Array<Control[]> = [];

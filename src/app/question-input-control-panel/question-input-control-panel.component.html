@@ -45,7 +45,7 @@
       <mat-checkbox
         (change)="onSelectControlChanged('consent', $event)"
         [name]="'consent'">
-        I have verified that the information provided above is correct.
+        {{ consentText() }}
       </mat-checkbox>
       <button mat-flat-button
               name="consent_button"
