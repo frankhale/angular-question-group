@@ -20,7 +20,7 @@ import {ControlType} from '../models/control-type';
 export abstract class QuestionInputComponent<T> implements AfterViewInit {
   readonly name = input.required<string>();
   readonly title = input<string>();
-  readonly showOnAnswer = input.required<YesNoOrEmpty>();
+  readonly showOnAnswer = input<YesNoOrEmpty>("");
   readonly formControlName = input<FormControlName>();
   readonly initialValue = input<T>();
   readonly formGroup = model<FormGroup>();

@@ -1,5 +1,7 @@
 <ng-template #questionTemplate>
-  <div *ngFor="let question of questions()">
+  @for(question of questions(); track question.template) {
+  <div>
     <ng-container *ngTemplateOutlet="question.template()"></ng-container>
   </div>
+  }
 </ng-template>

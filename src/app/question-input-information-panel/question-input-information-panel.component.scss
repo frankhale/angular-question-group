@@ -6,6 +6,8 @@
 }
 
 .key-value-grid {
+  margin-top: 25px;
+  margin-bottom: 25px;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -15,6 +17,10 @@
   font-size: 11px;
   flex: 1 1 calc(25% - 11px);
   box-sizing: border-box;
+}
+
+.key-value-grid span:last-child {
+  flex: 1 1 calc(75% - 5px);
 }
 
 .column-content-left {

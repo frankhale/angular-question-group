@@ -14,5 +14,6 @@ import {ControlType} from '../models/control-type';
 export class QuestionInputInformationPanelComponent extends QuestionInputComponent<void> {
   controlType: ControlType = 'panel';
 
+  readonly infoName = input.required<string>();
   readonly info = input.required<KeyValue<string, string>[]>();
 }

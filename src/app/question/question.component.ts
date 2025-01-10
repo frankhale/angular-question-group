@@ -168,10 +168,14 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   getChildCount(name: string, value: string) {
     this._childCount = 0;
     //console.log(`question -> (${name}) === ${this.name()} and selectedOption === ${value}`);
-    const childQuestionInputs = this.questionInputs()?.filter(questionInput => questionInput.baseComponent.showOnAnswer() === value).length;
+    const childQuestionInputs = this.questionInputs()?.filter(questionInput =>
+      questionInput.baseComponent.showOnAnswer() === '' ||
+      questionInput.baseComponent.showOnAnswer() === value).length;
     //console.log(`question Input Total = ${this.questionInputs()?.length}`);
     //console.log(`question (${name}) -> Child QuestionInputs count: ${childQuestionInputs}`);
-    const childQuestionTemplates = this.questionTemplateComponents()?.filter(questionTemplate => questionTemplate.showOnAnswer() === value).length;
+    const childQuestionTemplates = this.questionTemplateComponents()?.filter(questionTemplate =>
+      questionTemplate.showOnAnswer() === '' ||
+      questionTemplate.showOnAnswer() === value).length;
     //console.log(`question (${name}) -> Child QuestionTemplate count: ${childQuestionTemplates}`);
     return Math.max(0, childQuestionInputs + childQuestionTemplates);
   }

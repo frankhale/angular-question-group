@@ -49,11 +49,14 @@ export class AppComponent {
       name: "submit", type: "submit", title: "Submit"
     }];
 
-  infoData: KeyValue<string, string>[] = [{key: 'Name', value: 'John Smith'}, {
-    key: 'Email', value: 'jsmith@somewhere.com'
-  }, {key: 'Phone', value: '123-456-7890'}, {key: 'Address', value: '123 Main St, Anytown, USA'}, {
-    key: 'Notes', value: 'Some notes about the person.'
-  }];
+  infoData: KeyValue<string, string>[] = [
+    {key: 'Name', value: 'John Smith'},
+    {key: 'Email', value: 'jsmith@somewhere.com'},
+    {key: 'Phone', value: '123-456-7890'},
+    {key: 'Address', value: '123 Main St, Anytown, USA'},
+    {key: 'Notes', value: 'Some notes about the person.'},
+    {key: 'Foo', value: 'Bar'}
+  ];
 
   controls: Control[] = [{
     name: "dropdown1",
