@@ -170,12 +170,14 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
     //console.log(`question -> (${name}) === ${this.name()} and selectedOption === ${value}`);
     const childQuestionInputs = this.questionInputs()?.filter(questionInput =>
       questionInput.baseComponent.showOnAnswer() === '' ||
-      questionInput.baseComponent.showOnAnswer() === value).length;
+      questionInput.baseComponent.showOnAnswer() === value ||
+      (questionInput.baseComponent.showOnAnswer() === 'yes_or_no' && value !== '')).length;
     //console.log(`question Input Total = ${this.questionInputs()?.length}`);
     //console.log(`question (${name}) -> Child QuestionInputs count: ${childQuestionInputs}`);
     const childQuestionTemplates = this.questionTemplateComponents()?.filter(questionTemplate =>
       questionTemplate.showOnAnswer() === '' ||
-      questionTemplate.showOnAnswer() === value).length;
+      questionTemplate.showOnAnswer() === value ||
+      (questionTemplate.showOnAnswer() === 'yes_or_no' && value !== '')).length;
     //console.log(`question (${name}) -> Child QuestionTemplate count: ${childQuestionTemplates}`);
     return Math.max(0, childQuestionInputs + childQuestionTemplates);
   }

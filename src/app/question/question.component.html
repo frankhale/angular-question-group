@@ -44,34 +44,41 @@
           {{ question() }}
         </div>
       </mat-grid-tile>
-        <mat-grid-tile>
-          @if (!completed()) {
+      <mat-grid-tile>
+        @if (!completed()) {
           <div class="column-content-right">
             <mat-radio-group [(ngModel)]="selectedOption" aria-label="Yes or No">
               <mat-radio-button (change)="onSelectedOption($event.value)" [value]="'yes'">Yes</mat-radio-button>
               <mat-radio-button (change)="onSelectedOption($event.value)" [value]="'no'">No</mat-radio-button>
             </mat-radio-group>
           </div>
-          } @else if (!showMarkComplete()) {
-            <div class="completed">Completed</div>
-          }
-        </mat-grid-tile>
+        } @else if (!showMarkComplete()) {
+          <div class="completed">Completed</div>
+        }
+      </mat-grid-tile>
     </mat-grid-list>
     @if (!completed()) {
       <span *ngFor="let questionInput of questionInputs()">
-        @if (questionInput.baseComponent.showOnAnswer() === '' || questionInput.baseComponent.showOnAnswer() === selectedOption) {
+        @if (questionInput.baseComponent.showOnAnswer() === '' ||
+        questionInput.baseComponent.showOnAnswer() === selectedOption ||
+        (questionInput.baseComponent.showOnAnswer() === 'yes_or_no' && selectedOption !== '')) {
           <ng-container #questionInputContainer
                         *ngTemplateOutlet="questionInput.baseComponent.template()"></ng-container>
         }
       </span>
 
       @for (message of messages(); track message.description) {
-        @if (message.type === 'info' && (message.showOnValue === this.selectedOption || message.showOnValue === '')) {
+        @if (message.type === 'info' &&
+        (message.showOnValue === this.selectedOption ||
+          message.showOnValue === '' ||
+          (message.showOnValue === 'yes_or_no' && selectedOption !== ''))) {
           <div class="info">
             {{ message.description }}
           </div>
         }
-        @if (message.type === 'warning' && (message.showOnValue === this.selectedOption || message.showOnValue === '')) {
+        @if (message.type === 'warning' && (message.showOnValue === this.selectedOption ||
+          message.showOnValue === '' ||
+          (message.showOnValue === 'yes_or_no' && selectedOption !== ''))) {
           <div class="warning">
             {{ message.description }}
           </div>
@@ -86,7 +93,9 @@
 
 <ng-template #childQuestionsTemplate>
   <div *ngFor="let questionTemplate of questionTemplateComponents()">
-    @if (questionTemplate.showOnAnswer() === '' || questionTemplate.showOnAnswer() === this.selectedOption) {
+    @if (questionTemplate.showOnAnswer() === '' ||
+    questionTemplate.showOnAnswer() === this.selectedOption ||
+    (questionTemplate.showOnAnswer() === 'yes_or_no' && selectedOption !== '')) {
       <ng-container *ngTemplateOutlet="questionTemplate.template()"></ng-container>
     }
   </div>
