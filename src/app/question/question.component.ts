@@ -59,8 +59,6 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
 
   selectedOption: string = '';
 
-  private _childCount = 0;
-
   ngOnInit() {
     // if (!this.formGroup()) {
     //   console.log('Setting question formGroup for', this.name());
@@ -169,44 +167,44 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   onSelectedOption(value: T): void {
     this.selectedOption = value as string;
 
-    this.questionInputs()?.forEach((questionInput) => {
-      const formGroup = questionInput.baseComponent.formGroup();
-      const control = formGroup?.get(questionInput.baseComponent.name());
+    // this.questionInputs()?.forEach((questionInput) => {
+    //   const formGroup = questionInput.baseComponent.formGroup();
+    //   const control = formGroup?.get(questionInput.baseComponent.name());
 
-      const showOnAnswer = questionInput.baseComponent.showOnAnswer();
-      const controlValue = control?.value;
-      const valueMismatch = value !== showOnAnswer;
+    //   const showOnAnswer = questionInput.baseComponent.showOnAnswer();
+    //   const controlValue = control?.value;
+    //   const valueMismatch = value !== showOnAnswer;
 
-      if (controlValue === 'DELETE_ME') {
-        // If the control's value is already 'DELETE_ME', reset it to an empty string
-        control?.setValue('');
-        questionInput.baseComponent.toggleValidators(true);
-      } else if (valueMismatch) {
-        if (showOnAnswer !== '') {
-          // Set value to 'DELETE_ME' if conditions are met
-          control?.setValue('DELETE_ME');
-          questionInput.baseComponent.toggleValidators(false);
-        } else {
-          control?.setValue('');
-          questionInput.baseComponent.toggleValidators(true);
-        }
-      }
-    });
+    //   if (controlValue === 'DELETE_ME') {
+    //     // If the control's value is already 'DELETE_ME', reset it to an empty string
+    //     control?.setValue('');
+    //     questionInput.baseComponent.toggleValidators(true);
+    //   } else if (valueMismatch) {
+    //     if (showOnAnswer !== '') {
+    //       // Set value to 'DELETE_ME' if conditions are met
+    //       control?.setValue('DELETE_ME');
+    //       questionInput.baseComponent.toggleValidators(false);
+    //     } else {
+    //       control?.setValue('');
+    //       questionInput.baseComponent.toggleValidators(true);
+    //     }
+    //   }
+    // });
 
     this.questionTemplateComponents()?.forEach((questionTemplateComponent) => {
       if (questionTemplateComponent.showOnAnswer() !== this.selectedOption) {
         return;
       }
 
-      if (questionTemplateComponent.questions()) {
-        questionTemplateComponent.questions().forEach((question) => {
-          if (question.selectedOption === 'DELETE_ME') {
-            this.selectedOption = '';
-          } else {
-            question.onSelectedOption('DELETE_ME');
-          }
-        });
-      }
+      // if (questionTemplateComponent.questions()) {
+      //   questionTemplateComponent.questions().forEach((question) => {
+      //     if (question.selectedOption === 'DELETE_ME') {
+      //       this.selectedOption = '';
+      //     } else {
+      //       question.onSelectedOption('DELETE_ME');
+      //     }
+      //   });
+      // }
     });
 
     this.onQuestionAnswered.emit({ key: this.name(), value: value });
@@ -224,7 +222,6 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   }
 
   getChildCount(name: string, value: string) {
-    this._childCount = 0;
     //console.log(`question -> (${name}) === ${this.name()} and selectedOption === ${value}`);
     const childQuestionInputs = this.questionInputs()?.filter(
       (questionInput) =>
