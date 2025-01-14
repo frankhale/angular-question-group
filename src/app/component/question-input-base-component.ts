@@ -3,28 +3,29 @@ import {
   ChangeDetectorRef,
   Component,
   TemplateRef,
-  input, model,
+  input,
+  model,
   output,
-  viewChild
+  viewChild,
 } from '@angular/core';
-import {QuestionDirective} from '../directives/question-directive';
-import {FormControlName, FormGroup, ValidatorFn} from '@angular/forms';
-import {YesNoOrEmpty} from '../models/yes-no-empty';
-import {ControlType} from '../models/control-type';
+import { QuestionDirective } from '../directives/question-directive';
+import { FormControlName, FormGroup, ValidatorFn } from '@angular/forms';
+import { YesNoOrEmpty } from '../models/yes-no-empty';
+import { ControlType } from '../models/control-type';
 
 @Component({
-    template: '',
-    inputs: ['question'],
-    hostDirectives: [QuestionDirective],
+  template: '',
+  inputs: ['question'],
+  hostDirectives: [QuestionDirective],
 })
 export abstract class QuestionInputComponent<T> implements AfterViewInit {
   readonly name = input.required<string>();
   readonly title = input<string>();
-  readonly showOnAnswer = input<YesNoOrEmpty>("");
+  readonly showOnAnswer = input<YesNoOrEmpty>('');
   readonly formControlName = input<FormControlName>();
   readonly initialValue = input<T>();
   readonly formGroup = model<FormGroup>();
-  readonly template = viewChild.required<TemplateRef<any>>("component");
+  readonly template = viewChild.required<TemplateRef<any>>('component');
   readonly onValueChanged = output<T>();
 
   validators: ValidatorFn[] | null = null;
@@ -33,8 +34,7 @@ export abstract class QuestionInputComponent<T> implements AfterViewInit {
 
   _value: T | undefined;
 
-  constructor(private cdr: ChangeDetectorRef) {
-  }
+  constructor(private cdr: ChangeDetectorRef) {}
 
   public get value() {
     return this._value;
@@ -50,9 +50,13 @@ export abstract class QuestionInputComponent<T> implements AfterViewInit {
     if (formGroup) {
       const control = formGroup.get(this.name());
 
-      if(control) {
+      if (control) {
+        console.log(
+          `Setting up control for ${this.name()} with value ${control.value}`
+        );
+
         this.validators = control.validator ? [control.validator] : null;
-        control.valueChanges.subscribe(value => {
+        control.valueChanges.subscribe((value) => {
           this.valueChanged(value);
         });
       }
@@ -62,7 +66,7 @@ export abstract class QuestionInputComponent<T> implements AfterViewInit {
   toggleValidators(value: boolean) {
     const control = this.formGroup()?.get(this.name());
 
-    if(control) {
+    if (control) {
       if (value) {
         control.setValidators(this.validators);
       } else {
