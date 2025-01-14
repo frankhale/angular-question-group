@@ -24,6 +24,16 @@
           [placeholder]="'Enter your age...'"
         >
         </app-question-input-text>
+
+        <app-question-template [showOnAnswer]="'yes'">
+          <app-question
+            [name]="'question2'"
+            [question]="'This is the second question.'"
+            [showMarkComplete]="false"
+            [title]="'Question 2 Title Goes Here'"
+          >
+          </app-question>
+        </app-question-template>
       </app-question>
     </app-question-group>
   </form>

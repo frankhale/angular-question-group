@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { MatGridList, MatGridTile } from '@angular/material/grid-list';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
-import { FormControl, FormGroup, FormsModule } from '@angular/forms';
+import { FormGroup, FormsModule } from '@angular/forms';
 import { YesNoOrEmpty } from '../models/yes-no-empty';
 import { KeyValue, NgForOf, NgTemplateOutlet } from '@angular/common';
 import { QuestionInputComponent } from '../component/question-input-base-component';
@@ -53,7 +53,8 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   );
   readonly initialValue = input<YesNoOrEmpty>();
   readonly showMarkComplete = input<boolean>(true);
-  readonly onMarkComplete = output<KeyValue<string, KeyValue<string, any>[]>>();
+  readonly onMarkComplete =
+    output<KeyValue<string, KeyValue<string, any>[]>[]>();
   readonly onQuestionAnswered = output<KeyValue<string, T>>();
   readonly onChildCountChanged = output<KeyValue<string, number>>();
 
@@ -122,6 +123,12 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
             }
           );
 
+          question.onMarkComplete.subscribe(
+            (answer: KeyValue<string, KeyValue<string, any>[]>[]) => {
+              this.onMarkComplete.emit(answer);
+            }
+          );
+
           question
             .questionInputs()
             ?.forEach((questionInputDirective: QuestionDirective<T>) => {
@@ -136,11 +143,8 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
     });
   }
 
-  onComplete() {
-    // TODO: May need to disable validators if question had inputs that were not filled out
-    // but mark complete was clicked.
-    this.completed.set(!this.completed());
-
+  getComplete() {
+    let finalValues: KeyValue<string, KeyValue<string, any>[]>[] = [];
     let formValues: KeyValue<string, any>[] = [];
 
     this.questionInputs()?.forEach((questionInput) => {
@@ -154,7 +158,7 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
       }
     });
 
-    this.onMarkComplete.emit({
+    finalValues.push({
       key: this.name(),
       value: [
         { key: 'completed', value: this.completed() },
@@ -162,6 +166,22 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
         { key: 'inputs', value: formValues },
       ],
     });
+
+    this.questionTemplateComponents()?.forEach((questionTemplateComponent) => {
+      questionTemplateComponent.questions().forEach((question) => {
+        finalValues = finalValues.concat(question.getComplete());
+      });
+    });
+
+    return finalValues;
+  }
+
+  onComplete() {
+    // TODO: May need to disable validators if question had inputs that were not filled out
+    // but mark complete was clicked.
+    this.completed.set(!this.completed());
+
+    this.onMarkComplete.emit(this.getComplete());
   }
 
   onSelectedOption(value: T): void {

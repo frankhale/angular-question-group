@@ -10,10 +10,10 @@ import {
 import { MatSnackBar, MatSnackBarLabel } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { KeyValue } from '@angular/common';
-import { ActionGroup } from './models/action-group';
 import { QuestionComponent } from './question/question.component';
 import { QuestionGroupComponent } from './question-group/question-group.component';
 import { QuestionInputTextComponent } from './question-input-text/question-input-text.component';
+import { QuestionTemplateComponent } from './question-template/question-template.component';
 
 @Component({
   selector: 'app-cool-snack-bar',
@@ -33,6 +33,7 @@ export class CoolSnackBarComponent {}
     QuestionComponent,
     QuestionGroupComponent,
     QuestionInputTextComponent,
+    QuestionTemplateComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -57,7 +58,7 @@ export class AppComponent {
   }
 
   //valueChange(kv: KeyValue<string, string | string[]>) {
-  valueChange(kv: KeyValue<string, KeyValue<string, any>[]>) {
+  valueChange(kv: KeyValue<string, KeyValue<string, any>[]>[]) {
     console.log(kv);
     // if (kv.value.value === 'DELETE_ME') {
     //   // console.log(
