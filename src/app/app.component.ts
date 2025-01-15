@@ -7,18 +7,19 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { MatSnackBar, MatSnackBarLabel } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { KeyValue } from '@angular/common';
 import { QuestionComponent } from './question/question.component';
 import { QuestionGroupComponent } from './question-group/question-group.component';
 import { QuestionInputTextComponent } from './question-input-text/question-input-text.component';
 import { QuestionTemplateComponent } from './question-template/question-template.component';
+import { QuestionInputControlPanelComponent } from './question-input-control-panel/question-input-control-panel.component';
 
 @Component({
   selector: 'app-cool-snack-bar',
   template: ` <div matSnackBarLabel>Hello, World!</div>`,
-  imports: [MatSnackBarLabel],
+  imports: [],
 })
 export class CoolSnackBarComponent {}
 
@@ -34,6 +35,7 @@ export class CoolSnackBarComponent {}
     QuestionGroupComponent,
     QuestionInputTextComponent,
     QuestionTemplateComponent,
+    QuestionInputControlPanelComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -112,6 +114,6 @@ export class AppComponent {
       total += item.value;
     });
 
-    //console.log(`Total count of children: ${total}`);
+    console.log(`Total count of children: ${total}`);
   }
 }

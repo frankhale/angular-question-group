@@ -60,6 +60,13 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
 
   selectedOption: string = '';
 
+  // TODO: When questions are in a question-group the question-group takes care of
+  // subscribing to the mark complete event and the question answer event. We should
+  // add support to detect if the questions parent is a question-group and if it's not
+  // then we do the same deal as question-group for any question-templates this question
+  // may have so that when the mark complete is clicked the question rolls up all of its
+  // answers and inputs in one nice event handler.
+
   ngOnInit() {
     // if (!this.formGroup()) {
     //   console.log('Setting question formGroup for', this.name());
@@ -73,36 +80,6 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
       this.selectedOption = iv;
       this.onSelectedOption(this.selectedOption as T);
     }
-
-    // this.questionInputs()?.forEach((questionInput) => {
-    //   console.log(
-    //     `Question Input (${questionInput.baseComponent.name()}): ${questionInput.baseComponent.formGroup()}`
-    //   );
-
-    //   if (!questionInput.baseComponent.formGroup()) {
-    //     //   console.log(
-    //     //     'Setting formGroup for',
-    //     //     questionInput.baseComponent.name()
-    //     //   );
-    //     //   //questionInput.baseComponent.formGroup.set(this.formGroup());
-    //   }
-
-    //   // if (!this.formGroup()?.get(questionInput.baseComponent.name())) {
-    //   //   // this.formGroup()?.addControl(
-    //   //   //   questionInput.baseComponent.name(),
-    //   //   //   new FormControl('')
-    //   //   // );
-    //   // }
-
-    //   // MAYBE?!?: Create onValueChanged so that a single question can provide info
-    //   // about the values that were entered into the form.
-    //   // if (questionInput && questionInput.baseComponent.onValueChanged) {
-    //   //   questionInput.baseComponent.onValueChanged.subscribe((newValue: T) => {
-    //   //     //this.valueChange(questionInput!.name, newValue);
-    //   //     //console.log(questionInput!.baseComponent.name(), newValue);
-    //   //   });
-    //   // }
-    // });
 
     this.questionTemplateComponents()?.forEach((questionTemplateComponent) => {
       if (questionTemplateComponent.questions()) {
@@ -187,44 +164,10 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
   onSelectedOption(value: T): void {
     this.selectedOption = value as string;
 
-    // this.questionInputs()?.forEach((questionInput) => {
-    //   const formGroup = questionInput.baseComponent.formGroup();
-    //   const control = formGroup?.get(questionInput.baseComponent.name());
-
-    //   const showOnAnswer = questionInput.baseComponent.showOnAnswer();
-    //   const controlValue = control?.value;
-    //   const valueMismatch = value !== showOnAnswer;
-
-    //   if (controlValue === 'DELETE_ME') {
-    //     // If the control's value is already 'DELETE_ME', reset it to an empty string
-    //     control?.setValue('');
-    //     questionInput.baseComponent.toggleValidators(true);
-    //   } else if (valueMismatch) {
-    //     if (showOnAnswer !== '') {
-    //       // Set value to 'DELETE_ME' if conditions are met
-    //       control?.setValue('DELETE_ME');
-    //       questionInput.baseComponent.toggleValidators(false);
-    //     } else {
-    //       control?.setValue('');
-    //       questionInput.baseComponent.toggleValidators(true);
-    //     }
-    //   }
-    // });
-
     this.questionTemplateComponents()?.forEach((questionTemplateComponent) => {
       if (questionTemplateComponent.showOnAnswer() !== this.selectedOption) {
         return;
       }
-
-      // if (questionTemplateComponent.questions()) {
-      //   questionTemplateComponent.questions().forEach((question) => {
-      //     if (question.selectedOption === 'DELETE_ME') {
-      //       this.selectedOption = '';
-      //     } else {
-      //       question.onSelectedOption('DELETE_ME');
-      //     }
-      //   });
-      // }
     });
 
     this.onQuestionAnswered.emit({ key: this.name(), value: value });

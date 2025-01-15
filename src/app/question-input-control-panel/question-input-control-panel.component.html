@@ -4,52 +4,52 @@
   </div>
 
   <div [formGroup]="formGroup()!">
-    @for (row of groupedControls; track row) {
-      @if (row.length === 1 && row[0].type == 'textarea') {
-        <div>
-          <mat-form-field class="full-width">
-            <mat-label>{{ row[0].label }}</mat-label>
-            <textarea matInput [placeholder]="row[0].placeholder ? row[0].placeholder : ''"></textarea>
-          </mat-form-field>
-        </div>
-      } @else {
-        <div class="key-value-grid">
-          @for (control of row; track control.name) {
-            @if (control.type == 'select') {
-              <div>
-                <mat-form-field [formGroup]="formGroup()!">
-                  <mat-label>{{ control.label }}</mat-label>
-                  <mat-select (selectionChange)="onSelectControlChanged(control.name, $event)">
-                    @for (opt of control.options; track opt.key; ) {
-                      <mat-option [value]="opt.key">{{ opt.value }}</mat-option>
-                    }
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            } @else {
-              @if (Array.isArray(control)) {
-                @for (subControl of control; track subControl.name) {
-                  <mat-checkbox
-                    (change)="onSelectControlChanged(subControl.name, $event)"
-                    [name]="subControl.name">
-                    {{ subControl.label }}
-                  </mat-checkbox>
-                }
-              }
+    @for (row of groupedControls; track row) { @if (row.length === 1 &&
+    row[0].type == 'textarea') {
+    <div>
+      <mat-form-field class="full-width">
+        <mat-label>{{ row[0].label }}</mat-label>
+        <textarea
+          matInput
+          [placeholder]="row[0].placeholder ? row[0].placeholder : ''"
+        ></textarea>
+      </mat-form-field>
+    </div>
+    } @else {
+    <div class="key-value-grid">
+      @for (control of row; track control.name) { @if (control.type == 'select')
+      {
+      <div>
+        <mat-form-field [formGroup]="formGroup()!">
+          <mat-label>{{ control.label }}</mat-label>
+          <mat-select
+            (selectionChange)="onSelectControlChanged(control.name, $event)"
+          >
+            @for (opt of control.options; track opt.key; ) {
+            <mat-option [value]="opt.key">{{ opt.value }}</mat-option>
             }
-          }
-        </div>
-      }
-    }
+          </mat-select>
+        </mat-form-field>
+      </div>
+      } @else { @if (Array.isArray(control)) { @for (subControl of control;
+      track subControl.name) {
+      <mat-checkbox
+        (change)="onSelectControlChanged(subControl.name, $event)"
+        [name]="subControl.name"
+      >
+        {{ subControl.label }}
+      </mat-checkbox>
+      } } } }
+    </div>
+    } }
     <div class="consent-container">
       <mat-checkbox
         (change)="onSelectControlChanged('consent', $event)"
-        [name]="'consent'">
+        [name]="'consent'"
+      >
         {{ consentText() }}
       </mat-checkbox>
-      <button mat-flat-button
-              name="consent_button"
-              [disabled]="!consent">
+      <button mat-flat-button name="consent_button" [disabled]="!consent">
         Submit
       </button>
     </div>

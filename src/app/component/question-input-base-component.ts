@@ -51,9 +51,9 @@ export abstract class QuestionInputComponent<T> implements AfterViewInit {
       const control = formGroup.get(this.name());
 
       if (control) {
-        console.log(
-          `Setting up control for ${this.name()} with value ${control.value}`
-        );
+        // console.log(
+        //   `Setting up control for ${this.name()} with value ${control.value}`
+        // );
 
         this.validators = control.validator ? [control.validator] : null;
         control.valueChanges.subscribe((value) => {
