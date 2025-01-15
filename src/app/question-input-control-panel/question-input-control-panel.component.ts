@@ -42,6 +42,8 @@ export class QuestionInputControlPanelComponent
     'I have verified that the information provided above is correct.'
   );
   readonly controls = input.required<Control[]>();
+  readonly submit =
+    input<(value: KeyValue<string, KeyValue<string, any>[]>) => void>();
 
   consent: boolean = false;
   groupedControls: Array<Control[]> = [];
@@ -78,7 +80,7 @@ export class QuestionInputControlPanelComponent
   }
 
   public override get value(): KeyValue<string, KeyValue<string, any>[]> {
-    console.log('get value() called on QuestionInputControlPanelComponent');
+    //console.log('get value() called on QuestionInputControlPanelComponent');
 
     let values: KeyValue<string, KeyValue<string, any>[]>[] = [];
 
@@ -114,6 +116,12 @@ export class QuestionInputControlPanelComponent
     } //else {
     //console.log(`${name} changed to ${event.value}`);
     //}
+  }
+
+  onSubmit() {
+    if (this.submit()) {
+      this.submit()?.(this.value);
+    }
   }
 
   protected readonly Array = Array;

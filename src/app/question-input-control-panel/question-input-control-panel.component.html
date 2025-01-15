@@ -49,7 +49,12 @@
       >
         {{ consentText() }}
       </mat-checkbox>
-      <button mat-flat-button name="consent_button" [disabled]="!consent">
+      <button
+        mat-flat-button
+        name="consent_button"
+        [disabled]="!consent"
+        (click)="onSubmit()"
+      >
         Submit
       </button>
     </div>
