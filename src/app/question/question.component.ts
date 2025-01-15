@@ -132,6 +132,8 @@ export class QuestionComponent<T> implements AfterContentInit, OnInit {
           key: questionInput.baseComponent.name(),
           value: control.value,
         });
+      } else {
+        formValues.push(questionInput.baseComponent.value);
       }
     });
 

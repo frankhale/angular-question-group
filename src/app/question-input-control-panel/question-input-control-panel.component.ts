@@ -77,22 +77,43 @@ export class QuestionInputControlPanelComponent
     //console.log(this.groupedControls);
   }
 
-  // TODO: We need a way to roll up all the data in an event handler
+  public override get value(): KeyValue<string, KeyValue<string, any>[]> {
+    console.log('get value() called on QuestionInputControlPanelComponent');
+
+    let values: KeyValue<string, KeyValue<string, any>[]>[] = [];
+
+    let finalValues = {
+      key: this.name(),
+      value: [{ key: 'consent', value: this.consent }],
+    };
+
+    if (this.formGroup()) {
+      // iterate over the controls array but look inside the formGroup
+      // to get the controls value
+      this.controls().forEach((control) => {
+        const formControl = this.formGroup()?.get(control.name);
+
+        if (formControl) {
+          finalValues.value.push({
+            key: control.name,
+            value: formControl.value,
+          });
+        }
+      });
+    }
+
+    return finalValues;
+  }
 
   onSelectControlChanged(name: string, event: any) {
-    console.log(`name = ${name}, event =`, event);
+    //console.log(`name = ${name}, event =`, event);
 
     if (name === 'consent') {
       this.consent = event.checked;
-      console.log(`toggling consent to ${this.consent}`);
-    } else {
-      console.log(`${name} changed to ${event.value}`);
-    }
-
-    this.valueChanged({
-      key: this.name(),
-      value: [{ key: 'consent', value: this.consent }],
-    });
+      //console.log(`toggling consent to ${this.consent}`);
+    } //else {
+    //console.log(`${name} changed to ${event.value}`);
+    //}
   }
 
   protected readonly Array = Array;
