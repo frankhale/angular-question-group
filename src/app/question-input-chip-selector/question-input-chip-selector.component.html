@@ -1,17 +1,38 @@
 <ng-template #component>
-  <mat-form-field [formGroup]="formGroup()!">
-    @if(title()) {
-      <mat-label>{{ title() }}</mat-label>
-    }
-    <mat-select [(value)]="selected" (selectionChange)="onChipSelectorChange($event)">
-      @for (val of categories(); track val.name; ) {
-        <mat-option [value]="val.name">{{ val.value }}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
-  <ng-container #chipContainer></ng-container>
-</ng-template>
+  <div class="container">
+    <div [formGroup]="chipForm" class="parent">
 
-<ng-template #chipSelectorTemplate>
-  <div class="chip-selector">Chip Selector Placeholder</div>
+      <mat-form-field class="child">
+        <mat-label>{{mainOptionsLabel()}}</mat-label>
+        <mat-select formControlName="main" (selectionChange)="mainOptionsSelectionChange($event)">
+          @for (opt of options(); track opt) {
+          <mat-option [value]="opt.key">{{ opt.key }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="child">
+        <mat-label>{{subOptionsLabel()}}</mat-label>
+        <mat-select formControlName="sub">
+          @for (opt of subOptions; track opt) {
+          <mat-option [value]="opt">{{ opt }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <div class="child">
+        <button (click)="addEvent()" mat-flat-button>Add Room</button>
+      </div>
+    </div>
+    @for (category of selectedChips; track category) {
+    <div class="parent">
+      <span class="category">{{ category.key }}</span>
+      @for (chip of category.value; track chip) {
+      <span class="child">
+        <mat-chip (click)="removeChip(category.key, chip)">{{ chip }}</mat-chip>
+      </span>
+      }
+    </div>
+    }
+  </div>
 </ng-template>

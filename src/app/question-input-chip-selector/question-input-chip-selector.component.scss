@@ -1,3 +1,76 @@
-.chip-selector {
-  padding-top: 10px;
+.parent {
+  display: flex;
+  width: 100%;
+  justify-content: left;
+  padding-bottom: 10px;
+  //border-bottom: 2px solid black;
+}
+
+.child {
+  margin-right: 10px;
+}
+
+.category {
+  position: relative;
+  top: 5px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.chip {
+  margin-right: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.icon {
+  margin: 0px !important;
+  padding: 0px !important;
+  position: relative;
+  border: 1px solid #fff;
+}
+
+.icon:hover {
+  border: 1px solid #555;
+  border-radius: 25px;
+}
+
+
+.parent {
+  display: flex;
+  width: 100%;
+  justify-content: left;
+  padding-bottom: 10px;
+  //border-bottom: 2px solid black;
+}
+
+.child {
+  margin-right: 10px;
+}
+
+.category {
+  position: relative;
+  top: 5px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.chip {
+  margin-right: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.icon {
+  margin: 0px !important;
+  padding: 0px !important;
+  position: relative;
+  border: 1px solid #fff;
+}
+
+.icon:hover {
+  border: 1px solid #555;
+  border-radius: 25px;
 }

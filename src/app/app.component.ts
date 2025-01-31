@@ -12,16 +12,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { KeyValue } from '@angular/common';
 import { QuestionComponent } from './question/question.component';
 import { QuestionGroupComponent } from './question-group/question-group.component';
-import { QuestionInputTextComponent } from './question-input-text/question-input-text.component';
-import { QuestionTemplateComponent } from './question-template/question-template.component';
-import { QuestionInputControlPanelComponent } from './question-input-control-panel/question-input-control-panel.component';
+import { QuestionInputChipSelectorComponent } from "./question-input-chip-selector/question-input-chip-selector.component";
 
 @Component({
   selector: 'app-cool-snack-bar',
   template: ` <div matSnackBarLabel>Hello, World!</div>`,
   imports: [],
 })
-export class CoolSnackBarComponent {}
+export class CoolSnackBarComponent { }
 
 @Component({
   selector: 'app-root',
@@ -31,11 +29,9 @@ export class CoolSnackBarComponent {}
     FormsModule,
     MatButtonModule,
     ReactiveFormsModule,
-    QuestionComponent,
     QuestionGroupComponent,
-    QuestionInputTextComponent,
-    QuestionTemplateComponent,
-    QuestionInputControlPanelComponent,
+    QuestionComponent,
+    QuestionInputChipSelectorComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -53,10 +49,7 @@ export class AppComponent {
   private _snackBar = inject(MatSnackBar);
 
   constructor(private fb: FormBuilder) {
-    this.formGroup = this.fb.group({
-      name: ['Frank'],
-      age: ['49'],
-    });
+    this.formGroup = this.fb.group({});
   }
 
   //valueChange(kv: KeyValue<string, string | string[]>) {

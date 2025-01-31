@@ -1,47 +1,16 @@
 <div class="content">
   <form [formGroup]="formGroup">
     <app-question-group [formGroup]="formGroup" [name]="'first_group'">
-      <app-question
-        [name]="'question1'"
-        [question]="'This is the first question.'"
-        [showMarkComplete]="true"
-        [title]="'Question Title Goes Here'"
-        (onChildCountChanged)="childCountChanged($event)"
-        (onMarkComplete)="valueChange($event)"
-      >
-        <app-question-input-text
-          [name]="'name'"
-          [title]="'Name'"
-          [showOnAnswer]="'yes'"
-          [placeholder]="'Enter your name...'"
-        >
-        </app-question-input-text>
-
-        <app-question-input-text
-          [name]="'age'"
-          [title]="'Age'"
-          [showOnAnswer]="'yes'"
-          [placeholder]="'Enter your age...'"
-        >
-        </app-question-input-text>
-
-        <app-question-template [showOnAnswer]="'yes'">
-          <app-question
-            [name]="'question2'"
-            [question]="'This is the second question.'"
-            [showMarkComplete]="false"
-            [title]="'Question 2 Title Goes Here'"
-          >
-            <app-question-input-control-panel
-              [name]="'control_panel1'"
-              [title]="'Control Panel 1 Title Goes Here'"
-              [consentText]="'This is the consent text.'"
-              [controls]="[]"
-              [formGroup]="formGroup"
-            >
-            </app-question-input-control-panel>
-          </app-question>
-        </app-question-template>
+      <app-question [name]="'question1'" [question]="'This is the first question.'" [showMarkComplete]="true"
+        [title]="'Question Title Goes Here'" (onChildCountChanged)="childCountChanged($event)"
+        (onMarkComplete)="valueChange($event)">
+        <app-question-input-chip-selector [options]="[
+            { key: 'Option 1', value: ['One', 'Two', 'Three'] },
+            { key: 'Option 2', value: ['Four', 'Five', 'Six'] },
+            { key: 'Option 3', value: ['Seven', 'Eight', 'Nine'] },
+          ]" [mainOptionsLabel]="'Main Options'" [subOptionsLabel]="'Sub Options'" [formGroup]="formGroup"
+          [name]="'chipSelector1'">
+        </app-question-input-chip-selector>
       </app-question>
     </app-question-group>
   </form>
