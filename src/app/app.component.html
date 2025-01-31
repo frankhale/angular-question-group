@@ -4,7 +4,7 @@
       <app-question [name]="'question1'" [question]="'This is the first question.'" [showMarkComplete]="true"
         [title]="'Question Title Goes Here'" (onChildCountChanged)="childCountChanged($event)"
         (onMarkComplete)="valueChange($event)">
-        <app-question-input-chip-selector [options]="[
+        <app-question-input-chip-selector [showOnAnswer]="'yes'" [options]="[
             { key: 'Option 1', value: ['One', 'Two', 'Three'] },
             { key: 'Option 2', value: ['Four', 'Five', 'Six'] },
             { key: 'Option 3', value: ['Seven', 'Eight', 'Nine'] },

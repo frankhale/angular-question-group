@@ -32,7 +32,9 @@ import { KeyValue } from '@angular/common';
   templateUrl: './question-input-chip-selector.component.html',
   styleUrl: './question-input-chip-selector.component.scss'
 })
-export class QuestionInputChipSelectorComponent extends QuestionInputComponent<KeyValue<string, string[]>[]> {
+export class QuestionInputChipSelectorComponent
+  extends QuestionInputComponent<KeyValue<string, string[]>[]>
+  implements OnInit {
   controlType: ControlType = 'select';
 
   readonly options = input.required<KeyValue<string, string[]>[]>();
@@ -48,9 +50,15 @@ export class QuestionInputChipSelectorComponent extends QuestionInputComponent<K
     super(cdr);
 
     this.chipForm = this.fb.group({
-      main: [''],
+      main: [{ value: '', disabled: true }],
       sub: [{ value: '', disabled: true }]
     });
+  }
+
+  ngOnInit(): void {
+    if (this.options().length > 0) {
+      this.chipForm.get('main')?.enable();
+    }
   }
 
   mainOptionsSelectionChange($event: any) {
